@@ -41,13 +41,15 @@ dependencies = []
 # objects travel in the message resource as plain data and cost nothing; rendering them needs CLDR,
 # which is what babel brings. Everything else in this package works without it.
 intl = ["babel>=2.14"]
-yaml = ["pyyaml>=6"]
 dev = [
     "coverage",
     "pytest",
     "pytest-cov",
     "babel",
-    "pyyaml",
+    # Pinned to a major, because the lint config below is read against a specific rule set: an older
+    # ruff on `PATH` reports rules this one has since retired, and the difference looks like a
+    # regression in the code rather than in the tool.
+    "ruff>=0.16",
     # `vue_i18n/packaging_test.py` builds a real wheel and reads its member list, because a test
     # that checks the manifest cannot see what hatch actually put in the artefact. Without this the
     # test skips, and a skip is indistinguishable from a pass.

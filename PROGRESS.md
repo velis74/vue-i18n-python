@@ -204,5 +204,5 @@ fixture ever pins one:
 
 ## Open, not yet decided
 
-- GitHub org for the repository. `velis74` assumed in the `pyproject.toml` URLs; the local
-  directory is still `i18n-united` and there is no remote yet.
+- GitHub org for the repository. `velis74` assumed in the `pyproject.toml` URLs; there is no remote
+  yet.

@@ -13,8 +13,11 @@ extra:
 
 ```sh
 pip install "vue-i18n-python[intl]"     # adds babel, for d() and n()
-pip install "vue-i18n-python[yaml]"     # adds PyYAML, if your message files are YAML
 ```
+
+There is no extra for message files, in any format. Like vue-i18n itself, this library takes
+messages as an already-parsed object — vue-i18n leaves `.json` and `.yaml` to a bundler plugin, and
+here it is your `json.load` or `yaml.safe_load`.
 
 ## Your first translation
 

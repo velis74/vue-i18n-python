@@ -33,51 +33,29 @@ therefore **an opt-in extra, not the default**. Nothing in the runtime reaches f
 because a caller who wants correct Slovenian plurals needs something to pass in, and hand-writing
 that rule is what people currently do.
 
-Upstream is `intlify/vue-i18n` @ **12.0.0-alpha.4** (cloned during design; re-clone as needed).
-Ported: `packages/message-compiler/src` (tokenizer, parser, nodes, errors, scanner, location) and
-`packages/core-base/src` (translate, resolver, fallbacker, format, formatter, datetime, number).
-Not ported and deliberately so:
-
-- `message-compiler`'s `generator.ts`, `optimizer.ts`, `mangler.ts`, `transformer.ts` — they compile
-  the AST into JavaScript source. The Python port interprets the AST directly.
-- `context.ts`'s devtools hooks and JS-specific caching.
-- `vue-i18n-core` and `vue-i18n` entirely — components, directives, the legacy API and the
-  composition API are Vue bindings and have no Python meaning.
+Upstream is tracked by the submodule at `vendor/vue-i18n`, pinned to the released version.
+`UPSTREAM.md` records the pin, what maps to what, and the procedure when a new release lands.
+Not ported, deliberately: `message-compiler`'s `generator`/`optimizer`/`mangler`/`transformer`
+(they emit JavaScript; this port interprets the AST), `context.ts`'s devtools hooks, and
+`vue-i18n-core` / `vue-i18n` entirely — components, directives and the Vue APIs have no Python
+meaning.
 
 ## Decisions already settled (do not relitigate)
 
-1. **python-i18n is out.** Last release 0.3.9, August 2020; 359 lines of core; `pluralize()` has no
-   `locale` in its signature, so it structurally cannot be locale-aware (`n=2`→`few`, `n=5`→`few`,
-   `n=101`→`other` for Slovenian — all wrong). Rather than monkeypatch a dead library, the Python
-   side is its own runtime. An `add_translation()`-based compatibility shim for existing python-i18n
-   codebases is optional and explicitly lossy (no dual).
-2. **vue-i18n's semantics are canonical.** Same format, same functionality, no special cases.
-3. **Plural rules are one source, two generated outputs.** Not data interpreted at runtime — a
-   generated function in each language, from one CLDR extraction in this repo. The conformance
-   corpus proves that for every locale and every `n` the two return the same index. Rules are
-   supplied by the library, not by the application author: the TS loader passes them into
-   `createI18n`, the Python runtime has them built in.
-4. **Variable arity is supported.** A message may declare fewer forms than the locale's full ladder.
-   Each locale has a *precedence list*; the ladder for arity k is its first k entries, re-sorted into
-   canonical category order. For `sl` the list is `[other, one, zero, two, few]`, giving:
-
-   | arity | ladder |
-   |---|---|
-   | 2 | `one, other` |
-   | 3 | `zero, one, other` |
-   | 4 | `zero, one, two, other` |
-   | 5 | `zero, one, two, few, other` |
-
-   A missing category falls *forward* toward `other`, always terminating there. This reproduces the
-   hand-written `southSlavicRule` in `~/Projects/slovenske-železnice/vue/locale/index.ts` in every
-   case it covers, and fills the hole that rule has at arity 4 (it returns index 4, out of range).
-5. **`zero` is an explicit category CLDR does not have.** For `sl`, CLDR says `0` is plain `other`;
-   an explicit `zero` form, when present, wins at exactly `n == 0`.
-6. **`d()` and `n()` are supported but not fixed character-for-character by the corpus.** `Intl` in
-   JS and `babel` in Python carry different CLDR data versions; pinning their output would be
-   testing someone else's data.
-7. **SPEC.md is descriptive, written after the port.** It documents what vue-i18n actually does, so
-   it is derived from the working port and the corpus rather than the other way round.
+1. **The brief is a port**, stated at the top of this file. When the port and vue-i18n disagree,
+   vue-i18n is right, even where vue-i18n is arguably wrong.
+2. **Released versions only.** The submodule pin never moves to an alpha, beta or release candidate.
+3. **`i18n_united/plurals/` is opt-in and is not part of the port.** It exists so a caller has
+   something to pass as `plural_rules`, the way a Vue application passes `pluralRules` to
+   `createI18n`. Its model — a precedence list per locale, a ladder for messages carrying fewer
+   forms than the locale has categories, and an explicit `zero` that CLDR does not have — is
+   documented in `i18n_united/plurals/__init__.py`. Nothing in the runtime reaches for it.
+4. **Warnings go through Python's `warnings` module** under the `I18nWarning` category, rather than
+   through an `on_warn` option only this library understands. `on_warn` still exists and still
+   overrides.
+5. **Corpora are recorded from real vue-i18n, never hand-authored.** A hand-written expectation
+   tests the implementation against itself. Every corpus names the version that produced it, and
+   every generator lives in `scripts/conformance/`.
 
 ## Deliberate deviations from upstream
 
@@ -98,20 +76,11 @@ Each one is asserted by a test, so it cannot widen unnoticed:
   each. `resolve_value` needs no deviation: it already goes through `hasOwn`, so upstream does not
   leak there either.
 
-- **Plural form selection uses the arity ladder, not `Intl`'s clamp.** vue-i18n 12 resolves plurals
-  through `Intl.PluralRules`, sorts the locale's categories canonically and clamps:
-  `Math.min(index, choicesLength - 1)`. Clamping puts `two`, `few` *and* `many` on the last form, so
-  a three-form Slovenian message reads its plural text for n = 2, and there is no `zero` anywhere.
-  This project uses the precedence-list model of decision 4 instead; `plurals_test.py` asserts the
-  resulting table for eight locales at every arity. The rules are ours by design (decision 3), so
-  this is a difference in behaviour rather than a defect in the port — but it *is* a difference, and
-  a message that relies on vue-i18n's clamp will select a different form here.
-
 Not deviations, but worth knowing:
 
 - **Reported offsets and columns count UTF-16 code units, not code points**, because that is what
   JavaScript strings measure. `Scanner.u16_index()` maintains the count. Without it every location
-  past the first emoji in a message would disagree with the TypeScript port by one.
+  past the first emoji in a message would disagree with vue-i18n by one.
 - **The resolver walks `dict` and `list` and nothing else.** A message resource is JSON, so those
   are the only two containers a path can meet, and `is_object()` says so. That is also what makes
   the resolver structurally unable to reach a Python attribute. A JavaScript array's own properties

@@ -99,6 +99,11 @@ class CoreContext:
     #: Keyed by (locale, cache base key, source) - the source is what makes a changed message
     #: recompile instead of being served from here. Upstream keys the same three things.
     message_cache: dict[tuple[str, str, str], Any] = field(default_factory=dict)
+    #: Upstream caches built `Intl` formatter objects here. This port caches the *merged option
+    #: mapping* instead, because a babel call takes its options each time rather than being
+    #: constructed once - the work worth saving is the merge, not an object.
+    datetime_format_cache: dict[str, Any] = field(default_factory=dict)
+    number_format_cache: dict[str, Any] = field(default_factory=dict)
     meta: dict[str, Any] = field(default_factory=dict)
 
     @property

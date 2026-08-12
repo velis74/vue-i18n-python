@@ -20,3 +20,9 @@ scripts/conformance/upstream-bundle/
 .ruff_cache/
 .coverage
 .claude/
+
+# Undisclosed security report. Kept out of git deliberately: this repository may become
+# public, and committing an unfixed vulnerability report is disclosure. Remove this line once
+# the advisory is filed and resolved upstream. See upstream-reports/README.md.
+upstream-reports/report-2-escapeparams.md
+upstream-reports/repro-2-escapeparams.mjs

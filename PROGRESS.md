@@ -76,6 +76,19 @@ Each one is asserted by a test, so it cannot widen unnoticed:
   each. `resolve_value` needs no deviation: it already goes through `hasOwn`, so upstream does not
   leak there either.
 
+- **An out-of-range plural rule clamps instead of raising.** A caller's `plural_rules` function
+  returns an index; when it returns one past the last form, vue-i18n reads `undefined` and throws
+  `UNEXPECTED_RETURN_TYPE`, taking the render down. This port clamps to the last form instead
+  (`message_context.py`, `MessageContext.plural`).
+
+  This one is **not settled**. Clamping is friendlier and is the direction upstream moved in v12,
+  whose `Intl` path does `Math.min(index, choicesLength - 1)`. But the throw is what tells a
+  developer their rule is wrong, and a real example exists: the hand-written `southSlavicRule` in
+  `~/Projects/slovenske-železnice/vue/locale/index.ts` returns index 4 for a *four*-form Slovene
+  message, which crashes in the browser and would render quietly here. Hiding that is arguably worse
+  than reproducing it. Asserted by `message_context_test.py` either way, so whichever is chosen is
+  chosen deliberately.
+
 Not deviations, but worth knowing:
 
 - **Reported offsets and columns count UTF-16 code units, not code points**, because that is what

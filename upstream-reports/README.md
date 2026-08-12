@@ -9,7 +9,7 @@ the real published packages before being written down. Neither is speculative.
 |---|---|
 | `report-1-fallback-cache.md` | Filed as [intlify/vue-i18n#2562](https://github.com/intlify/vue-i18n/issues/2562) |
 | `report-2-escapeparams.md` | **Not filed.** Private security advisory; see below |
-| `report-3-fallback-simple-map.md` | **Not filed.** Public issue, ready to send |
+| `report-3-fallback-simple-map.md` | Filed as [intlify/vue-i18n#2563](https://github.com/intlify/vue-i18n/issues/2563) |
 
 The `repro-*.mjs` scripts reproduce them. Run from the repository
 root; both print the version of the package they actually used.

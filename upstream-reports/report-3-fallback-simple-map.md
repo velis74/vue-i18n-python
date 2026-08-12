@@ -1,6 +1,6 @@
 # Public issue — `fallbackWithSimple` and a map-shaped `fallbackLocale`
 
-Status: **not filed.** Target: https://github.com/intlify/vue-i18n/issues
+Status: **filed 2026-08-12** as https://github.com/intlify/vue-i18n/issues/2563
 
 Prior-art check (authenticated `gh`, issues and PRs, open and closed): no existing report.
 Queries run: `fallbackWithSimple`, `fallbackLocale object`, `fallback default key`,

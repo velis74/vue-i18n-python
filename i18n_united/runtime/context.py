@@ -96,7 +96,9 @@ class CoreContext:
     on_warn: Callable[[str], None]
     #: Caches keyed as upstream keys them. `locale_chain_cache` is read by `fallback_with_locale_chain`.
     locale_chain_cache: dict[str, list[str]] = field(default_factory=dict)
-    message_cache: dict[str, Any] = field(default_factory=dict)
+    #: Keyed by (locale, cache base key, source) - the source is what makes a changed message
+    #: recompile instead of being served from here. Upstream keys the same three things.
+    message_cache: dict[tuple[str, str, str], Any] = field(default_factory=dict)
     meta: dict[str, Any] = field(default_factory=dict)
 
     @property

@@ -62,3 +62,20 @@ def test_no_case_recorded_an_exception() -> None:
 @pytest.mark.parametrize("case", CASES, ids=lambda c: f"{c['locale']}:{c['args'][0]}")
 def test_translate_matches_core_base(case: dict) -> None:
     assert translate(_context(case["locale"]), *_args(case)) == case["result"]
+
+
+def test_a_reloaded_message_is_not_served_from_the_compilation_cache() -> None:
+    """Compiled messages are cached by (locale, key, source), so editing a resource takes effect.
+
+    Keying on locale and key alone is the obvious mistake and it survives every corpus case, because
+    a corpus never mutates its resource. A lazily loaded locale, a hot reload, or a test that edits
+    messages between calls all do.
+    """
+    messages = {"sl": {"k": "prva različica"}}
+    ctx = create_core_context(
+        locale="sl", fallback_locale="sl", messages=messages, missing_warn=False, fallback_warn=False
+    )
+    assert translate(ctx, "k") == "prva različica"
+
+    messages["sl"]["k"] = "druga različica"
+    assert translate(ctx, "k") == "druga različica"

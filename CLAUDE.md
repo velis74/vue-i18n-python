@@ -3,7 +3,12 @@
 **This library is a port of [vue-i18n](https://github.com/intlify/vue-i18n) to Python.** Same JSON
 message files, same API, same behaviour. That framing decides most questions that come up: when the
 port and vue-i18n disagree, vue-i18n is right, even where vue-i18n is arguably wrong. Read
-`PROGRESS.md` for where the work stands and `UPSTREAM.md` for what exactly was ported from where.
+`PROGRESS.md` for where the work stands, `GAPS.md` for what is knowingly missing, and
+`UPSTREAM.md` for what exactly was ported from where.
+
+**Record a gap the moment it is known**, in `GAPS.md`, not when it is convenient. Something
+missing and written down is a decision; something missing and unrecorded is a defect waiting to
+be found by a user.
 
 ## Check upstream at least once a week
 

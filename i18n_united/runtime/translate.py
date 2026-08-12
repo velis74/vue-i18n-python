@@ -223,7 +223,16 @@ def compile_message_format(
         return format_
 
     compiler = context.message_compiler or default_message_compiler
-    cache_key = f"{target_locale}__{cache_base_key}"
+
+    # The cache key carries the *source*, not just the locale and key, because upstream's does
+    # (`generateFormatCacheKey` is `{l, k, s}`). Without the source, a resource that changes after
+    # first use - a locale loaded lazily, a hot reload, a message edited in a test - would keep
+    # rendering through the message function compiled from the text it used to hold.
+    # An AST is not cached: it arrived already parsed, so there is nothing to save.
+    if not isinstance(format_, str):
+        return compiler(format_, {"locale": target_locale, "key": key, "on_error": on_error})
+
+    cache_key = (target_locale, cache_base_key, format_)
     cached = context.message_cache.get(cache_key)
     if cached is not None:
         return cached

@@ -1,0 +1,34 @@
+{
+  "name": "i18n-united-tooling",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Development tooling only. The library is Python; nothing here is published or shipped.",
+  "//": [
+    "This package exists for two jobs, both of which are development-time and neither of which is",
+    "part of the library:",
+    "",
+    "  1. VitePress, which builds the documentation site under docs/.",
+    "  2. The conformance generators under scripts/conformance/, which run REAL vue-i18n and record",
+    "     what it returns. Those recordings are what the Python port is held to. Without them the",
+    "     port could only claim to match vue-i18n; with them it is checked against it on every run.",
+    "",
+    "`private: true` so it can never be published by accident."
+  ],
+  "workspaces": [
+    "docs"
+  ],
+  "scripts": {
+    "docs:dev": "npm run docs:dev -w docs",
+    "docs:build": "npm run docs:build -w docs",
+    "docs:preview": "npm run docs:preview -w docs",
+    "conformance": "node scripts/conformance/run-all.mjs"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "@intlify/message-compiler": "^11",
+    "esbuild": "^0.28",
+    "vue": "^3.4",
+    "vue-i18n": "^11"
+  }
+}

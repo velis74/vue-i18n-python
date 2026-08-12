@@ -1,0 +1,128 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "i18n-united"
+dynamic = ["version"]
+description = "The vue-i18n message format in Python - one file format, two reference runtimes, real CLDR plural rules."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [
+    { name = "Jure Erznožnik", email = "jure.erznoznik@gmail.com" },
+]
+requires-python = ">=3.10"
+keywords = ["i18n", "l10n", "translation", "vue-i18n", "cldr", "plural"]
+classifiers = [
+    # The *format* is not ours to version: it is vue-i18n's, and this package tracks it. The package
+    # version below is the package's own, and it is alpha because nothing here has been through a
+    # real deployment yet - 1.0 is what the first confirmed production use earns, not what a
+    # complete conformance corpus earns.
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Software Development :: Internationalization",
+    "Topic :: Software Development :: Localization",
+    "Typing :: Typed",
+]
+# The compiler and the runtime have no dependencies at all: a message is parsed and interpreted by
+# code in this package. `babel` enters only for `d()` and `n()`, which need CLDR date and number
+# data that Python does not ship - see the `intl` extra.
+dependencies = []
+
+[project.optional-dependencies]
+# `d()` and `n()` are the JS `Intl.DateTimeFormat` / `Intl.NumberFormat` counterparts. Their option
+# objects travel in the message resource as plain data and cost nothing; rendering them needs CLDR,
+# which is what babel brings. Everything else in this package works without it.
+intl = ["babel>=2.14"]
+yaml = ["pyyaml>=6"]
+dev = [
+    "coverage",
+    "pytest",
+    "pytest-cov",
+    "babel",
+    "pyyaml",
+    # `i18n_united/packaging_test.py` builds a real wheel and reads its member list, because a test
+    # that checks the manifest cannot see what hatch actually put in the artefact. Without this the
+    # test skips, and a skip is indistinguishable from a pass.
+    "build",
+]
+
+[project.urls]
+Homepage = "https://github.com/velis74/i18n-united"
+Repository = "https://github.com/velis74/i18n-united"
+Issues = "https://github.com/velis74/i18n-united/issues"
+
+[tool.hatch.version]
+path = "i18n_united/__init__.py"
+
+[tool.hatch.build.targets.wheel]
+packages = ["i18n_united"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/i18n_united",
+    "/conformance",
+    "/SPEC.md",
+    "/README.md",
+    "/LICENSE",
+]
+exclude = [
+    "**/*_test.py",
+]
+
+[tool.ruff]
+exclude = ['tests', 'docs', 'examples', 'scripts', 'setup.py', 'setup.cfg', 'README.md', 'LICENSE',
+    'MANIFEST.in', 'pyproject.toml', 'dist', 'build', '.gitignore', '.git', '.idea', '.vscode',
+    '.pytest_cache', '.coverage', '.ruff']
+line-length = 120
+
+[tool.ruff.lint]
+select = [
+    "E",    # pycodestyle errors
+    "W",    # pycodestyle warnings
+    "F",    # Pyflakes
+    "I",    # isort
+    "Q",    # flake8-quotes
+    "B",    # flake8-bugbear
+    "UP",   # pyupgrade
+    "N",    # pep8-naming
+    "PT",   # flake8-pytest-style
+    "S",    # flake8-bandit
+    "C4",   # flake8-comprehensions
+    "ARG",  # flake8-unused-arguments
+]
+ignore = ["E731", "E722", "C408"]
+
+fixable = ["ALL"]
+unfixable = []
+
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.lint.per-file-ignores]
+"*_test.py" = ["S101"]
+# The generated plural-rule module is a data table with one function per rule, and its names come
+# from CLDR rather than from PEP 8. Each rule's docstring lists every locale that shares it, which
+# runs well past the line limit.
+"i18n_united/plurals/_generated.py" = ["N802", "E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = false
+line-ending = "auto"
+
+[tool.ruff.lint.isort]
+case-sensitive = false
+lines-between-types = 1
+combine-as-imports = true
+order-by-type = false
+
+[tool.coverage.run]
+omit = ["test_*.py", "*_test.py"]

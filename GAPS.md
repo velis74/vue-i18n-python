@@ -1,7 +1,8 @@
 # Gaps
 
-Everywhere this port is not yet vue-i18n, and everywhere it is not yet a finished library. One entry
-per gap, newest last. A gap is something absent or unverified; a *deliberate difference* is not a gap
+Everywhere this port is not yet vue-i18n, and everywhere it is not yet a finished library.
+**This file is the complete list** - if something is left to do and it is not here, that is a
+defect in this file. One entry per gap, newest last. A gap is something absent or unverified; a *deliberate difference* is not a gap
 and lives under "Deliberate deviations from upstream" in `PROGRESS.md`.
 
 The rule for this file is that a gap is written down the moment it is known, not the moment it is
@@ -101,3 +102,29 @@ decision from the project owner.
 Every claim in this repository rests on recorded upstream behaviour and on tests. Not one line has
 served a page. The version is `0.1.0` and the classifier says alpha for that reason, and the first
 confirmed production use is what earns 1.0 — not a complete corpus.
+
+---
+
+## Not yet publishable
+
+Nothing here is about behaviour; these are the formalities between a working library and a release.
+
+- **No GitHub repository.** The URLs in `pyproject.toml` (`velis74/vue-i18n-python`) are a guess and
+  point at nothing. The `socialLinks` entry in `docs/.vitepress/config.ts` guesses the same.
+- **No `CHANGELOG.md`.** `UPSTREAM.md` says every release records the vue-i18n version it tracks;
+  there is nowhere yet for it to be recorded.
+- **No CI.** Nothing runs the tests, the lint, the docs build or the corpus regeneration on a push.
+  `muxws` has `.github/workflows/{ci,cross-language,docs}.yml` and this should follow it.
+- **`py.typed` ships but nothing type-checks.** The package declares itself typed and no mypy or
+  pyright run backs that up.
+- **The name is unclaimed on PyPI.** `vue-i18n-python` was free when checked (2026-08-12) and has
+  not been registered.
+
+## Decisions waiting on the owner
+
+- Whether the plural-index clamp should stay or become a raise (above).
+- Whether `te()`, `tm()` and `rt()` belong here (above).
+- Whether to fix the three reproduced upstream bugs locally, or wait for upstream. Fixing them makes
+  this port disagree with the browser, which is the thing it exists not to do; waiting means shipping
+  known-wrong behaviour. Currently: reproduced, documented, reported.
+- Whether to tell intlify about the port, now that two issues are open under the same account.

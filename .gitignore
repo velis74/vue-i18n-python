@@ -11,7 +11,11 @@ __pycache__/
 *.py[cod]
 *.egg-info/
 .eggs/
+# Python's sdist/wheel output. Note the conformance tooling deliberately does NOT use this
+# name for its esbuild output - see scripts/conformance/upstream-bundle/, which is ignored
+# by its own entry below - because `build/` here once swallowed it.
 build/
+scripts/conformance/upstream-bundle/
 .pytest_cache/
 .ruff_cache/
 .coverage

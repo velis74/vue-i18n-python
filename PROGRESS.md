@@ -1,0 +1,215 @@
+# Progress
+
+Working notes. The cron job that restarts this work is session-only and expires after 7 days, so
+this file — not the cron, and not the task list — is the continuity mechanism. Read it first.
+
+## What this project is
+
+**A Python port of vue-i18n.** Same JSON message files, same API, same behaviour — in Python. That
+is the whole brief, and everything below is subordinate to it.
+
+There is **no JavaScript in the deliverable**. Node appears twice and both are development-time:
+VitePress builds the documentation site under `docs/`, and the generators under
+`scripts/conformance/` run *real vue-i18n* and record what it returns. Those recordings are what the
+port is held to — without them the port could only claim to match vue-i18n rather than be checked
+against it, and they are what caught every real bug so far. The root `package.json` is
+`private: true` and holds nothing else.
+
+**Reference version: vue-i18n 11.x**, the current stable release, which is what `npm i vue-i18n`
+installs today. The message compiler is byte-identical between 11.4.8 and 12.0.0-alpha.4 — all 126
+comparable corpus cases match — so that half of the port is version-independent. The two differ on
+plural selection: 12 added an `Intl.PluralRules` path that 11 does not have. This port follows 11.
+
+### Behaving the same means not being cleverer
+
+vue-i18n's default plural rule ignores the locale: two forms are singular/plural, more than that
+clamps at index 2, so a fourth or fifth form is unreachable in any language. That is wrong for
+Slovenian and most of its neighbours — and it is what the port does, because the port's job is to
+behave identically. A Vue application fixes this by passing `pluralRules` to `createI18n`; the
+Python equivalent is `plural_rules` on the message context.
+
+`i18n_united/plurals/` — the CLDR-derived rules, the arity ladder, the explicit `zero` form — is
+therefore **an opt-in extra, not the default**. Nothing in the runtime reaches for it. It exists
+because a caller who wants correct Slovenian plurals needs something to pass in, and hand-writing
+that rule is what people currently do.
+
+Upstream is `intlify/vue-i18n` @ **12.0.0-alpha.4** (cloned during design; re-clone as needed).
+Ported: `packages/message-compiler/src` (tokenizer, parser, nodes, errors, scanner, location) and
+`packages/core-base/src` (translate, resolver, fallbacker, format, formatter, datetime, number).
+Not ported and deliberately so:
+
+- `message-compiler`'s `generator.ts`, `optimizer.ts`, `mangler.ts`, `transformer.ts` — they compile
+  the AST into JavaScript source. The Python port interprets the AST directly.
+- `context.ts`'s devtools hooks and JS-specific caching.
+- `vue-i18n-core` and `vue-i18n` entirely — components, directives, the legacy API and the
+  composition API are Vue bindings and have no Python meaning.
+
+## Decisions already settled (do not relitigate)
+
+1. **python-i18n is out.** Last release 0.3.9, August 2020; 359 lines of core; `pluralize()` has no
+   `locale` in its signature, so it structurally cannot be locale-aware (`n=2`→`few`, `n=5`→`few`,
+   `n=101`→`other` for Slovenian — all wrong). Rather than monkeypatch a dead library, the Python
+   side is its own runtime. An `add_translation()`-based compatibility shim for existing python-i18n
+   codebases is optional and explicitly lossy (no dual).
+2. **vue-i18n's semantics are canonical.** Same format, same functionality, no special cases.
+3. **Plural rules are one source, two generated outputs.** Not data interpreted at runtime — a
+   generated function in each language, from one CLDR extraction in this repo. The conformance
+   corpus proves that for every locale and every `n` the two return the same index. Rules are
+   supplied by the library, not by the application author: the TS loader passes them into
+   `createI18n`, the Python runtime has them built in.
+4. **Variable arity is supported.** A message may declare fewer forms than the locale's full ladder.
+   Each locale has a *precedence list*; the ladder for arity k is its first k entries, re-sorted into
+   canonical category order. For `sl` the list is `[other, one, zero, two, few]`, giving:
+
+   | arity | ladder |
+   |---|---|
+   | 2 | `one, other` |
+   | 3 | `zero, one, other` |
+   | 4 | `zero, one, two, other` |
+   | 5 | `zero, one, two, few, other` |
+
+   A missing category falls *forward* toward `other`, always terminating there. This reproduces the
+   hand-written `southSlavicRule` in `~/Projects/slovenske-železnice/vue/locale/index.ts` in every
+   case it covers, and fills the hole that rule has at arity 4 (it returns index 4, out of range).
+5. **`zero` is an explicit category CLDR does not have.** For `sl`, CLDR says `0` is plain `other`;
+   an explicit `zero` form, when present, wins at exactly `n == 0`.
+6. **`d()` and `n()` are supported but not fixed character-for-character by the corpus.** `Intl` in
+   JS and `babel` in Python carry different CLDR data versions; pinning their output would be
+   testing someone else's data.
+7. **SPEC.md is descriptive, written after the port.** It documents what vue-i18n actually does, so
+   it is derived from the working port and the corpus rather than the other way round.
+
+## Deliberate deviations from upstream
+
+Each one is asserted by a test, so it cannot widen unnoticed:
+
+- **`\U` past U+10FFFF.** `{'\U110000'}` makes upstream's `String.fromCodePoint` throw a RangeError,
+  so no AST is produced at all. This port substitutes U+FFFD — the same thing upstream already does
+  for a lone surrogate — so that one malformed escape cannot abort the load of a whole file. The two
+  corpus cases carry `upstream_throws` rather than an expected AST. Asserted in
+  `i18n_united/compiler/conformance_test.py`.
+- **`resolve_with_key_value` reads own properties only.** Upstream's `resolveWithKeyValue` is
+  `isObject(obj) ? obj[path] : null`, a plain property read that answers from the prototype chain:
+  `resolveWithKeyValue({}, 'constructor')` hands back the `Object` constructor, `'toString'` and
+  `'hasOwnProperty'` native functions, `'__proto__'` the prototype object. The Python equivalent
+  would be reading an attribute, i.e. resolving a message key into `dict.keys`, `__class__` and
+  everything reachable from there. This port returns `None` for those paths instead. The corpus
+  marks such cases `"keyValue": {"kind": "prototype"}` and `resolver_test.py` asserts `None` for
+  each. `resolve_value` needs no deviation: it already goes through `hasOwn`, so upstream does not
+  leak there either.
+
+- **Plural form selection uses the arity ladder, not `Intl`'s clamp.** vue-i18n 12 resolves plurals
+  through `Intl.PluralRules`, sorts the locale's categories canonically and clamps:
+  `Math.min(index, choicesLength - 1)`. Clamping puts `two`, `few` *and* `many` on the last form, so
+  a three-form Slovenian message reads its plural text for n = 2, and there is no `zero` anywhere.
+  This project uses the precedence-list model of decision 4 instead; `plurals_test.py` asserts the
+  resulting table for eight locales at every arity. The rules are ours by design (decision 3), so
+  this is a difference in behaviour rather than a defect in the port — but it *is* a difference, and
+  a message that relies on vue-i18n's clamp will select a different form here.
+
+Not deviations, but worth knowing:
+
+- **Reported offsets and columns count UTF-16 code units, not code points**, because that is what
+  JavaScript strings measure. `Scanner.u16_index()` maintains the count. Without it every location
+  past the first emoji in a message would disagree with the TypeScript port by one.
+- **The resolver walks `dict` and `list` and nothing else.** A message resource is JSON, so those
+  are the only two containers a path can meet, and `is_object()` says so. That is also what makes
+  the resolver structurally unable to reach a Python attribute. A JavaScript array's own properties
+  include `length`, so `t('items.length')` really does return the count in both ports.
+
+## State
+
+- [x] Repository skeleton — pyproject, package.json, tsconfig, vite, eslint, LICENSE, README
+- [x] Python message compiler (tokenizer, parser, AST) — `i18n_united/compiler/`.
+      Validated differentially against upstream bundled straight from the clone with esbuild:
+      **128/128 messages produce byte-identical ASTs, error codes and error messages**, and
+      **102/102 identical token streams including every source location**. The corpus lives in
+      `conformance/compile.json`; regenerate it only when upstream changes, and say so in the commit.
+      Not ported: `generator`, `optimizer`, `mangler`, `transformer` (they emit JavaScript).
+- [ ] Python runtime — `resolver`, `fallbacker`, `errors`, `display`, `message_context` and `format`
+      are in. **`translate.py` and `context.py` are not, and they are the largest piece left.**
+- [x] `runtime/message_context.py` + `runtime/format.py` — the message context (named/list values,
+      linked lookup, modifiers, plural dispatch) and the AST evaluator.
+      Validated end to end against **real vue-i18n**: `conformance/render.json`, **74/74 rendered
+      strings identical**, covering interpolation, literals, every escape, linked messages, linked
+      chains, dynamic linked keys, all three built-in modifiers, and each plural branch. Plural
+      *selection* is pinned to a fixed branch there on purpose — which form a locale picks is
+      `conformance/plurals.json`'s question, and the two ports disagree about it by design.
+      Two traps found and fixed while building it: `@.capitalize` must not uppercase the first *code
+      point*, because upstream's `charAt(0)` reads a UTF-16 unit and leaves an astral character
+      alone ("𐐨test" stays "𐐨test"); and the built-in `upper`/`lower`/`capitalize` modifiers live in
+      `context.ts`, not in `runtime.ts`, so a port of the latter alone renders `@.upper:x` unchanged.
+- [x] `i18n_united/runtime/display.py` — JavaScript's `String()` and `toDisplayString()`, which
+      decide what a non-string value looks like once it reaches a `{placeholder}`. Needed because
+      `str(1.0)` is `"1.0"` here and `"1"` there, and `str(True)` is `"True"` against `"true"`.
+      Validated against Node: **1612/1612 cases identical**, of which 1576 are random 64-bit float
+      patterns — shortest-round-trip formatting is where a hand-written port goes wrong, and it goes
+      wrong on values nobody would write down. `scripts/conformance/generate_display_corpus.mjs`
+      regenerates `conformance/display.json` byte for byte from a seeded PRNG.
+
+## Where the two languages cannot agree
+
+Not deviations and not fixable — properties of the languages. Both are kept out of the corpora so no
+fixture ever pins one:
+
+- **A JavaScript number is an IEEE double.** Past 2^53 it is not the integer that was written, so
+  `String(12345678901234567890)` is `"12345678901234567000"` there. A Python `int` is exact at any
+  size, and this port prints the integer it was given rather than throwing away precision the caller
+  deliberately passed. A Python `float` of the same magnitude *does* follow JavaScript, because
+  there the precision really is gone. Asserted in
+  `runtime/display_test.py::test_python_int_beyond_double_precision_is_exact_not_javascript_shaped`.
+  The same boundary applies to a plural `count`.
+- **Visible fraction digits depend on the written form.** `1` has none and `Decimal("1.0")` has one,
+  which is what CLDR's `v` operand means. A `float` is read through `repr`, so `1.0` has one visible
+  fraction digit where JavaScript's `String(1.0)` has none.
+- [x] CLDR plural rules: extraction + generators for both languages.
+      `cldr/plurals.json` is `supplemental/plurals.json` from **npm cldr-core@48.2.0 (CLDR 48,
+      Unicode 16)**, vendored verbatim with a `_vendored` provenance block on top.
+      `scripts/generate_plurals.py` parses the UTS #35 rule syntax and writes both
+      `i18n_united/plurals/_generated.py` and `ts/plurals/generated.ts`: 224 locales collapse to
+      **40 distinct rule sets**, one function each, plus the per-locale precedence list. The runtime
+      (ladder, fall-forward, explicit `zero`) is hand-written in `i18n_united/plurals/__init__.py`;
+      `plurals_test.py` asserts the item-4 Slovenian table literally and tables for hr, en, ru, ar,
+      ja, pl, cy at every arity, and `test_generated_modules_are_up_to_date` fails if either
+      generated file is hand-edited.
+      Verified against **`Intl.PluralRules` in Node 26 (ICU 78, CLDR 48)** — an independent
+      implementation of the same data: **167 097 cases across 219 locales, 0 mismatches**, for both
+      the Python and the TypeScript output. Cases cover 0–230, powers of ten up to 2 000 000, and
+      fractions, each at `minimumFractionDigits` 0, 1 and 2 so the `v`/`w`/`f`/`t` operands are
+      exercised. Five CLDR ids are excluded because ICU aliases them away and would answer with a
+      different locale's rules: `jw→jv`, `mo→ro`, `sh→sr`, `tl→fil`, `und→en-GB`.
+      **The precedence rule** (`PRECEDENCE_ORDER` in the generator): `other, one, zero, two, few,
+      many`, filtered to the locale's CLDR categories plus `zero`. Read as "what does the k-th form
+      buy you" — one form is always legal, the second is the singular/plural split, the third the
+      hand-written "no items" case, then the rest of CLDR in canonical order. For `sl` it derives
+      `[other, one, zero, two, few]`, i.e. exactly the item-4 table; for `en`, `[other, one, zero]`,
+      i.e. the ordinary 2-form and 3-form behaviour.
+      Two consequences worth knowing: fall-forward is uniform, so in a locale whose CLDR *does* have
+      `zero` (ar, cy, lv, …) a message that supplies no zero form sends n = 0 one step forward onto
+      `one`, not to `other`; and an arity above the full ladder leaves the surplus forms unreachable
+      rather than inventing a category.
+- [ ] Python `d()` / `n()` via babel
+- [ ] TS loader package. **`ts/` still needs its plural runtime and its conformance runner.**
+      `ts/plurals/generated.ts` exists and is verified, but the ladder arithmetic (locale
+      resolution, operand extraction, `plural_index`) has no TypeScript home yet, so nothing in the
+      repo replays `conformance/plurals.json` on the TS side. It has been replayed once, by a scratch
+      harness (not committed) that transpiles `generated.ts` with esbuild and transcribes the ~30
+      lines of ladder arithmetic from `i18n_united/plurals/__init__.py` into JS: **13 452
+      (locale, n, arity) cases, 0 index mismatches, 0 category mismatches, 0 ladder mismatches**.
+      Write that arithmetic properly in `ts/plurals/`, then a runner over the corpus, then CI.
+- [ ] Conformance corpus + two runners.
+      `conformance/plurals.json` is done: 43 locales (one per distinct rule set, plus the eight the
+      tests name), 3 268 rows of `(locale, n) -> category + indexes[arity - 1]`, 13 452
+      `(locale, n, arity)` cases, produced by `scripts/generate_plural_corpus.py` from the Python
+      runtime and re-checked by `test_conformance_corpus_matches_the_runtime`. `n` is a decimal
+      string, and only values that survive a JavaScript `String(Number(x))` round trip appear —
+      `Decimal("1.0")` has one visible fraction digit in Python and `1.0` has none in JavaScript, and
+      pinning that into the corpus would pin a language difference rather than a plural rule.
+- [ ] SPEC.md
+- [ ] CI
+
+## Open, not yet decided
+
+- GitHub org for the repository. `velis74` assumed in `pyproject.toml` / `package.json` URLs to
+  match `muxws`; change if it belongs under `dynamicforms`.
+- npm package name `i18n-united` assumed unscoped and free — not verified against the registry.

@@ -37,11 +37,22 @@ def __getattr__(name: str):  # noqa: ANN202 - a module-level __getattr__ has no 
 
 
 _PUBLIC = {
+    # The context and the three calls made against it - the whole of ordinary use.
     "create_core_context": (".runtime.context", "create_core_context"),
     "CoreContext": (".runtime.context", "CoreContext"),
     "translate": (".runtime.translate", "translate"),
+    "datetime": (".runtime.datetime", "datetime"),
+    "number": (".runtime.number", "number"),
+    # Changing the fallback after the fact, which has to go through here or the chain cache
+    # answers with the old one.
+    "update_fallback_locale": (".runtime.context", "update_fallback_locale"),
+    "fallback_with_locale_chain": (".runtime.fallbacker", "fallback_with_locale_chain"),
+    "fallback_with_simple": (".runtime.fallbacker", "fallback_with_simple"),
+    # Sentinels and the warning category, both of which a caller compares against or filters on.
     "NOT_RESOLVED": (".runtime.context", "NOT_RESOLVED"),
     "I18nWarning": (".runtime.warnings", "I18nWarning"),
+    # Parsing a message without rendering it - rarely needed, but the alternative is reaching into
+    # a private module.
     "create_parser": (".compiler.parser", "create_parser"),
     "CompileError": (".compiler.errors", "CompileError"),
 }

@@ -47,18 +47,6 @@ a template engine that escapes on output anyway.
 
 ---
 
-## The documentation site does not exist
-
-**What is missing:** `docs/` has a `package.json` and nothing else. No `.vitepress/config.ts`, no
-pages.
-
-**What it must say**, because these were asked for explicitly: that this library is a port of
-vue-i18n; what the differences are; and the commitment to follow vue-i18n's releases. The material
-for the third is written — `UPSTREAM.md` — and the material for the second is the deviations section
-of `PROGRESS.md`. Neither is a substitute for a page a user will actually read.
-
----
-
 ## Upstream's own test suite is not ported
 
 **What is missing:** the 477 `it()` blocks under `packages/message-compiler/test/` and

@@ -5,7 +5,7 @@ Port of ``packages/message-compiler/src/parser.ts``.
 The parser is error-tolerant by design. Every defect is reported through ``on_error`` and parsing
 then continues with a best guess, because a translation file with one broken message should render
 the other nine hundred rather than fail to load. Callers that want strictness pass an ``on_error``
-that raises - :func:`i18n_united.compiler.errors.default_on_error` does exactly that.
+that raises - :func:`vue_i18n.compiler.errors.default_on_error` does exactly that.
 """
 
 import re

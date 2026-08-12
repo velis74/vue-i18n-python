@@ -15,7 +15,7 @@ from types import ModuleType
 
 import pytest
 
-from i18n_united.plurals import (
+from vue_i18n.plurals import (
     CANONICAL_ORDER,
     CLDR_VERSION,
     LANGUAGE_ALIASES,
@@ -28,7 +28,7 @@ from i18n_united.plurals import (
     ROOT_LOCALE,
     rule_for,
 )
-from i18n_united.plurals._generated import RULES
+from vue_i18n.plurals._generated import RULES
 
 REPO_ROOT = Path(__file__).resolve().parent.parent.parent
 
@@ -277,7 +277,7 @@ def test_negative_counts_use_the_absolute_value() -> None:
 def test_operands(value: object, expected: tuple[object, ...]) -> None:
     ops = operands(value)  # type: ignore[arg-type]
     assert (ops.n, ops.i, ops.v, ops.w, ops.f, ops.t) == expected
-    # i18n-united never formats a count in compact notation, so the exponent operands are always 0.
+    # vue-i18n-python never formats a count in compact notation, so the exponent operands are always 0.
     assert (ops.c, ops.e) == (0, 0)
 
 
@@ -359,7 +359,7 @@ def test_compact_decimal_operands_are_always_zero() -> None:
     for value in (0, 1, 1_500_000, Decimal("1.5"), 2.5, "1E+9"):
         assert (operands(value).c, operands(value).e) == (0, 0)  # type: ignore[arg-type]
     # French `many` is `e = 0 and i != 0 and i % 1000000 = 0 and v = 0 or e != 0..5`. Asked with
-    # `{notation: "compact"}`, Intl reports `many` for 1 500 000 because e is then 6; i18n-united
+    # `{notation: "compact"}`, Intl reports `many` for 1 500 000 because e is then 6; vue-i18n-python
     # never formats a count in compact notation, so the plain answer is the only one it can give.
     assert plural_category("fr", 1_500_000) == "other"
     assert plural_category("fr", 1_000_000) == "many"

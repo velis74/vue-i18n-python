@@ -2,7 +2,7 @@
 
 Port of ``packages/core-base/src/datetime.ts``, except for the formatting itself.
 
-Same shape as :mod:`~i18n_united.runtime.number`, and the same boundary: everything around the
+Same shape as :mod:`~vue_i18n.runtime.number`, and the same boundary: everything around the
 format is a faithful port, and ``Intl.DateTimeFormat`` is replaced by ``babel.dates``.
 
 The interesting half of the mapping is the component options. ``Intl`` takes them as a bag

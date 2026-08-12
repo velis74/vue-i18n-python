@@ -1,4 +1,4 @@
-# Working on i18n-united
+# Working on vue-i18n-python
 
 **This library is a port of [vue-i18n](https://github.com/intlify/vue-i18n) to Python.** Same JSON
 message files, same API, same behaviour. That framing decides most questions that come up: when the
@@ -37,7 +37,7 @@ mean here. `UPSTREAM.md` has the file-by-file map from upstream paths to modules
 the procedure for applying a non-empty diff. Do not start applying it without saying what it is.
 
 This is a standing commitment the documentation makes to users, not a chore — the promise is that
-i18n-united follows vue-i18n's releases.
+vue-i18n-python follows vue-i18n's releases.
 
 ## House rules
 
@@ -54,15 +54,15 @@ i18n-united follows vue-i18n's releases.
   on real input — ordinary interpolation, accented text, emoji in message text, counts in the 0–1000
   range, fallback chains a real application has. Do not chase extreme values, and do not build a
   corpus for its own sake.
-- **`i18n_united/plurals/` is not part of the port.** vue-i18n's own plural rule ignores the locale
+- **`vue_i18n/plurals/` is not part of the port.** vue-i18n's own plural rule ignores the locale
   and clamps at index 2; the runtime reproduces that and never reaches for the CLDR module. The CLDR
   rules exist as something a caller passes as `plural_rules`, the way a Vue application passes
   `pluralRules` to `createI18n`.
 
 ## Style
 
-Match the code that is already there — `i18n_united/compiler/tokenizer.py` and
-`i18n_united/runtime/message_context.py` are the reference. Module docstring names the upstream file
+Match the code that is already there — `vue_i18n/compiler/tokenizer.py` and
+`vue_i18n/runtime/message_context.py` are the reference. Module docstring names the upstream file
 it ports. Comments explain *why*, especially where the port deviates or upstream surprises; never
 restate the code. Dataclasses over dicts. `X | None`, never `Optional[X]`. Double quotes, line
 length 120. Tests live next to the code as `<module>_test.py`. `None` stands in for JavaScript

@@ -1,8 +1,8 @@
-"""i18n-united — the vue-i18n message format and runtime, in Python.
+"""vue-i18n-python — the vue-i18n message format and runtime, in Python.
 
 The short version::
 
-    from i18n_united import create_core_context, translate
+    from vue_i18n import create_core_context, translate
 
     ctx = create_core_context(
         locale="sl",
@@ -16,7 +16,7 @@ The message files are ordinary vue-i18n resources — the same JSON a Vue front 
 
 Option names are vue-i18n's, in snake_case: ``fallbackLocale`` is ``fallback_locale``,
 ``missingWarn`` is ``missing_warn``. Behaviour is vue-i18n's too, including where vue-i18n is
-arguably wrong — see ``i18n_united.plurals`` for the one place that is worth knowing about.
+arguably wrong — see ``vue_i18n.plurals`` for the one place that is worth knowing about.
 """
 
 __version__ = "0.1.0"
@@ -25,7 +25,7 @@ __version__ = "0.1.0"
 def __getattr__(name: str):  # noqa: ANN202 - a module-level __getattr__ has no useful return type
     """Re-export the public surface lazily.
 
-    Importing eagerly here would make ``import i18n_united`` pull in the compiler and the whole
+    Importing eagerly here would make ``import vue_i18n`` pull in the compiler and the whole
     runtime, and would create a cycle: ``runtime.context`` reads ``__version__`` from this module.
     """
     if name in _PUBLIC:

@@ -4,7 +4,7 @@ Port of ``packages/core-base/src/context.ts``.
 
 A context holds the loaded messages, the current locale and its fallback chain, the modifiers, the
 plural rules and the handful of policies that decide what happens when a key is not found. It is
-built once and passed to every :func:`~i18n_united.runtime.translate.translate` call, which is
+built once and passed to every :func:`~vue_i18n.runtime.translate.translate` call, which is
 exactly upstream's shape.
 
 Not ported: the devtools hooks (``__v_emitter``, ``initI18nDevTools``, ``setAdditionalMeta``) and

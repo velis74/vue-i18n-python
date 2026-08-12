@@ -4,8 +4,8 @@ Port of ``packages/core-base/src/formatter.ts``: finding which locale holds a na
 the formatter cache, clearing it, and sorting a call's positional arguments into options and
 overrides.
 
-Nothing here formats anything. The formatting itself is in :mod:`~i18n_united.runtime.number` and
-:mod:`~i18n_united.runtime.datetime`, and is the one part of this library that cannot be a port —
+Nothing here formats anything. The formatting itself is in :mod:`~vue_i18n.runtime.number` and
+:mod:`~vue_i18n.runtime.datetime`, and is the one part of this library that cannot be a port —
 ``Intl.NumberFormat`` and ``Intl.DateTimeFormat`` have no Python equivalent, so those two modules
 sit on ``babel`` instead.
 """

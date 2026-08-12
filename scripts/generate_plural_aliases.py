@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Write ``i18n_united/plurals/_aliases.py``: deprecated language subtags CLDR renamed.
+"""Write ``vue_i18n/plurals/_aliases.py``: deprecated language subtags CLDR renamed.
 
 ``cldr/plurals.json`` lists rules under current identifiers only, so a tag that CLDR has since
 renamed — ``iw``, ``in``, ``ji``, and every ISO 639-2 three-letter code — matches nothing and would
@@ -37,13 +37,13 @@ from itertools import product
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
-OUT = REPO_ROOT / "i18n_united" / "plurals" / "_aliases.py"
+OUT = REPO_ROOT / "vue_i18n" / "plurals" / "_aliases.py"
 
 # Run from anywhere without installing the package first.
 sys.path.insert(0, str(REPO_ROOT))
 
-from i18n_united.plurals import ROOT_LOCALE  # noqa: E402
-from i18n_united.plurals._generated import RULES  # noqa: E402
+from vue_i18n.plurals import ROOT_LOCALE  # noqa: E402
+from vue_i18n.plurals._generated import RULES  # noqa: E402
 
 #: CLDR's legacy identifiers that are more than one subtag long. Enumerating them is not possible
 #: the way the letter sweep enumerates language subtags, so they are named.

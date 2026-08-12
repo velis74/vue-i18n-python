@@ -1,7 +1,7 @@
 {
-  "name": "i18n-united-docs",
+  "name": "vue-i18n-python-docs",
   "version": "1.0.0",
-  "description": "Documentation for i18n-united",
+  "description": "Documentation for vue-i18n-python",
   "type": "module",
   "private": true,
   "scripts": {

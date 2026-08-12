@@ -1,6 +1,6 @@
 # Upstream tracking
 
-i18n-united is a port of [vue-i18n](https://github.com/intlify/vue-i18n). This file records exactly
+vue-i18n-python is a port of [vue-i18n](https://github.com/intlify/vue-i18n). This file records exactly
 what it was ported from, so that bringing it up to a new vue-i18n release is reading one diff rather
 than re-reading the whole library.
 
@@ -35,7 +35,7 @@ port follows 11.x. See "Deliberate deviations from upstream" in `PROGRESS.md`.
 port is brought up to it. That is the promise the documentation makes and this file is the machinery
 for keeping it.
 
-Version numbering is *not* shared. i18n-united has its own semantic version, because a port can need
+Version numbering is *not* shared. vue-i18n-python has its own semantic version, because a port can need
 a release for reasons of its own. Every release records the vue-i18n version it tracks, both here
 and in the changelog.
 
@@ -85,22 +85,22 @@ git add vendor/vue-i18n && git commit
 
 | This port | Upstream |
 |---|---|
-| `i18n_united/compiler/location.py` | `packages/message-compiler/src/location.ts` |
-| `i18n_united/compiler/errors.py` | `packages/message-compiler/src/errors.ts` |
-| `i18n_united/compiler/scanner.py` | `packages/message-compiler/src/scanner.ts` |
-| `i18n_united/compiler/tokenizer.py` | `packages/message-compiler/src/tokenizer.ts` |
-| `i18n_united/compiler/nodes.py` | `packages/message-compiler/src/nodes.ts` |
-| `i18n_united/compiler/parser.py` | `packages/message-compiler/src/parser.ts` |
-| `i18n_united/runtime/errors.py` | `packages/core-base/src/errors.ts` |
-| `i18n_united/runtime/resolver.py` | `packages/core-base/src/resolver.ts` |
-| `i18n_united/runtime/fallbacker.py` | `packages/core-base/src/fallbacker.ts` |
-| `i18n_united/runtime/message_context.py` | `packages/core-base/src/runtime.ts`, plus the built-in modifiers from `context.ts` |
-| `i18n_united/runtime/format.py` | `packages/core-base/src/format.ts`, plus the accessors from `ast.ts` |
-| `i18n_united/runtime/display.py` | `packages/shared/src/utils.ts` — `String()` and `toDisplayString` |
-| `i18n_united/runtime/context.py` | `packages/core-base/src/context.ts` |
-| `i18n_united/runtime/translate.py` | `packages/core-base/src/translate.ts` |
-| `i18n_united/runtime/datetime.py`, `number.py` | `packages/core-base/src/datetime.ts`, `number.ts`, `formatter.ts` |
-| `i18n_united/plurals/` | **not a port** — see below |
+| `vue_i18n/compiler/location.py` | `packages/message-compiler/src/location.ts` |
+| `vue_i18n/compiler/errors.py` | `packages/message-compiler/src/errors.ts` |
+| `vue_i18n/compiler/scanner.py` | `packages/message-compiler/src/scanner.ts` |
+| `vue_i18n/compiler/tokenizer.py` | `packages/message-compiler/src/tokenizer.ts` |
+| `vue_i18n/compiler/nodes.py` | `packages/message-compiler/src/nodes.ts` |
+| `vue_i18n/compiler/parser.py` | `packages/message-compiler/src/parser.ts` |
+| `vue_i18n/runtime/errors.py` | `packages/core-base/src/errors.ts` |
+| `vue_i18n/runtime/resolver.py` | `packages/core-base/src/resolver.ts` |
+| `vue_i18n/runtime/fallbacker.py` | `packages/core-base/src/fallbacker.ts` |
+| `vue_i18n/runtime/message_context.py` | `packages/core-base/src/runtime.ts`, plus the built-in modifiers from `context.ts` |
+| `vue_i18n/runtime/format.py` | `packages/core-base/src/format.ts`, plus the accessors from `ast.ts` |
+| `vue_i18n/runtime/display.py` | `packages/shared/src/utils.ts` — `String()` and `toDisplayString` |
+| `vue_i18n/runtime/context.py` | `packages/core-base/src/context.ts` |
+| `vue_i18n/runtime/translate.py` | `packages/core-base/src/translate.ts` |
+| `vue_i18n/runtime/datetime.py`, `number.py` | `packages/core-base/src/datetime.ts`, `number.ts`, `formatter.ts` |
+| `vue_i18n/plurals/` | **not a port** — see below |
 
 ### Deliberately not ported
 
@@ -111,7 +111,7 @@ git add vendor/vue-i18n && git commit
 - `context.ts`'s devtools hooks (`__v_emitter`, the timeline).
 - `vue-i18n-core`, `vue-i18n`, `petite-vue-i18n` in their entirety: components, directives, the
   legacy API and the composition API are Vue bindings with no Python meaning.
-- `i18n_united/plurals/` is not a port at all. It is an opt-in CLDR rule source a caller passes as
+- `vue_i18n/plurals/` is not a port at all. It is an opt-in CLDR rule source a caller passes as
   `plural_rules`, the counterpart of passing `pluralRules` to `createI18n`. An upstream change to
   plural handling still matters to it, but as a design question rather than as a diff to apply.
 

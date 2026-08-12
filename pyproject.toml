@@ -3,9 +3,9 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "i18n-united"
+name = "vue-i18n-python"
 dynamic = ["version"]
-description = "The vue-i18n message format in Python - one file format, two reference runtimes, real CLDR plural rules."
+description = "An unofficial Python port of vue-i18n: same JSON message files, same API, same behaviour."
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
@@ -48,26 +48,26 @@ dev = [
     "pytest-cov",
     "babel",
     "pyyaml",
-    # `i18n_united/packaging_test.py` builds a real wheel and reads its member list, because a test
+    # `vue_i18n/packaging_test.py` builds a real wheel and reads its member list, because a test
     # that checks the manifest cannot see what hatch actually put in the artefact. Without this the
     # test skips, and a skip is indistinguishable from a pass.
     "build",
 ]
 
 [project.urls]
-Homepage = "https://github.com/velis74/i18n-united"
-Repository = "https://github.com/velis74/i18n-united"
-Issues = "https://github.com/velis74/i18n-united/issues"
+Homepage = "https://github.com/velis74/vue-i18n-python"
+Repository = "https://github.com/velis74/vue-i18n-python"
+Issues = "https://github.com/velis74/vue-i18n-python/issues"
 
 [tool.hatch.version]
-path = "i18n_united/__init__.py"
+path = "vue_i18n/__init__.py"
 
 [tool.hatch.build.targets.wheel]
-packages = ["i18n_united"]
+packages = ["vue_i18n"]
 
 [tool.hatch.build.targets.sdist]
 include = [
-    "/i18n_united",
+    "/vue_i18n",
     "/conformance",
     "/SPEC.md",
     "/README.md",
@@ -110,7 +110,7 @@ dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 # The generated plural-rule module is a data table with one function per rule, and its names come
 # from CLDR rather than from PEP 8. Each rule's docstring lists every locale that shares it, which
 # runs well past the line limit.
-"i18n_united/plurals/_generated.py" = ["N802", "E501"]
+"vue_i18n/plurals/_generated.py" = ["N802", "E501"]
 
 [tool.ruff.format]
 quote-style = "double"

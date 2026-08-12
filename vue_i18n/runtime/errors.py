@@ -6,7 +6,7 @@ both halves of the library, and a third implementation reading SPEC.md must repo
 for the same defect. They are never renumbered.
 
 Upstream's ``CoreError`` is structurally identical to a compile error and ``createCoreError`` builds
-one with ``createCompileError``, so this port raises :class:`~i18n_united.compiler.errors.CompileError`
+one with ``createCompileError``, so this port raises :class:`~vue_i18n.compiler.errors.CompileError`
 too rather than inventing a parallel class.
 """
 

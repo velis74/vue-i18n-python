@@ -1,6 +1,6 @@
 {
   "_vendored": {
-    "note": "Vendored verbatim from the cldr-core npm package. Single source of truth for i18n-united plural rules; regenerate the language bindings with scripts/generate_plurals.py after changing it.",
+    "note": "Vendored verbatim from the cldr-core npm package. Single source of truth for vue-i18n-python plural rules; regenerate the language bindings with scripts/generate_plurals.py after changing it.",
     "source": "npm:cldr-core@48.2.0 supplemental/plurals.json",
     "upstream": "https://cldr.unicode.org",
     "cldr_version": "48",

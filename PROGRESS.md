@@ -28,7 +28,7 @@ Slovenian and most of its neighbours — and it is what the port does, because t
 behave identically. A Vue application fixes this by passing `pluralRules` to `createI18n`; the
 Python equivalent is `plural_rules` on the message context.
 
-`i18n_united/plurals/` — the CLDR-derived rules, the arity ladder, the explicit `zero` form — is
+`vue_i18n/plurals/` — the CLDR-derived rules, the arity ladder, the explicit `zero` form — is
 therefore **an opt-in extra, not the default**. Nothing in the runtime reaches for it. It exists
 because a caller who wants correct Slovenian plurals needs something to pass in, and hand-writing
 that rule is what people currently do.
@@ -45,11 +45,11 @@ meaning.
 1. **The brief is a port**, stated at the top of this file. When the port and vue-i18n disagree,
    vue-i18n is right, even where vue-i18n is arguably wrong.
 2. **Released versions only.** The submodule pin never moves to an alpha, beta or release candidate.
-3. **`i18n_united/plurals/` is opt-in and is not part of the port.** It exists so a caller has
+3. **`vue_i18n/plurals/` is opt-in and is not part of the port.** It exists so a caller has
    something to pass as `plural_rules`, the way a Vue application passes `pluralRules` to
    `createI18n`. Its model — a precedence list per locale, a ladder for messages carrying fewer
    forms than the locale has categories, and an explicit `zero` that CLDR does not have — is
-   documented in `i18n_united/plurals/__init__.py`. Nothing in the runtime reaches for it.
+   documented in `vue_i18n/plurals/__init__.py`. Nothing in the runtime reaches for it.
 4. **Warnings go through Python's `warnings` module** under the `I18nWarning` category, rather than
    through an `on_warn` option only this library understands. `on_warn` still exists and still
    overrides.
@@ -65,7 +65,7 @@ Each one is asserted by a test, so it cannot widen unnoticed:
   so no AST is produced at all. This port substitutes U+FFFD — the same thing upstream already does
   for a lone surrogate — so that one malformed escape cannot abort the load of a whole file. The two
   corpus cases carry `upstream_throws` rather than an expected AST. Asserted in
-  `i18n_united/compiler/conformance_test.py`.
+  `vue_i18n/compiler/conformance_test.py`.
 - **`resolve_with_key_value` reads own properties only.** Upstream's `resolveWithKeyValue` is
   `isObject(obj) ? obj[path] : null`, a plain property read that answers from the prototype chain:
   `resolveWithKeyValue({}, 'constructor')` hands back the `Object` constructor, `'toString'` and
@@ -89,7 +89,7 @@ Not deviations, but worth knowing:
 ## State
 
 - [x] Repository skeleton — pyproject, package.json, tsconfig, vite, eslint, LICENSE, README
-- [x] Python message compiler (tokenizer, parser, AST) — `i18n_united/compiler/`.
+- [x] Python message compiler (tokenizer, parser, AST) — `vue_i18n/compiler/`.
       Validated differentially against upstream bundled straight from the clone with esbuild:
       **128/128 messages produce byte-identical ASTs, error codes and error messages**, and
       **102/102 identical token streams including every source location**. The corpus lives in
@@ -116,7 +116,7 @@ Not deviations, but worth knowing:
       point*, because upstream's `charAt(0)` reads a UTF-16 unit and leaves an astral character
       alone ("𐐨test" stays "𐐨test"); and the built-in `upper`/`lower`/`capitalize` modifiers live in
       `context.ts`, not in `runtime.ts`, so a port of the latter alone renders `@.upper:x` unchanged.
-- [x] `i18n_united/runtime/display.py` — JavaScript's `String()` and `toDisplayString()`, which
+- [x] `vue_i18n/runtime/display.py` — JavaScript's `String()` and `toDisplayString()`, which
       decide what a non-string value looks like once it reaches a `{placeholder}`. Needed because
       `str(1.0)` is `"1.0"` here and `"1"` there, and `str(True)` is `"True"` against `"true"`.
       Validated against Node: **1612/1612 cases identical**, of which 1576 are random 64-bit float
@@ -143,9 +143,9 @@ fixture ever pins one:
       `cldr/plurals.json` is `supplemental/plurals.json` from **npm cldr-core@48.2.0 (CLDR 48,
       Unicode 16)**, vendored verbatim with a `_vendored` provenance block on top.
       `scripts/generate_plurals.py` parses the UTS #35 rule syntax and writes both
-      `i18n_united/plurals/_generated.py` and `ts/plurals/generated.ts`: 224 locales collapse to
+      `vue_i18n/plurals/_generated.py` and `ts/plurals/generated.ts`: 224 locales collapse to
       **40 distinct rule sets**, one function each, plus the per-locale precedence list. The runtime
-      (ladder, fall-forward, explicit `zero`) is hand-written in `i18n_united/plurals/__init__.py`;
+      (ladder, fall-forward, explicit `zero`) is hand-written in `vue_i18n/plurals/__init__.py`;
       `plurals_test.py` asserts the item-4 Slovenian table literally and tables for hr, en, ru, ar,
       ja, pl, cy at every arity, and `test_generated_modules_are_up_to_date` fails if either
       generated file is hand-edited.
@@ -175,7 +175,7 @@ fixture ever pins one:
       resolution, operand extraction, `plural_index`) has no TypeScript home yet, so nothing in the
       repo replays `conformance/plurals.json` on the TS side. It has been replayed once, by a scratch
       harness (not committed) that transpiles `generated.ts` with esbuild and transcribes the ~30
-      lines of ladder arithmetic from `i18n_united/plurals/__init__.py` into JS: **13 452
+      lines of ladder arithmetic from `vue_i18n/plurals/__init__.py` into JS: **13 452
       (locale, n, arity) cases, 0 index mismatches, 0 category mismatches, 0 ladder mismatches**.
       Write that arithmetic properly in `ts/plurals/`, then a runner over the corpus, then CI.
 - [ ] Conformance corpus + two runners.
@@ -191,6 +191,5 @@ fixture ever pins one:
 
 ## Open, not yet decided
 
-- GitHub org for the repository. `velis74` assumed in `pyproject.toml` / `package.json` URLs to
-  match `muxws`; change if it belongs under `dynamicforms`.
-- npm package name `i18n-united` assumed unscoped and free — not verified against the registry.
+- GitHub org for the repository. `velis74` assumed in the `pyproject.toml` URLs; the local
+  directory is still `i18n-united` and there is no remote yet.

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Turn ``cldr/plurals.json`` into ``i18n_united/plurals/_generated.py``.
+"""Turn ``cldr/plurals.json`` into ``vue_i18n/plurals/_generated.py``.
 
 This is the one place the CLDR plural syntax is understood. It reads the vendored CLDR cardinal
 rules and writes a category function per distinct rule set, a locale-to-function
@@ -34,7 +34,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 CLDR_JSON = REPO_ROOT / "cldr" / "plurals.json"
-PY_OUT = REPO_ROOT / "i18n_united" / "plurals" / "_generated.py"
+PY_OUT = REPO_ROOT / "vue_i18n" / "plurals" / "_generated.py"
 
 #: The order CLDR itself lists plural categories in, and the order a message's forms are written in.
 CANONICAL_ORDER = ("zero", "one", "two", "few", "many", "other")

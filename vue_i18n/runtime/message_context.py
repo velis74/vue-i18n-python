@@ -11,7 +11,7 @@ ordinary class with ordinary methods.
 **Plural selection is vue-i18n's, not ours.** With no ``plural_rules`` entry for the locale, this
 port uses :func:`plural_default` — the same locale-independent rule vue-i18n 11 uses — because the
 port's job is to behave identically, not better. Correct CLDR forms come from the same place they
-come from in a Vue application: a rule the caller supplies. :mod:`i18n_united.plurals` ships one
+come from in a Vue application: a rule the caller supplies. :mod:`vue_i18n.plurals` ships one
 ready to pass in, but it is opt-in and nothing here reaches for it.
 """
 
@@ -88,7 +88,7 @@ def plural_default(choice: int, choices_length: int) -> int:
     2, so a message can never reach a fourth or fifth form. That is wrong for most Slavic, Celtic and
     Semitic languages — and it is what vue-i18n does, which is what this port has to do. A Vue
     application fixes it by passing ``pluralRules`` to ``createI18n``; the Python equivalent is
-    ``plural_rules`` here, and :mod:`i18n_united.plurals` has a CLDR-derived rule ready to pass.
+    ``plural_rules`` here, and :mod:`vue_i18n.plurals` has a CLDR-derived rule ready to pass.
     """
     choice = abs(choice)
     if choices_length == 2:

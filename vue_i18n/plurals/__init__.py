@@ -4,7 +4,7 @@ This module is **not** a port. vue-i18n resolves plurals through ``Intl.PluralRu
 available to Python and which handles a message with fewer forms than the locale has categories by
 clamping (``Math.min(index, choicesLength - 1)``). Clamping puts ``two``, ``few`` and ``many`` on
 the *last* form, so a three-form Slovenian message reads its plural text for n = 2 and cannot say
-"no items" at all — vue-i18n's own ``zero | one | other`` convention is lost. i18n-united instead
+"no items" at all — vue-i18n's own ``zero | one | other`` convention is lost. vue-i18n-python instead
 uses the arity model of PROGRESS.md item 4, which is what the hand-written rules in real projects
 actually do.
 
@@ -67,7 +67,7 @@ class Operands:
 
     ``n`` absolute value, ``i`` integer digits, ``v``/``w`` count of visible fraction digits with and
     without trailing zeros, ``f``/``t`` those digits as an integer, ``c``/``e`` the compact decimal
-    exponent. ``c`` and ``e`` are always 0: i18n-united never formats counts in compact notation, and
+    exponent. ``c`` and ``e`` are always 0: vue-i18n-python never formats counts in compact notation, and
     a rule such as French ``e != 0..5`` is therefore always false.
 
     ``n`` is a :class:`~fractions.Fraction` rather than a ``Decimal`` because rules take it modulo

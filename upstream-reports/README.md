@@ -24,4 +24,4 @@ unfixed vulnerability report to a repository that may become public is disclosur
 The write-up **and its reproduction script** are therefore listed in `.gitignore` - a working
 proof of concept is disclosure just as much as the prose is. Remove that line once the advisory has been filed and
 upstream has released a fix, and commit it then — the write-up is worth keeping alongside the port
-that found it, and `i18n_united/runtime/sanitize.py` refers to the same gap.
+that found it, and `vue_i18n/runtime/sanitize.py` refers to the same gap.

@@ -296,7 +296,7 @@ def get_message_context_options(
 def translate(context: CoreContext, *args: Any) -> Any:
     """Translate a key against a context. The core-base entry point.
 
-    Returns the rendered string, or :data:`~i18n_united.runtime.context.NOT_RESOLVED` when the key
+    Returns the rendered string, or :data:`~vue_i18n.runtime.context.NOT_RESOLVED` when the key
     could not be resolved and the context was built with ``unresolving=True``.
     """
     key, options = parse_translate_args(*args)

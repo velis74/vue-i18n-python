@@ -27,14 +27,14 @@ OUT = REPO_ROOT / "conformance" / "plurals.json"
 # Run from anywhere without installing the package first.
 sys.path.insert(0, str(REPO_ROOT))
 
-from i18n_united.plurals import (  # noqa: E402
+from vue_i18n.plurals import (  # noqa: E402
     CLDR_VERSION,
     plural_category,
     plural_index,
     plural_ladder,
     plural_precedence,
 )
-from i18n_united.plurals._generated import RULES  # noqa: E402
+from vue_i18n.plurals._generated import RULES  # noqa: E402
 
 #: Locales the acceptance tests name explicitly. Everything else is sampled below.
 REQUIRED_LOCALES = ("sl", "hr", "en", "ru", "ar", "ja", "pl", "cy")

@@ -10,22 +10,23 @@ defect waiting to be discovered by a user.
 
 ---
 
-## `d()` and `n()` are not ported
+## `d()` and `n()` cannot honour every `Intl` option
 
-**What is missing:** `packages/core-base/src/datetime.ts`, `number.ts` and the parts of
-`formatter.ts` they use. A caller cannot format a date or a number through this library at all.
+Ported, and working — but `Intl.DateTimeFormat` and `Intl.NumberFormat` do not exist in Python, so
+`babel` stands in and some of the option surface has nowhere to land.
 
-**Why it is not simply a port:** the structure ports cleanly — the format resources are plain data,
-and the argument shapes, locale fallback walk, missing handling and caching are all logic — but
-`Intl.DateTimeFormat` and `Intl.NumberFormat` do not exist in Python. `babel` is the intended
-substitute and is already declared as the `intl` extra in `pyproject.toml`.
+**Refused outright:** `part=True` (`formatToParts`). babel has no counterpart and a caller asking for
+parts wants the structure, so it raises rather than returning an approximation.
 
-**What it will not do:** match `Intl`'s output character for character. The two carry different CLDR
-data versions, so pinning their strings would be testing someone else's data rather than this port.
-The tests will cover the logic — which locale is chosen from the chain, which format name resolves,
-how overrides merge, what a missing format does — and the corpus will not pin the formatted text.
+**Accepted and ignored:** `localeMatcher`, `currencySign`, `signDisplay`, `unit`, `unitDisplay`,
+`roundingMode`, `roundingPriority`, `roundingIncrement`, `trailingZeroDisplay`,
+`minimumSignificantDigits`, `maximumSignificantDigits` for numbers; `localeMatcher`, `formatMatcher`,
+`calendar`, `numberingSystem`, `hourCycle`, `fractionalSecondDigits` for dates. They are listed in
+`UNSUPPORTED_OPTIONS` in each module and reportable through `unsupported_number_options()` /
+`unsupported_datetime_options()`, so a caller can ask what will be dropped rather than discover it.
 
----
+**Not a gap, and not fixable:** the formatted strings will not match `Intl` character for character.
+The two carry different CLDR data versions. No corpus pins them, deliberately.
 
 ## `escape_parameter` does not sanitise its output
 
@@ -94,3 +95,21 @@ meaning — so by the ported-package boundary they are out.
 **Why it is a gap anyway:** the brief is "same API", and `te()` and `tm()` are things a Python caller
 would plausibly reach for and find missing. They are also small. Worth a decision rather than an
 omission by boundary.
+
+---
+
+## The plural-index clamp is undecided
+
+`MessageContext.plural` clamps an out-of-range index from a caller's rule; vue-i18n throws
+`UNEXPECTED_RETURN_TYPE`. Documented and tested under "Deliberate deviations from upstream" in
+`PROGRESS.md`, but recorded there as **unsettled**: the throw is what tells a developer their rule is
+wrong, and clamping means a bug that crashes the browser renders quietly on the server. Waiting on a
+decision from the project owner.
+
+---
+
+## Nothing has run against a real application yet
+
+Every claim in this repository rests on recorded upstream behaviour and on tests. Not one line has
+served a page. The version is `0.1.0` and the classifier says alpha for that reason, and the first
+confirmed production use is what earns 1.0 — not a complete corpus.

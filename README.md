@@ -62,14 +62,30 @@ the site and a test that asserts it. `GAPS.md` lists what is knowingly missing.
 
 ## Plural rules
 
-vue-i18n's own plural rule ignores the locale: two forms mean singular/plural, and anything more
-clamps at index 2, so a fourth or fifth form is unreachable in **any** language. This port
-reproduces that, because behaving the same is the job.
+**If your Vue application already passes `pluralRules` to `createI18n`, pass the same rule here and
+nothing changes.** A rule is `(choice, choices_length) -> index`, the same signature as in
+JavaScript, so it transcribes directly:
 
-`vue_i18n.plurals` is the way out, and it is opt-in — the runtime never reaches for it. It carries
-CLDR rules for 224 locales, an explicit `zero` form that CLDR does not have, and a ladder for
-messages with fewer forms than the locale has categories. Pass it as `plural_rules`, exactly as a
-Vue application passes `pluralRules` to `createI18n`.
+```python
+def south_slavic(choice, choices_length, _org=None):
+    if choices_length == 2:
+        return 0 if choice == 1 else 1
+    ...
+
+ctx = create_core_context(..., plural_rules={"sl": south_slavic})
+translate(ctx, "trips", 103)     # '103 povezave' - the fourth form, as in the browser
+```
+
+If you pass **no** rule, you get vue-i18n's default, and that default ignores the locale: two forms
+mean singular/plural, and anything more clamps at index 2, so a fourth or fifth form is unreachable
+in any language. This port reproduces that rather than quietly improving on it — the same message
+with no rule renders `Dve povezavi` for 3, 5 and 105, here and in the browser alike.
+
+`vue_i18n.plurals` is there if you would rather not hand-write the rule. It is **opt-in**; the
+runtime never reaches for it. It carries CLDR rules for 224 locales, an explicit `zero` form that
+CLDR does not have, and a ladder for messages with fewer forms than the locale has categories. Note
+that it will not agree with a hand-written rule in every case — if your front end has one, port that
+one, and keep the two ends identical.
 
 ## Status
 

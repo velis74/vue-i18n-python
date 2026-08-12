@@ -2,10 +2,10 @@
 
 ``conformance/compile.json`` holds, for every source message, the AST that
 ``intlify/vue-i18n``'s own parser produces and the errors it reports. This file checks that this
-port produces exactly that. Its TypeScript twin (``ts/conformance.spec.ts``) reads the same file.
+port produces exactly that.
 
-A fixture is the contract and the two ports are the things being held to it. If a change here makes
-a case fail, the port is wrong until proven otherwise - do not edit the corpus to match the port.
+The fixture is the contract and the port is the thing being held to it. If a change here makes a
+case fail, the port is wrong until proven otherwise - do not edit the corpus to match the port.
 """
 
 import json

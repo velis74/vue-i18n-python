@@ -6,8 +6,8 @@ like once it lands in a message.
 This file exists because Python's ``str()`` and JavaScript's ``String()`` disagree on exactly the
 values a ``{placeholder}`` most often carries. ``str(1.0)`` is ``"1.0"`` where ``String(1.0)`` is
 ``"1"``; ``str(True)`` is ``"True"`` where ``String(true)`` is ``"true"``. A message reading
-``"{count} items"`` would therefore render differently in the two ports for a count that arrived as
-a float — which is a difference in the rendered translation, not in some diagnostic.
+``"{count} items"`` would therefore render differently in Python than in JavaScript for a count that
+arrived as a float — which is a difference in the rendered translation, not in some diagnostic.
 """
 
 import json

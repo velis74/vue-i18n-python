@@ -466,7 +466,7 @@ def test_rule_for_matches_the_vue_i18n_signature() -> None:
 
 
 def test_conformance_corpus_matches_the_runtime() -> None:
-    """`conformance/plurals.json` is the contract the TypeScript port is held to; keep it honest."""
+    """`conformance/plurals.json` is what the plural runtime is held to; keep it honest."""
     corpus = load_corpus()
     assert corpus["cldr_version"] == CLDR_VERSION
     for locale, precedence in corpus["precedence"].items():

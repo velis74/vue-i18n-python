@@ -128,8 +128,8 @@ PATH_STATE_MACHINE: dict[States, dict[str, Transition]] = {
 
 # ECMAScript's `\s` (WhiteSpace + LineTerminator), spelled out. Python's `\s` is a different set on
 # both ends - it has \x1c-\x1f and \x85, it lacks the BOM - and `str.strip()` with no argument uses
-# yet another one. A path is user input, so the two ports have to agree on it character for
-# character rather than nearly.
+# yet another one. A path is user input, so this port has to agree with upstream on it character
+# for character rather than nearly.
 _JS_WHITESPACE = (
     "\t\n\v\f\r \u00a0\u1680"
     "\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a"

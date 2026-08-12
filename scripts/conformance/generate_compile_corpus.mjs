@@ -35,8 +35,8 @@ writeFileSync(
     {
       $comment:
         `Generated from intlify/vue-i18n @ ${version} by parsing each source with createParser() ` +
-        'and serialising the result. The TypeScript AST is the source of truth; both ports are ' +
-        'held to it. Regenerate only when upstream changes, and say so in the commit.',
+        'and serialising the result. The TypeScript AST is the source of truth and the Python ' +
+        'port is held to it. Regenerate only when upstream changes, and say so in the commit.',
       upstream: `intlify/vue-i18n@${version}`,
       cases
     },

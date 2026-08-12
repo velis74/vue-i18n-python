@@ -89,7 +89,7 @@ class TokenizeContext:
 @dataclass
 class TokenizeOptions:
     #: When false, tokens carry no ``loc``. Upstream uses this to shrink compiled output; here it
-    #: only saves allocations, but the flag stays so the two ports take the same options.
+    #: only saves allocations, but the flag stays so this port takes the same options as upstream.
     location: bool = True
     on_error: Callable[[Exception], None] | None = None
 

@@ -4,8 +4,8 @@
 ``resolver.ts`` makes of it: the segments ``parse()`` produced, the value ``resolveValue()``
 returned, and how ``resolveWithKeyValue()`` answered. This file checks that this port agrees.
 
-A fixture is the contract and the two ports are the things being held to it. If a change here makes
-a case fail, the port is wrong until proven otherwise - do not edit the corpus to match the port.
+The fixture is the contract and the port is the thing being held to it. If a change here makes a
+case fail, the port is wrong until proven otherwise - do not edit the corpus to match the port.
 """
 
 import json
@@ -256,7 +256,7 @@ def test_strip_quotes_leaves_the_empty_string_alone() -> None:
 
 
 def test_a_callable_container_ends_the_walk() -> None:
-    """`is_function` is dead upstream and alive here, and both ports answer None.
+    """`is_function` is dead upstream and alive here, and both answer None.
 
     In JavaScript `typeof fn` is "function", so `isObject` turns every callable away before this
     check is reached. In Python `callable()` and `isinstance(_, dict)` are independent, so a

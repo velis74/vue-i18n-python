@@ -6,8 +6,8 @@ message context, interpolation, linked-message resolution, modifiers — against
 actually sees.
 
 Plural *selection* is pinned to a fixed branch by the generator and is deliberately not tested here;
-that question belongs to ``conformance/plurals.json``, because the two ports disagree about it on
-purpose.
+that question belongs to ``conformance/plurals.json``, because the runtime and the CLDR module
+answer it differently on purpose.
 """
 
 import json

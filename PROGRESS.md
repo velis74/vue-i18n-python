@@ -97,11 +97,11 @@ Not deviations, but worth knowing:
 - **The resolver walks `dict` and `list` and nothing else.** A message resource is JSON, so those
   are the only two containers a path can meet, and `is_object()` says so. That is also what makes
   the resolver structurally unable to reach a Python attribute. A JavaScript array's own properties
-  include `length`, so `t('items.length')` really does return the count in both ports.
+  include `length`, so `t('items.length')` really does return the count in vue-i18n and here alike.
 
 ## State
 
-- [x] Repository skeleton — pyproject, package.json, tsconfig, vite, eslint, LICENSE, README
+- [x] Repository skeleton — pyproject, package.json (tooling only), LICENSE, README
 - [x] Python message compiler (tokenizer, parser, AST) — `vue_i18n/compiler/`.
       Validated differentially against upstream bundled straight from the clone with esbuild:
       **128/128 messages produce byte-identical ASTs, error codes and error messages**, and
@@ -124,7 +124,8 @@ Not deviations, but worth knowing:
       strings identical**, covering interpolation, literals, every escape, linked messages, linked
       chains, dynamic linked keys, all three built-in modifiers, and each plural branch. Plural
       *selection* is pinned to a fixed branch there on purpose — which form a locale picks is
-      `conformance/plurals.json`'s question, and the two ports disagree about it by design.
+      `conformance/plurals.json`'s question, and the runtime and the CLDR module answer it
+      differently by design.
       Two traps found and fixed while building it: `@.capitalize` must not uppercase the first *code
       point*, because upstream's `charAt(0)` reads a UTF-16 unit and leaves an astral character
       alone ("𐐨test" stays "𐐨test"); and the built-in `upper`/`lower`/`capitalize` modifiers live in
@@ -152,19 +153,19 @@ fixture ever pins one:
 - **Visible fraction digits depend on the written form.** `1` has none and `Decimal("1.0")` has one,
   which is what CLDR's `v` operand means. A `float` is read through `repr`, so `1.0` has one visible
   fraction digit where JavaScript's `String(1.0)` has none.
-- [x] CLDR plural rules: extraction + generators for both languages.
+- [x] CLDR plural rules: extraction + generator.
       `cldr/plurals.json` is `supplemental/plurals.json` from **npm cldr-core@48.2.0 (CLDR 48,
       Unicode 16)**, vendored verbatim with a `_vendored` provenance block on top.
-      `scripts/generate_plurals.py` parses the UTS #35 rule syntax and writes both
-      `vue_i18n/plurals/_generated.py` and `ts/plurals/generated.ts`: 224 locales collapse to
+      `scripts/generate_plurals.py` parses the UTS #35 rule syntax and writes
+      `vue_i18n/plurals/_generated.py`: 224 locales collapse to
       **40 distinct rule sets**, one function each, plus the per-locale precedence list. The runtime
       (ladder, fall-forward, explicit `zero`) is hand-written in `vue_i18n/plurals/__init__.py`;
       `plurals_test.py` asserts the item-4 Slovenian table literally and tables for hr, en, ru, ar,
-      ja, pl, cy at every arity, and `test_generated_modules_are_up_to_date` fails if either
-      generated file is hand-edited.
+      ja, pl, cy at every arity, and `test_generated_modules_are_up_to_date` fails if the generated
+      file is hand-edited.
       Verified against **`Intl.PluralRules` in Node 26 (ICU 78, CLDR 48)** — an independent
-      implementation of the same data: **167 097 cases across 219 locales, 0 mismatches**, for both
-      the Python and the TypeScript output. Cases cover 0–230, powers of ten up to 2 000 000, and
+      implementation of the same data: **167 097 cases across 219 locales, 0 mismatches**.
+      Cases cover 0–230, powers of ten up to 2 000 000, and
       fractions, each at `minimumFractionDigits` 0, 1 and 2 so the `v`/`w`/`f`/`t` operands are
       exercised. Five CLDR ids are excluded because ICU aliases them away and would answer with a
       different locale's rules: `jw→jv`, `mo→ro`, `sh→sr`, `tl→fil`, `und→en-GB`.
@@ -183,17 +184,9 @@ fixture ever pins one:
       upstream's `sanitizeTranslatedHtml` — attribute sanitisation, event-handler neutralisation,
       `javascript:` URL stripping — is not ported. Enabling the option warns once saying so, and
       that warning stays until the sanitizer lands.
-- [ ] TS loader package. **`ts/` still needs its plural runtime and its conformance runner.**
-      `ts/plurals/generated.ts` exists and is verified, but the ladder arithmetic (locale
-      resolution, operand extraction, `plural_index`) has no TypeScript home yet, so nothing in the
-      repo replays `conformance/plurals.json` on the TS side. It has been replayed once, by a scratch
-      harness (not committed) that transpiles `generated.ts` with esbuild and transcribes the ~30
-      lines of ladder arithmetic from `vue_i18n/plurals/__init__.py` into JS: **13 452
-      (locale, n, arity) cases, 0 index mismatches, 0 category mismatches, 0 ladder mismatches**.
-      Write that arithmetic properly in `ts/plurals/`, then a runner over the corpus, then CI.
-- [ ] Conformance corpus + two runners.
-      `conformance/plurals.json` is done: 43 locales (one per distinct rule set, plus the eight the
-      tests name), 3 268 rows of `(locale, n) -> category + indexes[arity - 1]`, 13 452
+- [x] Conformance corpus for the plural runtime.
+      `conformance/plurals.json` is done: 55 locales (one per distinct rule set, plus the ones the
+      tests name), 4 180 rows of `(locale, n) -> category + indexes[arity - 1]`, 16 644
       `(locale, n, arity)` cases, produced by `scripts/generate_plural_corpus.py` from the Python
       runtime and re-checked by `test_conformance_corpus_matches_the_runtime`. `n` is a decimal
       string, and only values that survive a JavaScript `String(Number(x))` round trip appear —

@@ -159,42 +159,8 @@ def precedence_for(rules: tuple[Rule, ...]) -> tuple[str, ...]:
 # --------------------------------------------------------------------------------------------- #
 
 
-@dataclass(frozen=True)
-class Dialect:
-    """The handful of tokens that differ between the two generated languages."""
-
-    eq: str
-    and_: str
-    or_: str
-    not_open: str
-    not_close: str
-    is_integer: str  # format string taking the operand name
-    #: Whether ``lo <= x <= hi`` is one expression (Python) or has to be spelled out (TypeScript).
-    chained_comparison: bool
-
-
-PY = Dialect(
-    eq="==",
-    and_=" and ",
-    or_=" or ",
-    not_open="not (",
-    not_close=")",
-    is_integer="{0} == int({0})",
-    chained_comparison=True,
-)
-TS = Dialect(
-    eq="===",
-    and_=" && ",
-    or_=" || ",
-    not_open="!(",
-    not_close=")",
-    is_integer="Number.isInteger({0})",
-    chained_comparison=False,
-)
-
-
-# How loosely a rendered fragment binds. `and` binds tighter than `or` in both languages, so an
-# `and` fragment never needs parentheses, while an `or` fragment needs them inside an `and`.
+# How loosely a rendered fragment binds. `and` binds tighter than `or`, so an `and` fragment never
+# needs parentheses, while an `or` fragment needs them inside an `and`.
 ATOM, AND, OR = 0, 1, 2
 
 #: What may stand unbracketed as an operand of `or`. Precedence would allow AND here, but a
@@ -207,48 +173,45 @@ def parenthesize(text: str, level: int, allowed: int) -> str:
     return text if level <= allowed else f"({text})"
 
 
-def emit_relation(relation: Relation, dialect: Dialect) -> tuple[str, int]:
+def emit_relation(relation: Relation) -> tuple[str, int]:
     """Render one comparison; returns the text and how loosely its top-level operator binds."""
     expr = relation.operand if relation.modulus is None else f"{relation.operand} % {relation.modulus}"
     parts: list[tuple[str, int]] = []
     singles = [lo for lo, hi in relation.ranges if lo == hi]
     spans = [(lo, hi) for lo, hi in relation.ranges if lo != hi]
     for value in singles:
-        parts.append((f"{expr} {dialect.eq} {value}", ATOM))
+        parts.append((f"{expr} == {value}", ATOM))
     for lo, hi in spans:
-        if dialect.chained_comparison:
-            parts.append((f"{lo} <= {expr} <= {hi}", ATOM))
-        else:
-            parts.append((f"{lo} <= {expr}{dialect.and_}{expr} <= {hi}", AND))
+        parts.append((f"{lo} <= {expr} <= {hi}", ATOM))
     if len(parts) == 1:
         body, level = parts[0]
     else:
-        body = dialect.or_.join(parenthesize(text, part_level, INSIDE_OR) for text, part_level in parts)
+        body = " or ".join(parenthesize(text, part_level, INSIDE_OR) for text, part_level in parts)
         level = OR
     # CLDR's `=` only ever matches integers, so a fractional `n` fails the relation outright — and,
     # because that check happens before the negation, `n != 3..4` is *true* for n = 3.5.
     if spans and relation.operand == NON_INTEGER_OPERAND:
-        guard = dialect.is_integer.format(relation.operand)
-        body = guard + dialect.and_ + parenthesize(body, level, AND)
+        guard = f"{relation.operand} == int({relation.operand})"
+        body = guard + " and " + parenthesize(body, level, AND)
         level = AND
     if relation.negated:
-        body = f"{dialect.not_open}{body}{dialect.not_close}"
+        body = f"not ({body})"
         level = ATOM
     return body, level
 
 
-def emit_condition(condition: Condition, dialect: Dialect) -> str:
+def emit_condition(condition: Condition) -> str:
     groups: list[tuple[str, int]] = []
     for group in condition.groups:
-        rendered = [emit_relation(relation, dialect) for relation in group]
+        rendered = [emit_relation(relation) for relation in group]
         if len(rendered) == 1:
             groups.append(rendered[0])
         else:
-            text = dialect.and_.join(parenthesize(body, level, AND) for body, level in rendered)
+            text = " and ".join(parenthesize(body, level, AND) for body, level in rendered)
             groups.append((text, AND))
     if len(groups) == 1:
         return groups[0][0]
-    return dialect.or_.join(parenthesize(text, level, INSIDE_OR) for text, level in groups)
+    return " or ".join(parenthesize(text, level, INSIDE_OR) for text, level in groups)
 
 
 def group_locales(rules_by_locale: dict[str, tuple[Rule, ...]]) -> list[tuple[tuple[Rule, ...], list[str]]]:
@@ -268,10 +231,10 @@ def used_operands(rules: tuple[Rule, ...]) -> set[str]:
 def parameter_names(rules: tuple[Rule, ...]) -> list[str]:
     """Operand names for one rule function, underscore-prefixed where the rule ignores them.
 
-    Every rule shares one eight-operand signature, so most rules ignore most of it. Both languages
-    read a leading underscore as "deliberately unused" — ruff through ``dummy-variable-rgx``, ESLint
-    through ``argsIgnorePattern`` — which keeps the generated output lint-clean without blanket
-    per-file suppressions.
+    Every rule shares one eight-operand signature, so most rules ignore most of it. A leading
+    underscore is what ruff reads as "deliberately unused" (``dummy-variable-rgx`` in
+    ``pyproject.toml``), which keeps the generated output lint-clean without a blanket per-file
+    suppression.
     """
     used = used_operands(rules)
     return [operand if operand in used else f"_{operand}" for operand in OPERANDS]
@@ -322,7 +285,7 @@ def generate_python(version: str, rules_by_locale: dict[str, tuple[Rule, ...]]) 
         for rule in rules:
             if rule.category == "other":
                 continue
-            lines.append(f"    if {emit_condition(rule.condition, PY)}:")
+            lines.append(f"    if {emit_condition(rule.condition)}:")
             lines.append(f'        return "{rule.category}"')
         lines.append('    return "other"')
         lines.append("")

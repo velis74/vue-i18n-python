@@ -75,9 +75,9 @@ class Scanner:
 
         JavaScript strings are UTF-16, so upstream's offsets and columns count an astral character —
         an emoji, most CJK extension characters — as two. Python counts it as one. Reporting code
-        points here would make every location past the first emoji in a message disagree with the
-        TypeScript port by one, which the conformance corpus would then have to paper over per
-        message. Counting units instead costs one integer and keeps the two ports byte-identical on
+        points here would make every location past the first emoji in a message disagree with
+        upstream by one, which the conformance corpus would then have to paper over per message.
+        Counting units instead costs one integer and keeps this port byte-identical with upstream on
         locations, so a location in a fixture means the same thing in both languages.
         """
         return self._index16

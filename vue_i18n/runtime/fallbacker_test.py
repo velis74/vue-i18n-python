@@ -2,10 +2,10 @@
 
 ``conformance/fallback.json`` holds, for every (start locale, ``fallbackLocale``) pair, what
 ``intlify/vue-i18n``'s own ``fallbackWithSimple`` and ``fallbackWithLocaleChain`` return. This file
-checks that this port returns exactly that; its TypeScript twin reads the same file.
+checks that this port returns exactly that.
 
-A fixture is the contract and the two ports are the things being held to it. If a change here makes
-a case fail, the port is wrong until proven otherwise - do not edit the corpus to match the port.
+The fixture is the contract and the port is the thing being held to it. If a change here makes a
+case fail, the port is wrong until proven otherwise - do not edit the corpus to match the port.
 
 The tests below the corpus runner are not extra cases: each one pins a piece of upstream behaviour
 that is surprising enough that a later "cleanup" would plausibly break it. Their expected values were

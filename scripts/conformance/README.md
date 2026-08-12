@@ -1,6 +1,6 @@
 # Conformance corpus generators
 
-The corpora under `conformance/` are the contract both ports are held to, and every case in them is
+The corpora under `conformance/` are the contract this port is held to, and every case in them is
 produced by running **intlify/vue-i18n's own TypeScript**, never by hand. These are the scripts that
 do the running. They live here rather than in a scratch directory so that a corpus can still be
 regenerated in a year, by someone who was not there when it was first written.
@@ -38,14 +38,11 @@ for two reasons: upstream's sources use `const enum`, which Node's built-in type
 and they import each other as `@intlify/*`, which resolves only through the clone's own tsconfig
 `paths`. Nothing is installed in the clone — no `pnpm install`, no build of upstream's own dist.
 
-Two things about that resolution are worth knowing before touching `bundle-upstream.sh`:
-
-- esbuild will warn that it cannot find this repository's own `tsconfig.json` base config. It is
-  harmless (that config is for `ts/`, and it needs an npm install this script does not want).
-- Passing `--tsconfig` to silence the warning **breaks the build**: the flag applies one config to
-  every file, upstream's `paths` stop applying, and `@intlify/shared` then resolves to whatever
-  version happens to be installed in some `node_modules` up the tree — a *different* vue-i18n,
-  silently. `bundle-upstream.sh` checks the bundles for that and fails instead.
+One thing about that resolution is worth knowing before touching `bundle-upstream.sh`: **never pass
+`--tsconfig`.** The flag applies one config to every file, upstream's `paths` stop applying, and
+`@intlify/shared` then resolves to whatever version happens to be installed in some `node_modules`
+up the tree — a *different* vue-i18n, silently. `bundle-upstream.sh` checks the bundles for that and
+fails instead. Let esbuild resolve each file against the clone's own config.
 
 Node 22 or newer, and esbuild is fetched by `npx` at a pinned version; nothing else is required.
 

@@ -86,8 +86,8 @@ def format_parts(ctx: MessageContext, ast: ResourceNode) -> Any:
 
     if isinstance(body, PluralNode):
         # Every branch is rendered before one is chosen, exactly as upstream does. It costs work
-        # that is thrown away, but a branch can have side effects through a custom modifier and the
-        # two ports have to agree on whether those run.
+        # that is thrown away, but a branch can have side effects through a custom modifier, and
+        # this port has to agree with upstream on whether those run.
         return ctx.plural([format_message_parts(ctx, case) for case in body.cases])
 
     return format_message_parts(ctx, body)

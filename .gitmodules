@@ -1,0 +1,3 @@
+[submodule "vendor/vue-i18n"]
+	path = vendor/vue-i18n
+	url = https://github.com/intlify/vue-i18n.git

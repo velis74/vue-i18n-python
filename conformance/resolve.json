@@ -1,6 +1,6 @@
 {
- "$comment": "Generated from intlify/vue-i18n @ 12.0.0-alpha.4 by running packages/core-base/src/resolver.ts over each (obj, path) pair. `keys` is parse()'s result, null where it fails; `value` is resolveValue(); `keyValue` classifies resolveWithKeyValue() - kind \"value\" when the key is an own property, \"undefined\" when it is absent, and \"prototype\" when JavaScript answered from the prototype chain, which this port deliberately does not do. Every object is JSON round-tripped, so \"__proto__\" is an own property just as it is in a loaded .json resource. Regenerate only when upstream changes, and say so in the commit.",
- "upstream": "intlify/vue-i18n@12.0.0-alpha.4",
+ "$comment": "Generated from intlify/vue-i18n @ 11.4.8 by running packages/core-base/src/resolver.ts over each (obj, path) pair. `keys` is parse()'s result, null where it fails; `value` is resolveValue(); `keyValue` classifies resolveWithKeyValue() - kind \"value\" when the key is an own property, \"undefined\" when it is absent, and \"prototype\" when JavaScript answered from the prototype chain, which this port deliberately does not do. Every object is JSON round-tripped, so \"__proto__\" is an own property just as it is in a loaded .json resource. Regenerate only when upstream changes, and say so in the commit.",
+ "upstream": "intlify/vue-i18n@11.4.8",
  "cases": [
   {
    "obj": {

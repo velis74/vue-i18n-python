@@ -1,6 +1,6 @@
 {
- "$comment": "Generated from intlify/vue-i18n @ 12.0.0-alpha.4 by calling fallbackWithSimple() and fallbackWithLocaleChain() with a fresh context for every (start, fallback) pair. The TypeScript result is the source of truth; both ports are held to it. Regenerate only when upstream changes, and say so in the commit. Each fallback is recorded as the JSON text it was written as, never re-serialised from the parsed JavaScript object: that would rewrite a map's keys into Object.keys order and drop an own '__proto__' key, and the corpus could then no longer tell a port that gets those right from one that does not.",
- "upstream": "intlify/vue-i18n@12.0.0-alpha.4",
+ "$comment": "Generated from intlify/vue-i18n by scripts/conformance/generate_fallback_corpus.mjs, running packages/core-base/src/fallbacker.ts over each (start, fallbackLocale) pair. `simple` is fallbackWithSimple() and `chain` is fallbackWithLocaleChain(). A `fallback` of null means the option was undefined. Regenerate only when upstream changes, and say so in the commit.",
+ "upstream": "intlify/vue-i18n@11.4.8",
  "cases": [
   {
    "start": "en-US",
@@ -38,33 +38,25 @@
   },
   {
    "start": "en-US",
-   "fallback": "en-US",
-   "simple": [
-    "en-US"
-   ],
-   "chain": [
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": "en!",
+   "fallback": "sl",
    "simple": [
     "en-US",
-    "en!"
+    "sl"
    ],
    "chain": [
     "en-US",
     "en",
-    "en"
+    "sl"
    ]
   },
   {
    "start": "en-US",
-   "fallback": [],
+   "fallback": [
+    "en"
+   ],
    "simple": [
-    "en-US"
+    "en-US",
+    "en"
    ],
    "chain": [
     "en-US",
@@ -74,127 +66,46 @@
   {
    "start": "en-US",
    "fallback": [
-    "en",
-    "de"
-   ],
-   "simple": [
-    "en-US",
-    "en",
-    "de"
-   ],
-   "chain": [
-    "en-US",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": [
-    "en!",
-    "de"
-   ],
-   "simple": [
-    "en-US",
-    "en!",
-    "de"
-   ],
-   "chain": [
-    "en-US",
-    "en",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": [
-    "sl-SI",
     "sl",
-    "en-US"
+    "en"
    ],
    "simple": [
     "en-US",
-    "sl-SI",
-    "sl"
+    "sl",
+    "en"
    ],
    "chain": [
     "en-US",
     "en",
-    "sl-SI",
     "sl"
    ]
   },
   {
    "start": "en-US",
-   "fallback": {
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "en-US",
-    "default"
-   ],
-   "chain": [
-    "en-US",
+   "fallback": [
+    "hr",
+    "sr",
     "en"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "en-US",
-    "default"
    ],
-   "chain": [
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": {
-    "default": []
-   },
    "simple": [
     "en-US",
-    "default"
-   ],
-   "chain": [
-    "en-US",
+    "hr",
+    "sr",
     "en"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": {
-    "en-US": [
-     "en"
-    ],
-    "default": [
-     "ja"
-    ]
-   },
-   "simple": [
-    "en-US",
-    "default"
    ],
    "chain": [
     "en-US",
     "en",
-    "ja"
+    "hr",
+    "sr"
    ]
   },
   {
    "start": "en-US",
    "fallback": {
     "sl-SI": [
-     "hr",
-     "en!"
+     "sl",
+     "en"
     ],
     "default": [
      "en"
@@ -213,117 +124,21 @@
   {
    "start": "en-US",
    "fallback": {
-    "a": [
-     "b"
-    ],
-    "b": [
-     "a"
-    ]
-   },
-   "simple": [
-    "en-US",
-    "a",
-    "b"
-   ],
-   "chain": [
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
+    "de-AT": [
+     "de",
      "en"
     ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "en-US",
-    "de-DE",
-    "de",
-    "default"
-   ],
-   "chain": [
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": {
-    "en-US": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "en-US"
-   ],
-   "chain": [
-    "en-US"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": {
-    "sl-SI": []
-   },
-   "simple": [
-    "en-US",
-    "sl-SI"
-   ],
-   "chain": [
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": {
     "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
+     "sl"
     ],
     "default": [
-     "en-US"
+     "en"
     ]
    },
    "simple": [
     "en-US",
+    "de-AT",
     "sl-SI",
-    "hr-HR",
-    "default"
-   ],
-   "chain": [
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "en-US",
-   "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
-    ],
-    "zh-Hant": [
-     "zh"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "en-US",
-    "zh-Hant-TW",
-    "zh-Hant",
     "default"
    ],
    "chain": [
@@ -335,7 +150,8 @@
    "start": "en-US",
    "fallback": {
     "sr-Latn-RS": [
-     "sr-Latn!"
+     "sr",
+     "hr"
     ],
     "default": [
      "en"
@@ -354,8 +170,146 @@
   {
    "start": "en-US",
    "fallback": {
-    "": [
+    "default": [
      "en"
+    ]
+   },
+   "simple": [
+    "en-US",
+    "default"
+   ],
+   "chain": [
+    "en-US",
+    "en"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en-US"
+   ],
+   "chain": [
+    "en-US",
+    "en"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en-US",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "en-US",
+    "en"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "en-US",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "en-US",
+    "en",
+    "sl"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en-US",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "en-US",
+    "en"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en-US",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "en-US",
+    "en"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en-US",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "en-US",
+    "en"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
     ],
     "default": [
      "de"
@@ -363,13 +317,84 @@
    },
    "simple": [
     "en-US",
-    "",
+    "a",
     "default"
    ],
    "chain": [
     "en-US",
     "en",
     "de"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "en-US",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "en-US",
+    "en",
+    "de"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "en-US",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "en-US",
+    "en"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": {},
+   "simple": [
+    "en-US"
+   ],
+   "chain": [
+    "en-US",
+    "en"
+   ]
+  },
+  {
+   "start": "en-US",
+   "fallback": [],
+   "simple": [
+    "en-US"
+   ],
+   "chain": [
+    "en-US",
+    "en"
    ]
   },
   {
@@ -404,31 +429,21 @@
   },
   {
    "start": "en",
-   "fallback": "en-US",
+   "fallback": "sl",
    "simple": [
     "en",
-    "en-US"
+    "sl"
    ],
    "chain": [
     "en",
-    "en-US"
+    "sl"
    ]
   },
   {
    "start": "en",
-   "fallback": "en!",
-   "simple": [
-    "en",
-    "en!"
-   ],
-   "chain": [
-    "en",
+   "fallback": [
     "en"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": [],
+   ],
    "simple": [
     "en"
    ],
@@ -439,122 +454,42 @@
   {
    "start": "en",
    "fallback": [
-    "en",
-    "de"
+    "sl",
+    "en"
    ],
    "simple": [
     "en",
-    "de"
+    "sl"
    ],
    "chain": [
     "en",
-    "de"
+    "sl"
    ]
   },
   {
    "start": "en",
    "fallback": [
-    "en!",
-    "de"
-   ],
-   "simple": [
-    "en",
-    "en!",
-    "de"
-   ],
-   "chain": [
-    "en",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": [
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "simple": [
-    "en",
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "chain": [
-    "en",
-    "sl-SI",
-    "sl",
-    "en-US"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": {
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "en",
-    "default"
-   ],
-   "chain": [
+    "hr",
+    "sr",
     "en"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "en",
-    "default"
    ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": {
-    "default": []
-   },
    "simple": [
     "en",
-    "default"
-   ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": {
-    "en-US": [
-     "en"
-    ],
-    "default": [
-     "ja"
-    ]
-   },
-   "simple": [
-    "en",
-    "en-US",
-    "default"
+    "hr",
+    "sr"
    ],
    "chain": [
     "en",
-    "ja"
+    "hr",
+    "sr"
    ]
   },
   {
    "start": "en",
    "fallback": {
     "sl-SI": [
-     "hr",
-     "en!"
+     "sl",
+     "en"
     ],
     "default": [
      "en"
@@ -572,116 +507,21 @@
   {
    "start": "en",
    "fallback": {
-    "a": [
-     "b"
-    ],
-    "b": [
-     "a"
-    ]
-   },
-   "simple": [
-    "en",
-    "a",
-    "b"
-   ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
+    "de-AT": [
+     "de",
      "en"
     ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "en",
-    "de-DE",
-    "de",
-    "default"
-   ],
-   "chain": [
-    "en",
-    "en-US"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": {
-    "en-US": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "en",
-    "en-US"
-   ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": {
-    "sl-SI": []
-   },
-   "simple": [
-    "en",
-    "sl-SI"
-   ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": {
     "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
+     "sl"
     ],
     "default": [
-     "en-US"
+     "en"
     ]
    },
    "simple": [
     "en",
+    "de-AT",
     "sl-SI",
-    "hr-HR",
-    "default"
-   ],
-   "chain": [
-    "en",
-    "en-US"
-   ]
-  },
-  {
-   "start": "en",
-   "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
-    ],
-    "zh-Hant": [
-     "zh"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "en",
-    "zh-Hant-TW",
-    "zh-Hant",
     "default"
    ],
    "chain": [
@@ -692,7 +532,8 @@
    "start": "en",
    "fallback": {
     "sr-Latn-RS": [
-     "sr-Latn!"
+     "sr",
+     "hr"
     ],
     "default": [
      "en"
@@ -710,8 +551,138 @@
   {
    "start": "en",
    "fallback": {
-    "": [
+    "default": [
      "en"
+    ]
+   },
+   "simple": [
+    "en",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en",
+    "en-US"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "en",
+    "sl!"
+   ],
+   "chain": [
+    "en",
+    "sl"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
     ],
     "default": [
      "de"
@@ -719,12 +690,79 @@
    },
    "simple": [
     "en",
-    "",
+    "a",
     "default"
    ],
    "chain": [
     "en",
     "de"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "en",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "en",
+    "de"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "en",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": {},
+   "simple": [
+    "en"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en",
+   "fallback": [],
+   "simple": [
+    "en"
+   ],
+   "chain": [
+    "en"
    ]
   },
   {
@@ -764,36 +802,10 @@
   },
   {
    "start": "sl-SI",
-   "fallback": "en-US",
+   "fallback": "sl",
    "simple": [
     "sl-SI",
-    "en-US"
-   ],
-   "chain": [
-    "sl-SI",
-    "sl",
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "sl-SI",
-   "fallback": "en!",
-   "simple": [
-    "sl-SI",
-    "en!"
-   ],
-   "chain": [
-    "sl-SI",
-    "sl",
-    "en"
-   ]
-  },
-  {
-   "start": "sl-SI",
-   "fallback": [],
-   "simple": [
-    "sl-SI"
+    "sl"
    ],
    "chain": [
     "sl-SI",
@@ -803,55 +815,121 @@
   {
    "start": "sl-SI",
    "fallback": [
-    "en",
-    "de"
+    "en"
    ],
    "simple": [
     "sl-SI",
-    "en",
-    "de"
+    "en"
    ],
    "chain": [
     "sl-SI",
     "sl",
-    "en",
-    "de"
+    "en"
    ]
   },
   {
    "start": "sl-SI",
    "fallback": [
-    "en!",
-    "de"
+    "sl",
+    "en"
    ],
    "simple": [
     "sl-SI",
-    "en!",
-    "de"
+    "sl",
+    "en"
    ],
    "chain": [
     "sl-SI",
     "sl",
-    "en",
-    "de"
+    "en"
    ]
   },
   {
    "start": "sl-SI",
    "fallback": [
-    "sl-SI",
-    "sl",
-    "en-US"
+    "hr",
+    "sr",
+    "en"
    ],
    "simple": [
     "sl-SI",
-    "sl",
-    "en-US"
+    "hr",
+    "sr",
+    "en"
    ],
    "chain": [
     "sl-SI",
     "sl",
-    "en-US",
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl-SI",
+    "de-AT",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl-SI",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
     "en"
    ]
   },
@@ -870,35 +948,6 @@
     "sl-SI",
     "sl",
     "en"
-   ]
-  },
-  {
-   "start": "sl-SI",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "sl-SI",
-    "default"
-   ],
-   "chain": [
-    "sl-SI",
-    "sl",
-    "en"
-   ]
-  },
-  {
-   "start": "sl-SI",
-   "fallback": {
-    "default": []
-   },
-   "simple": [
-    "sl-SI",
-    "default"
-   ],
-   "chain": [
-    "sl-SI",
-    "sl"
    ]
   },
   {
@@ -906,28 +955,22 @@
    "fallback": {
     "en-US": [
      "en"
-    ],
-    "default": [
-     "ja"
     ]
    },
    "simple": [
     "sl-SI",
-    "en-US",
-    "default"
+    "en-US"
    ],
    "chain": [
     "sl-SI",
-    "sl",
-    "ja"
+    "sl"
    ]
   },
   {
    "start": "sl-SI",
    "fallback": {
     "sl-SI": [
-     "hr",
-     "en!"
+     "sl!"
     ],
     "default": [
      "en"
@@ -939,6 +982,50 @@
    ],
    "chain": [
     "sl-SI",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "sl-SI",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
     "hr",
     "en"
    ]
@@ -946,17 +1033,114 @@
   {
    "start": "sl-SI",
    "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl-SI",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI",
+   "fallback": {
     "a": [
      "b"
     ],
     "b": [
      "a"
+    ],
+    "default": [
+     "en"
     ]
    },
    "simple": [
     "sl-SI",
     "a",
-    "b"
+    "b",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "sl-SI",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "de"
+   ]
+  },
+  {
+   "start": "sl-SI",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "sl-SI",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "de"
+   ]
+  },
+  {
+   "start": "sl-SI",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "sl-SI",
+    "1",
+    "2",
+    "b",
+    "a"
    ],
    "chain": [
     "sl-SI",
@@ -965,40 +1149,9 @@
   },
   {
    "start": "sl-SI",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
+   "fallback": {},
    "simple": [
-    "sl-SI",
-    "de-DE",
-    "de",
-    "default"
-   ],
-   "chain": [
-    "sl-SI",
-    "sl",
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "sl-SI",
-   "fallback": {
-    "en-US": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "sl-SI",
-    "en-US"
+    "sl-SI"
    ],
    "chain": [
     "sl-SI",
@@ -1007,107 +1160,1187 @@
   },
   {
    "start": "sl-SI",
-   "fallback": {
-    "sl-SI": []
-   },
+   "fallback": [],
    "simple": [
     "sl-SI"
    ],
    "chain": [
-    "sl-SI"
+    "sl-SI",
+    "sl"
    ]
   },
   {
-   "start": "sl-SI",
-   "fallback": {
-    "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
+   "start": "sl",
+   "fallback": false,
    "simple": [
-    "sl-SI",
-    "hr-HR",
-    "default"
+    "sl"
    ],
    "chain": [
-    "sl-SI",
-    "hr-HR",
-    "en",
-    "en-US"
+    "sl"
    ]
   },
   {
-   "start": "sl-SI",
-   "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
-    ],
-    "zh-Hant": [
-     "zh"
-    ],
-    "default": [
-     "en"
-    ]
-   },
+   "start": "sl",
+   "fallback": null,
    "simple": [
-    "sl-SI",
-    "zh-Hant-TW",
-    "zh-Hant",
-    "default"
+    "sl"
    ],
    "chain": [
-    "sl-SI",
+    "sl"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": "en",
+   "simple": [
+    "sl",
+    "en"
+   ],
+   "chain": [
     "sl",
     "en"
    ]
   },
   {
-   "start": "sl-SI",
+   "start": "sl",
+   "fallback": "sl",
+   "simple": [
+    "sl"
+   ],
+   "chain": [
+    "sl"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "sl",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "sl",
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
    "fallback": {
-    "sr-Latn-RS": [
-     "sr-Latn!"
+    "sl-SI": [
+     "sl",
+     "en"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
+    "sl",
     "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl",
     "sr-Latn-RS",
     "default"
    ],
    "chain": [
-    "sl-SI",
     "sl",
     "en"
    ]
   },
   {
-   "start": "sl-SI",
+   "start": "sl",
    "fallback": {
-    "": [
+    "default": [
      "en"
+    ]
+   },
+   "simple": [
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl",
+    "en-US"
+   ],
+   "chain": [
+    "sl"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "sl",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "sl",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "sl",
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
     ],
     "default": [
      "de"
     ]
    },
    "simple": [
-    "sl-SI",
-    "",
+    "sl",
+    "a",
     "default"
    ],
    "chain": [
-    "sl-SI",
     "sl",
     "de"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "sl",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "sl",
+    "de"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "sl",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "sl"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": {},
+   "simple": [
+    "sl"
+   ],
+   "chain": [
+    "sl"
+   ]
+  },
+  {
+   "start": "sl",
+   "fallback": [],
+   "simple": [
+    "sl"
+   ],
+   "chain": [
+    "sl"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": false,
+   "simple": [
+    "de-AT"
+   ],
+   "chain": [
+    "de-AT",
+    "de"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": null,
+   "simple": [
+    "de-AT"
+   ],
+   "chain": [
+    "de-AT",
+    "de"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": "en",
+   "simple": [
+    "de-AT",
+    "en"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": "sl",
+   "simple": [
+    "de-AT",
+    "sl"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "sl"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "de-AT",
+    "en"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "de-AT",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "de-AT",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "en-US"
+   ],
+   "chain": [
+    "de-AT",
+    "de"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "de-AT",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de",
+    "en"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "de-AT",
+    "de"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "de-AT",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "de-AT",
+    "de"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": {},
+   "simple": [
+    "de-AT"
+   ],
+   "chain": [
+    "de-AT",
+    "de"
+   ]
+  },
+  {
+   "start": "de-AT",
+   "fallback": [],
+   "simple": [
+    "de-AT"
+   ],
+   "chain": [
+    "de-AT",
+    "de"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": false,
+   "simple": [
+    "hr"
+   ],
+   "chain": [
+    "hr"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": null,
+   "simple": [
+    "hr"
+   ],
+   "chain": [
+    "hr"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": "en",
+   "simple": [
+    "hr",
+    "en"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": "sl",
+   "simple": [
+    "hr",
+    "sl"
+   ],
+   "chain": [
+    "hr",
+    "sl"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "hr",
+    "en"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "hr",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "hr",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hr",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hr",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hr",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hr",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hr",
+    "en-US"
+   ],
+   "chain": [
+    "hr"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hr",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "hr",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "hr",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hr",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hr",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hr",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "hr",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "de"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "hr",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "hr",
+    "de"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "hr",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "hr"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": {},
+   "simple": [
+    "hr"
+   ],
+   "chain": [
+    "hr"
+   ]
+  },
+  {
+   "start": "hr",
+   "fallback": [],
+   "simple": [
+    "hr"
+   ],
+   "chain": [
+    "hr"
    ]
   },
   {
@@ -1150,7 +2383,171 @@
   },
   {
    "start": "sr-Latn-RS",
-   "fallback": "en-US",
+   "fallback": "sl",
+   "simple": [
+    "sr-Latn-RS",
+    "sl"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "sl"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "sr-Latn-RS",
+    "en"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "sr-Latn-RS",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "sr-Latn-RS",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr",
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
    "simple": [
     "sr-Latn-RS",
     "en-US"
@@ -1158,23 +2555,209 @@
    "chain": [
     "sr-Latn-RS",
     "sr-Latn",
-    "sr",
-    "en-US",
-    "en"
+    "sr"
    ]
   },
   {
    "start": "sr-Latn-RS",
-   "fallback": "en!",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
    "simple": [
     "sr-Latn-RS",
-    "en!"
+    "sl-SI",
+    "default"
    ],
    "chain": [
     "sr-Latn-RS",
     "sr-Latn",
     "sr",
     "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "sr-Latn-RS",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "de"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr",
+    "de"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "sr-Latn-RS",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr"
+   ]
+  },
+  {
+   "start": "sr-Latn-RS",
+   "fallback": {},
+   "simple": [
+    "sr-Latn-RS"
+   ],
+   "chain": [
+    "sr-Latn-RS",
+    "sr-Latn",
+    "sr"
    ]
   },
   {
@@ -1190,334 +2773,1164 @@
    ]
   },
   {
-   "start": "sr-Latn-RS",
-   "fallback": [
-    "en",
-    "de"
-   ],
+   "start": "hu",
+   "fallback": false,
    "simple": [
-    "sr-Latn-RS",
-    "en",
-    "de"
+    "hu"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
-    "en",
-    "de"
+    "hu"
    ]
   },
   {
-   "start": "sr-Latn-RS",
-   "fallback": [
-    "en!",
-    "de"
-   ],
+   "start": "hu",
+   "fallback": null,
    "simple": [
-    "sr-Latn-RS",
-    "en!",
-    "de"
+    "hu"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
-    "en",
-    "de"
+    "hu"
    ]
   },
   {
-   "start": "sr-Latn-RS",
-   "fallback": [
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
+   "start": "hu",
+   "fallback": "en",
    "simple": [
-    "sr-Latn-RS",
-    "sl-SI",
-    "sl",
-    "en-US"
+    "hu",
+    "en"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
-    "sl-SI",
-    "sl",
-    "en-US",
+    "hu",
     "en"
    ]
   },
   {
-   "start": "sr-Latn-RS",
+   "start": "hu",
+   "fallback": "sl",
+   "simple": [
+    "hu",
+    "sl"
+   ],
+   "chain": [
+    "hu",
+    "sl"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "hu",
+    "en"
+   ],
+   "chain": [
+    "hu",
+    "en"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "hu",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "hu",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "hu",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "hu",
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hu",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "hu",
+    "en"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hu",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "hu",
+    "en"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hu",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "hu",
+    "en"
+   ]
+  },
+  {
+   "start": "hu",
    "fallback": {
     "default": [
      "en"
     ]
    },
    "simple": [
-    "sr-Latn-RS",
+    "hu",
     "default"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
+    "hu",
     "en"
    ]
   },
   {
-   "start": "sr-Latn-RS",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "sr-Latn-RS",
-    "default"
-   ],
-   "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
-    "en"
-   ]
-  },
-  {
-   "start": "sr-Latn-RS",
-   "fallback": {
-    "default": []
-   },
-   "simple": [
-    "sr-Latn-RS",
-    "default"
-   ],
-   "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr"
-   ]
-  },
-  {
-   "start": "sr-Latn-RS",
+   "start": "hu",
    "fallback": {
     "en-US": [
      "en"
-    ],
-    "default": [
-     "ja"
     ]
    },
    "simple": [
-    "sr-Latn-RS",
-    "en-US",
-    "default"
+    "hu",
+    "en-US"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
-    "ja"
+    "hu"
    ]
   },
   {
-   "start": "sr-Latn-RS",
+   "start": "hu",
    "fallback": {
     "sl-SI": [
-     "hr",
-     "en!"
+     "sl!"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
-    "sr-Latn-RS",
+    "hu",
     "sl-SI",
     "default"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
+    "hu",
     "en"
    ]
   },
   {
-   "start": "sr-Latn-RS",
+   "start": "hu",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "hu",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "hu",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hu",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "hu",
+    "en"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "hu",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "hu",
+    "en"
+   ]
+  },
+  {
+   "start": "hu",
    "fallback": {
     "a": [
      "b"
     ],
     "b": [
      "a"
-    ]
-   },
-   "simple": [
-    "sr-Latn-RS",
-    "a",
-    "b"
-   ],
-   "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr"
-   ]
-  },
-  {
-   "start": "sr-Latn-RS",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
-     "en"
     ],
     "default": [
-     "en-US"
+     "en"
     ]
    },
    "simple": [
-    "sr-Latn-RS",
-    "de-DE",
-    "de",
+    "hu",
+    "a",
+    "b",
     "default"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
-    "en-US",
+    "hu",
     "en"
    ]
   },
   {
-   "start": "sr-Latn-RS",
+   "start": "hu",
    "fallback": {
-    "en-US": [
-     "en-US"
+    "a": [
+     "toString",
+     "fr"
+    ],
+    "default": [
+     "de"
     ]
    },
    "simple": [
+    "hu",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "hu",
+    "de"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "hu",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "hu",
+    "de"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "hu",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "hu"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": {},
+   "simple": [
+    "hu"
+   ],
+   "chain": [
+    "hu"
+   ]
+  },
+  {
+   "start": "hu",
+   "fallback": [],
+   "simple": [
+    "hu"
+   ],
+   "chain": [
+    "hu"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": false,
+   "simple": [
+    "it"
+   ],
+   "chain": [
+    "it"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": null,
+   "simple": [
+    "it"
+   ],
+   "chain": [
+    "it"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": "en",
+   "simple": [
+    "it",
+    "en"
+   ],
+   "chain": [
+    "it",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": "sl",
+   "simple": [
+    "it",
+    "sl"
+   ],
+   "chain": [
+    "it",
+    "sl"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "it",
+    "en"
+   ],
+   "chain": [
+    "it",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "it",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "it",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "it",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "it",
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "it",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "it",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "it",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "it",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "it",
     "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "it",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": {
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "it",
+    "default"
+   ],
+   "chain": [
+    "it",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
+   "simple": [
+    "it",
     "en-US"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr"
+    "it"
    ]
   },
   {
-   "start": "sr-Latn-RS",
-   "fallback": {
-    "sl-SI": []
-   },
-   "simple": [
-    "sr-Latn-RS",
-    "sl-SI"
-   ],
-   "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr"
-   ]
-  },
-  {
-   "start": "sr-Latn-RS",
+   "start": "it",
    "fallback": {
     "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
+     "sl!"
     ],
     "default": [
-     "en-US"
+     "en"
     ]
    },
    "simple": [
-    "sr-Latn-RS",
+    "it",
     "sl-SI",
-    "hr-HR",
     "default"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
-    "en-US",
+    "it",
     "en"
    ]
   },
   {
-   "start": "sr-Latn-RS",
+   "start": "it",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "it",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "it",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
    "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
+    "sl-SI": [
+     "sl"
     ],
-    "zh-Hant": [
-     "zh"
+    "sl": [
+     "hr",
+     "en"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
-    "sr-Latn-RS",
-    "zh-Hant-TW",
-    "zh-Hant",
+    "it",
+    "sl-SI",
+    "sl",
     "default"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
+    "it",
     "en"
    ]
   },
   {
-   "start": "sr-Latn-RS",
+   "start": "it",
    "fallback": {
-    "sr-Latn-RS": [
-     "sr-Latn!"
+    "en": [
+     "en"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
-    "sr-Latn-RS",
+    "it",
+    "en",
     "default"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
+    "it",
     "en"
    ]
   },
   {
-   "start": "sr-Latn-RS",
+   "start": "it",
    "fallback": {
-    "": [
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
      "en"
+    ]
+   },
+   "simple": [
+    "it",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "it",
+    "en"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
     ],
     "default": [
      "de"
     ]
    },
    "simple": [
-    "sr-Latn-RS",
-    "",
+    "it",
+    "a",
     "default"
    ],
    "chain": [
-    "sr-Latn-RS",
-    "sr-Latn",
-    "sr",
+    "it",
     "de"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "it",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "it",
+    "de"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "it",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "it"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": {},
+   "simple": [
+    "it"
+   ],
+   "chain": [
+    "it"
+   ]
+  },
+  {
+   "start": "it",
+   "fallback": [],
+   "simple": [
+    "it"
+   ],
+   "chain": [
+    "it"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": false,
+   "simple": [
+    "bs"
+   ],
+   "chain": [
+    "bs"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": null,
+   "simple": [
+    "bs"
+   ],
+   "chain": [
+    "bs"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": "en",
+   "simple": [
+    "bs",
+    "en"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": "sl",
+   "simple": [
+    "bs",
+    "sl"
+   ],
+   "chain": [
+    "bs",
+    "sl"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "bs",
+    "en"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "bs",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "bs",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "bs",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "bs",
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "bs",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "bs",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "bs",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "bs",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
+   "simple": [
+    "bs",
+    "en-US"
+   ],
+   "chain": [
+    "bs"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "bs",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "bs",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "bs",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "bs",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "bs",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "bs",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "en"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "bs",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "de"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "bs",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "bs",
+    "de"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "bs",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "bs"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": {},
+   "simple": [
+    "bs"
+   ],
+   "chain": [
+    "bs"
+   ]
+  },
+  {
+   "start": "bs",
+   "fallback": [],
+   "simple": [
+    "bs"
+   ],
+   "chain": [
+    "bs"
    ]
   },
   {
@@ -1560,7 +3973,173 @@
   },
   {
    "start": "zh-Hant-TW",
-   "fallback": "en-US",
+   "fallback": "sl",
+   "simple": [
+    "zh-Hant-TW",
+    "sl"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "sl"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "zh-Hant-TW",
+    "en"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "zh-Hant-TW",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "zh-Hant-TW",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "default"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
    "simple": [
     "zh-Hant-TW",
     "en-US"
@@ -1568,23 +4147,209 @@
    "chain": [
     "zh-Hant-TW",
     "zh-Hant",
-    "zh",
-    "en-US",
-    "en"
+    "zh"
    ]
   },
   {
    "start": "zh-Hant-TW",
-   "fallback": "en!",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
    "simple": [
     "zh-Hant-TW",
-    "en!"
+    "sl-SI",
+    "default"
    ],
    "chain": [
     "zh-Hant-TW",
     "zh-Hant",
     "zh",
     "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "zh-Hant-TW",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "en"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "de"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh",
+    "de"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "zh-Hant-TW",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh"
+   ]
+  },
+  {
+   "start": "zh-Hant-TW",
+   "fallback": {},
+   "simple": [
+    "zh-Hant-TW"
+   ],
+   "chain": [
+    "zh-Hant-TW",
+    "zh-Hant",
+    "zh"
    ]
   },
   {
@@ -1600,1500 +4365,1208 @@
    ]
   },
   {
-   "start": "zh-Hant-TW",
-   "fallback": [
-    "en",
-    "de"
-   ],
-   "simple": [
-    "zh-Hant-TW",
-    "en",
-    "de"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": [
-    "en!",
-    "de"
-   ],
-   "simple": [
-    "zh-Hant-TW",
-    "en!",
-    "de"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": [
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "simple": [
-    "zh-Hant-TW",
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "sl-SI",
-    "sl",
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "en"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "en"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "default": []
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "en-US": [
-     "en"
-    ],
-    "default": [
-     "ja"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "en-US",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "ja"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "sl-SI": [
-     "hr",
-     "en!"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "sl-SI",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "en"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "a": [
-     "b"
-    ],
-    "b": [
-     "a"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "a",
-    "b"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "de-DE",
-    "de",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "en-US": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "en-US"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "sl-SI": []
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "sl-SI"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "sl-SI",
-    "hr-HR",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
-    ],
-    "zh-Hant": [
-     "zh"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "en"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "sr-Latn-RS": [
-     "sr-Latn!"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "sr-Latn-RS",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "en"
-   ]
-  },
-  {
-   "start": "zh-Hant-TW",
-   "fallback": {
-    "": [
-     "en"
-    ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "zh-Hant-TW",
-    "",
-    "default"
-   ],
-   "chain": [
-    "zh-Hant-TW",
-    "zh-Hant",
-    "zh",
-    "de"
-   ]
-  },
-  {
-   "start": "de-DE",
+   "start": "pt-BR",
    "fallback": false,
    "simple": [
-    "de-DE"
+    "pt-BR"
    ],
    "chain": [
-    "de-DE",
-    "de"
+    "pt-BR",
+    "pt"
    ]
   },
   {
-   "start": "de-DE",
+   "start": "pt-BR",
    "fallback": null,
    "simple": [
-    "de-DE"
+    "pt-BR"
    ],
    "chain": [
-    "de-DE",
-    "de"
+    "pt-BR",
+    "pt"
    ]
   },
   {
-   "start": "de-DE",
+   "start": "pt-BR",
    "fallback": "en",
    "simple": [
-    "de-DE",
+    "pt-BR",
     "en"
    ],
    "chain": [
-    "de-DE",
-    "de",
+    "pt-BR",
+    "pt",
     "en"
    ]
   },
   {
-   "start": "de-DE",
-   "fallback": "en-US",
+   "start": "pt-BR",
+   "fallback": "sl",
    "simple": [
-    "de-DE",
-    "en-US"
+    "pt-BR",
+    "sl"
    ],
    "chain": [
-    "de-DE",
-    "de",
-    "en-US",
-    "en"
+    "pt-BR",
+    "pt",
+    "sl"
    ]
   },
   {
-   "start": "de-DE",
-   "fallback": "en!",
-   "simple": [
-    "de-DE",
-    "en!"
-   ],
-   "chain": [
-    "de-DE",
-    "de",
-    "en"
-   ]
-  },
-  {
-   "start": "de-DE",
-   "fallback": [],
-   "simple": [
-    "de-DE"
-   ],
-   "chain": [
-    "de-DE",
-    "de"
-   ]
-  },
-  {
-   "start": "de-DE",
+   "start": "pt-BR",
    "fallback": [
-    "en",
-    "de"
+    "en"
    ],
    "simple": [
-    "de-DE",
-    "en",
-    "de"
+    "pt-BR",
+    "en"
    ],
    "chain": [
-    "de-DE",
-    "de",
+    "pt-BR",
+    "pt",
     "en"
    ]
   },
   {
-   "start": "de-DE",
+   "start": "pt-BR",
    "fallback": [
-    "en!",
-    "de"
+    "sl",
+    "en"
    ],
    "simple": [
-    "de-DE",
-    "en!",
-    "de"
+    "pt-BR",
+    "sl",
+    "en"
    ],
    "chain": [
-    "de-DE",
-    "de",
+    "pt-BR",
+    "pt",
+    "sl",
     "en"
    ]
   },
   {
-   "start": "de-DE",
+   "start": "pt-BR",
    "fallback": [
-    "sl-SI",
-    "sl",
-    "en-US"
+    "hr",
+    "sr",
+    "en"
    ],
    "simple": [
-    "de-DE",
-    "sl-SI",
-    "sl",
-    "en-US"
+    "pt-BR",
+    "hr",
+    "sr",
+    "en"
    ],
    "chain": [
-    "de-DE",
-    "de",
-    "sl-SI",
-    "sl",
-    "en-US",
+    "pt-BR",
+    "pt",
+    "hr",
+    "sr",
     "en"
    ]
   },
   {
-   "start": "de-DE",
+   "start": "pt-BR",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "pt-BR",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt",
+    "en"
+   ]
+  },
+  {
+   "start": "pt-BR",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "pt-BR",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt",
+    "en"
+   ]
+  },
+  {
+   "start": "pt-BR",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "pt-BR",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt",
+    "en"
+   ]
+  },
+  {
+   "start": "pt-BR",
    "fallback": {
     "default": [
      "en"
     ]
    },
    "simple": [
-    "de-DE",
+    "pt-BR",
     "default"
    ],
    "chain": [
-    "de-DE",
-    "de",
+    "pt-BR",
+    "pt",
     "en"
    ]
   },
   {
-   "start": "de-DE",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "de-DE",
-    "default"
-   ],
-   "chain": [
-    "de-DE",
-    "de",
-    "en"
-   ]
-  },
-  {
-   "start": "de-DE",
-   "fallback": {
-    "default": []
-   },
-   "simple": [
-    "de-DE",
-    "default"
-   ],
-   "chain": [
-    "de-DE",
-    "de"
-   ]
-  },
-  {
-   "start": "de-DE",
+   "start": "pt-BR",
    "fallback": {
     "en-US": [
      "en"
-    ],
-    "default": [
-     "ja"
     ]
    },
    "simple": [
-    "de-DE",
-    "en-US",
-    "default"
+    "pt-BR",
+    "en-US"
    ],
    "chain": [
-    "de-DE",
-    "de",
-    "ja"
+    "pt-BR",
+    "pt"
    ]
   },
   {
-   "start": "de-DE",
+   "start": "pt-BR",
    "fallback": {
     "sl-SI": [
-     "hr",
-     "en!"
+     "sl!"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
-    "de-DE",
+    "pt-BR",
     "sl-SI",
     "default"
    ],
    "chain": [
-    "de-DE",
-    "de",
+    "pt-BR",
+    "pt",
     "en"
    ]
   },
   {
-   "start": "de-DE",
+   "start": "pt-BR",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "pt-BR",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "pt-BR",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "pt-BR",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt",
+    "en"
+   ]
+  },
+  {
+   "start": "pt-BR",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "pt-BR",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt",
+    "en"
+   ]
+  },
+  {
+   "start": "pt-BR",
    "fallback": {
     "a": [
      "b"
     ],
     "b": [
      "a"
+    ],
+    "default": [
+     "en"
     ]
    },
    "simple": [
-    "de-DE",
+    "pt-BR",
     "a",
-    "b"
-   ],
-   "chain": [
-    "de-DE",
-    "de"
-   ]
-  },
-  {
-   "start": "de-DE",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "de-DE",
-    "de",
+    "b",
     "default"
    ],
    "chain": [
-    "de-DE",
-    "de",
-    "en",
-    "en-US"
-   ]
-  },
-  {
-   "start": "de-DE",
-   "fallback": {
-    "en-US": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "de-DE",
-    "en-US"
-   ],
-   "chain": [
-    "de-DE",
-    "de"
-   ]
-  },
-  {
-   "start": "de-DE",
-   "fallback": {
-    "sl-SI": []
-   },
-   "simple": [
-    "de-DE",
-    "sl-SI"
-   ],
-   "chain": [
-    "de-DE",
-    "de"
-   ]
-  },
-  {
-   "start": "de-DE",
-   "fallback": {
-    "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "de-DE",
-    "sl-SI",
-    "hr-HR",
-    "default"
-   ],
-   "chain": [
-    "de-DE",
-    "de",
-    "en-US",
+    "pt-BR",
+    "pt",
     "en"
    ]
   },
   {
-   "start": "de-DE",
+   "start": "pt-BR",
    "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
-    ],
-    "zh-Hant": [
-     "zh"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "de-DE",
-    "zh-Hant-TW",
-    "zh-Hant",
-    "default"
-   ],
-   "chain": [
-    "de-DE",
-    "de",
-    "en"
-   ]
-  },
-  {
-   "start": "de-DE",
-   "fallback": {
-    "sr-Latn-RS": [
-     "sr-Latn!"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "de-DE",
-    "sr-Latn-RS",
-    "default"
-   ],
-   "chain": [
-    "de-DE",
-    "de",
-    "en"
-   ]
-  },
-  {
-   "start": "de-DE",
-   "fallback": {
-    "": [
-     "en"
+    "a": [
+     "toString",
+     "fr"
     ],
     "default": [
      "de"
     ]
    },
    "simple": [
-    "de-DE",
-    "",
+    "pt-BR",
+    "a",
     "default"
    ],
    "chain": [
-    "de-DE",
+    "pt-BR",
+    "pt",
     "de"
    ]
   },
   {
-   "start": "ja",
+   "start": "pt-BR",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "pt-BR",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt",
+    "de"
+   ]
+  },
+  {
+   "start": "pt-BR",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "pt-BR",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt"
+   ]
+  },
+  {
+   "start": "pt-BR",
+   "fallback": {},
+   "simple": [
+    "pt-BR"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt"
+   ]
+  },
+  {
+   "start": "pt-BR",
+   "fallback": [],
+   "simple": [
+    "pt-BR"
+   ],
+   "chain": [
+    "pt-BR",
+    "pt"
+   ]
+  },
+  {
+   "start": "xx-YY",
    "fallback": false,
    "simple": [
-    "ja"
+    "xx-YY"
    ],
    "chain": [
-    "ja"
+    "xx-YY",
+    "xx"
    ]
   },
   {
-   "start": "ja",
+   "start": "xx-YY",
    "fallback": null,
    "simple": [
-    "ja"
+    "xx-YY"
    ],
    "chain": [
-    "ja"
+    "xx-YY",
+    "xx"
    ]
   },
   {
-   "start": "ja",
+   "start": "xx-YY",
    "fallback": "en",
    "simple": [
-    "ja",
+    "xx-YY",
     "en"
    ],
    "chain": [
-    "ja",
+    "xx-YY",
+    "xx",
     "en"
    ]
   },
   {
-   "start": "ja",
-   "fallback": "en-US",
+   "start": "xx-YY",
+   "fallback": "sl",
    "simple": [
-    "ja",
-    "en-US"
+    "xx-YY",
+    "sl"
    ],
    "chain": [
-    "ja",
-    "en-US",
-    "en"
+    "xx-YY",
+    "xx",
+    "sl"
    ]
   },
   {
-   "start": "ja",
-   "fallback": "en!",
-   "simple": [
-    "ja",
-    "en!"
-   ],
-   "chain": [
-    "ja",
-    "en"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": [],
-   "simple": [
-    "ja"
-   ],
-   "chain": [
-    "ja"
-   ]
-  },
-  {
-   "start": "ja",
+   "start": "xx-YY",
    "fallback": [
-    "en",
-    "de"
+    "en"
    ],
    "simple": [
-    "ja",
-    "en",
-    "de"
+    "xx-YY",
+    "en"
    ],
    "chain": [
-    "ja",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": [
-    "en!",
-    "de"
-   ],
-   "simple": [
-    "ja",
-    "en!",
-    "de"
-   ],
-   "chain": [
-    "ja",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": [
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "simple": [
-    "ja",
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "chain": [
-    "ja",
-    "sl-SI",
-    "sl",
-    "en-US",
+    "xx-YY",
+    "xx",
     "en"
    ]
   },
   {
-   "start": "ja",
+   "start": "xx-YY",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "xx-YY",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "xx-YY",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "xx-YY",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx",
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "xx-YY",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "xx-YY",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx",
+    "en"
+   ]
+  },
+  {
+   "start": "xx-YY",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "xx-YY",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx",
+    "en"
+   ]
+  },
+  {
+   "start": "xx-YY",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "xx-YY",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx",
+    "en"
+   ]
+  },
+  {
+   "start": "xx-YY",
    "fallback": {
     "default": [
      "en"
     ]
    },
    "simple": [
-    "ja",
+    "xx-YY",
     "default"
    ],
    "chain": [
-    "ja",
+    "xx-YY",
+    "xx",
     "en"
    ]
   },
   {
-   "start": "ja",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "ja",
-    "default"
-   ],
-   "chain": [
-    "ja",
-    "en"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": {
-    "default": []
-   },
-   "simple": [
-    "ja",
-    "default"
-   ],
-   "chain": [
-    "ja"
-   ]
-  },
-  {
-   "start": "ja",
+   "start": "xx-YY",
    "fallback": {
     "en-US": [
      "en"
-    ],
-    "default": [
-     "ja"
     ]
    },
    "simple": [
-    "ja",
-    "en-US",
-    "default"
+    "xx-YY",
+    "en-US"
    ],
    "chain": [
-    "ja"
+    "xx-YY",
+    "xx"
    ]
   },
   {
-   "start": "ja",
+   "start": "xx-YY",
    "fallback": {
     "sl-SI": [
-     "hr",
-     "en!"
+     "sl!"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
-    "ja",
+    "xx-YY",
     "sl-SI",
     "default"
    ],
    "chain": [
-    "ja",
+    "xx-YY",
+    "xx",
     "en"
    ]
   },
   {
-   "start": "ja",
+   "start": "xx-YY",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "xx-YY",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "xx-YY",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "xx-YY",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx",
+    "en"
+   ]
+  },
+  {
+   "start": "xx-YY",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "xx-YY",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx",
+    "en"
+   ]
+  },
+  {
+   "start": "xx-YY",
    "fallback": {
     "a": [
      "b"
     ],
     "b": [
      "a"
+    ],
+    "default": [
+     "en"
     ]
    },
    "simple": [
-    "ja",
+    "xx-YY",
     "a",
-    "b"
-   ],
-   "chain": [
-    "ja"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "ja",
-    "de-DE",
-    "de",
+    "b",
     "default"
    ],
    "chain": [
-    "ja",
-    "en-US",
+    "xx-YY",
+    "xx",
     "en"
    ]
   },
   {
-   "start": "ja",
+   "start": "xx-YY",
    "fallback": {
-    "en-US": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "ja",
-    "en-US"
-   ],
-   "chain": [
-    "ja"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": {
-    "sl-SI": []
-   },
-   "simple": [
-    "ja",
-    "sl-SI"
-   ],
-   "chain": [
-    "ja"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": {
-    "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "ja",
-    "sl-SI",
-    "hr-HR",
-    "default"
-   ],
-   "chain": [
-    "ja",
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
-    ],
-    "zh-Hant": [
-     "zh"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "ja",
-    "zh-Hant-TW",
-    "zh-Hant",
-    "default"
-   ],
-   "chain": [
-    "ja",
-    "en"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": {
-    "sr-Latn-RS": [
-     "sr-Latn!"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "ja",
-    "sr-Latn-RS",
-    "default"
-   ],
-   "chain": [
-    "ja",
-    "en"
-   ]
-  },
-  {
-   "start": "ja",
-   "fallback": {
-    "": [
-     "en"
+    "a": [
+     "toString",
+     "fr"
     ],
     "default": [
      "de"
     ]
    },
    "simple": [
-    "ja",
-    "",
+    "xx-YY",
+    "a",
     "default"
    ],
    "chain": [
-    "ja",
+    "xx-YY",
+    "xx",
     "de"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
+   "start": "xx-YY",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "xx-YY",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx",
+    "de"
+   ]
+  },
+  {
+   "start": "xx-YY",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "xx-YY",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx"
+   ]
+  },
+  {
+   "start": "xx-YY",
+   "fallback": {},
+   "simple": [
+    "xx-YY"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx"
+   ]
+  },
+  {
+   "start": "xx-YY",
+   "fallback": [],
+   "simple": [
+    "xx-YY"
+   ],
+   "chain": [
+    "xx-YY",
+    "xx"
+   ]
+  },
+  {
+   "start": "und",
    "fallback": false,
    "simple": [
-    "xx-YY-ZZ"
+    "und"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx"
+    "und"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
+   "start": "und",
    "fallback": null,
    "simple": [
-    "xx-YY-ZZ"
+    "und"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx"
+    "und"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
+   "start": "und",
    "fallback": "en",
    "simple": [
-    "xx-YY-ZZ",
+    "und",
     "en"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
+    "und",
     "en"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
-   "fallback": "en-US",
+   "start": "und",
+   "fallback": "sl",
    "simple": [
-    "xx-YY-ZZ",
-    "en-US"
+    "und",
+    "sl"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "en-US",
-    "en"
+    "und",
+    "sl"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
-   "fallback": "en!",
-   "simple": [
-    "xx-YY-ZZ",
-    "en!"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "en"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": [],
-   "simple": [
-    "xx-YY-ZZ"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
+   "start": "und",
    "fallback": [
-    "en",
-    "de"
+    "en"
    ],
    "simple": [
-    "xx-YY-ZZ",
-    "en",
-    "de"
+    "und",
+    "en"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": [
-    "en!",
-    "de"
-   ],
-   "simple": [
-    "xx-YY-ZZ",
-    "en!",
-    "de"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": [
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "simple": [
-    "xx-YY-ZZ",
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "sl-SI",
-    "sl",
-    "en-US",
+    "und",
     "en"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
+   "start": "und",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "und",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "und",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "und",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "und",
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "und",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "und",
+    "en"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "und",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "und",
+    "en"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "und",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "und",
+    "en"
+   ]
+  },
+  {
+   "start": "und",
    "fallback": {
     "default": [
      "en"
     ]
    },
    "simple": [
-    "xx-YY-ZZ",
+    "und",
     "default"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
+    "und",
     "en"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "xx-YY-ZZ",
-    "default"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "en"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": {
-    "default": []
-   },
-   "simple": [
-    "xx-YY-ZZ",
-    "default"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
+   "start": "und",
    "fallback": {
     "en-US": [
      "en"
-    ],
-    "default": [
-     "ja"
     ]
    },
    "simple": [
-    "xx-YY-ZZ",
-    "en-US",
-    "default"
+    "und",
+    "en-US"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "ja"
+    "und"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
+   "start": "und",
    "fallback": {
     "sl-SI": [
-     "hr",
-     "en!"
+     "sl!"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
-    "xx-YY-ZZ",
+    "und",
     "sl-SI",
     "default"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
+    "und",
     "en"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
+   "start": "und",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "und",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "und",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "und",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "und",
+    "en"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "und",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "und",
+    "en"
+   ]
+  },
+  {
+   "start": "und",
    "fallback": {
     "a": [
      "b"
     ],
     "b": [
      "a"
+    ],
+    "default": [
+     "en"
     ]
    },
    "simple": [
-    "xx-YY-ZZ",
+    "und",
     "a",
-    "b"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "xx-YY-ZZ",
-    "de-DE",
-    "de",
+    "b",
     "default"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "en-US",
+    "und",
     "en"
    ]
   },
   {
-   "start": "xx-YY-ZZ",
+   "start": "und",
    "fallback": {
-    "en-US": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "xx-YY-ZZ",
-    "en-US"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": {
-    "sl-SI": []
-   },
-   "simple": [
-    "xx-YY-ZZ",
-    "sl-SI"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": {
-    "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "xx-YY-ZZ",
-    "sl-SI",
-    "hr-HR",
-    "default"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
-    ],
-    "zh-Hant": [
-     "zh"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "xx-YY-ZZ",
-    "zh-Hant-TW",
-    "zh-Hant",
-    "default"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "en"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": {
-    "sr-Latn-RS": [
-     "sr-Latn!"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "xx-YY-ZZ",
-    "sr-Latn-RS",
-    "default"
-   ],
-   "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
-    "en"
-   ]
-  },
-  {
-   "start": "xx-YY-ZZ",
-   "fallback": {
-    "": [
-     "en"
+    "a": [
+     "toString",
+     "fr"
     ],
     "default": [
      "de"
     ]
    },
    "simple": [
-    "xx-YY-ZZ",
-    "",
+    "und",
+    "a",
     "default"
    ],
    "chain": [
-    "xx-YY-ZZ",
-    "xx-YY",
-    "xx",
+    "und",
     "de"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "und",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "und",
+    "de"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "und",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "und"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": {},
+   "simple": [
+    "und"
+   ],
+   "chain": [
+    "und"
+   ]
+  },
+  {
+   "start": "und",
+   "fallback": [],
+   "simple": [
+    "und"
+   ],
+   "chain": [
+    "und"
    ]
   },
   {
@@ -3125,26 +5598,327 @@
   },
   {
    "start": "",
-   "fallback": "en-US",
+   "fallback": "sl",
    "simple": [
     "",
-    "en-US"
+    "sl"
    ],
    "chain": [
-    "en-US",
+    "sl"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "",
+    "en"
+   ],
+   "chain": [
     "en"
    ]
   },
   {
    "start": "",
-   "fallback": "en!",
+   "fallback": [
+    "sl",
+    "en"
+   ],
    "simple": [
     "",
-    "en!"
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "hr",
+    "sr",
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "",
+    "sl-SI",
+    "default"
    ],
    "chain": [
     "en"
    ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "en-US": [
+     "en"
+    ]
+   },
+   "simple": [
+    "",
+    "en-US"
+   ],
+   "chain": []
+  },
+  {
+   "start": "",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "a": [
+     "toString",
+     "fr"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "de"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
+   },
+   "simple": [
+    "",
+    "a",
+    "default"
+   ],
+   "chain": [
+    "de"
+   ]
+  },
+  {
+   "start": "",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": []
+  },
+  {
+   "start": "",
+   "fallback": {},
+   "simple": [
+    ""
+   ],
+   "chain": []
   },
   {
    "start": "",
@@ -3155,700 +5929,421 @@
    "chain": []
   },
   {
-   "start": "",
-   "fallback": [
-    "en",
-    "de"
-   ],
-   "simple": [
-    "",
-    "en",
-    "de"
-   ],
-   "chain": [
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": [
-    "en!",
-    "de"
-   ],
-   "simple": [
-    "",
-    "en!",
-    "de"
-   ],
-   "chain": [
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": [
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "simple": [
-    "",
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "chain": [
-    "sl-SI",
-    "sl",
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": {
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "",
-    "default"
-   ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "",
-    "default"
-   ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": {
-    "default": []
-   },
-   "simple": [
-    "",
-    "default"
-   ],
-   "chain": []
-  },
-  {
-   "start": "",
-   "fallback": {
-    "en-US": [
-     "en"
-    ],
-    "default": [
-     "ja"
-    ]
-   },
-   "simple": [
-    "",
-    "en-US",
-    "default"
-   ],
-   "chain": [
-    "ja"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": {
-    "sl-SI": [
-     "hr",
-     "en!"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "",
-    "sl-SI",
-    "default"
-   ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": {
-    "a": [
-     "b"
-    ],
-    "b": [
-     "a"
-    ]
-   },
-   "simple": [
-    "",
-    "a",
-    "b"
-   ],
-   "chain": []
-  },
-  {
-   "start": "",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "",
-    "de-DE",
-    "de",
-    "default"
-   ],
-   "chain": [
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": {
-    "en-US": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "",
-    "en-US"
-   ],
-   "chain": []
-  },
-  {
-   "start": "",
-   "fallback": {
-    "sl-SI": []
-   },
-   "simple": [
-    "",
-    "sl-SI"
-   ],
-   "chain": []
-  },
-  {
-   "start": "",
-   "fallback": {
-    "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
-   "simple": [
-    "",
-    "sl-SI",
-    "hr-HR",
-    "default"
-   ],
-   "chain": [
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
-    ],
-    "zh-Hant": [
-     "zh"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "",
-    "zh-Hant-TW",
-    "zh-Hant",
-    "default"
-   ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": {
-    "sr-Latn-RS": [
-     "sr-Latn!"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "",
-    "sr-Latn-RS",
-    "default"
-   ],
-   "chain": [
-    "en"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": {
-    "": [
-     "en"
-    ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "",
-    "default"
-   ],
-   "chain": [
-    "de"
-   ]
-  },
-  {
-   "start": "a",
+   "start": "en!",
    "fallback": false,
    "simple": [
-    "a"
-   ],
-   "chain": [
-    "a"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": null,
-   "simple": [
-    "a"
-   ],
-   "chain": [
-    "a"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": "en",
-   "simple": [
-    "a",
-    "en"
-   ],
-   "chain": [
-    "a",
-    "en"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": "en-US",
-   "simple": [
-    "a",
-    "en-US"
-   ],
-   "chain": [
-    "a",
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": "en!",
-   "simple": [
-    "a",
     "en!"
    ],
    "chain": [
-    "a",
     "en"
    ]
   },
   {
-   "start": "a",
-   "fallback": [],
+   "start": "en!",
+   "fallback": null,
    "simple": [
-    "a"
+    "en!"
    ],
    "chain": [
-    "a"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": [
-    "en",
-    "de"
-   ],
-   "simple": [
-    "a",
-    "en",
-    "de"
-   ],
-   "chain": [
-    "a",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": [
-    "en!",
-    "de"
-   ],
-   "simple": [
-    "a",
-    "en!",
-    "de"
-   ],
-   "chain": [
-    "a",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": [
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "simple": [
-    "a",
-    "sl-SI",
-    "sl",
-    "en-US"
-   ],
-   "chain": [
-    "a",
-    "sl-SI",
-    "sl",
-    "en-US",
     "en"
    ]
   },
   {
-   "start": "a",
+   "start": "en!",
+   "fallback": "en",
+   "simple": [
+    "en!",
+    "en"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": "sl",
+   "simple": [
+    "en!",
+    "sl"
+   ],
+   "chain": [
+    "en",
+    "sl"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": [
+    "en"
+   ],
+   "simple": [
+    "en!",
+    "en"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": [
+    "sl",
+    "en"
+   ],
+   "simple": [
+    "en!",
+    "sl",
+    "en"
+   ],
+   "chain": [
+    "en",
+    "sl"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
+   "simple": [
+    "en!",
+    "hr",
+    "sr",
+    "en"
+   ],
+   "chain": [
+    "en",
+    "hr",
+    "sr"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": {
+    "sl-SI": [
+     "sl",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en!",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": {
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en!",
+    "de-AT",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": {
+    "sr-Latn-RS": [
+     "sr",
+     "hr"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en!",
+    "sr-Latn-RS",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en!",
    "fallback": {
     "default": [
      "en"
     ]
    },
    "simple": [
-    "a",
+    "en!",
     "default"
    ],
    "chain": [
-    "a",
     "en"
    ]
   },
   {
-   "start": "a",
-   "fallback": {
-    "default": "en"
-   },
-   "simple": [
-    "a",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "en"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "default": []
-   },
-   "simple": [
-    "a",
-    "default"
-   ],
-   "chain": [
-    "a"
-   ]
-  },
-  {
-   "start": "a",
+   "start": "en!",
    "fallback": {
     "en-US": [
      "en"
-    ],
-    "default": [
-     "ja"
     ]
    },
    "simple": [
-    "a",
-    "en-US",
-    "default"
+    "en!",
+    "en-US"
    ],
    "chain": [
-    "a",
-    "ja"
+    "en"
    ]
   },
   {
-   "start": "a",
+   "start": "en!",
    "fallback": {
     "sl-SI": [
-     "hr",
-     "en!"
+     "sl!"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
-    "a",
+    "en!",
     "sl-SI",
     "default"
    ],
    "chain": [
-    "a",
     "en"
    ]
   },
   {
-   "start": "a",
+   "start": "en!",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "en!",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "en",
+    "sl"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en!",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "en!",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en!",
    "fallback": {
     "a": [
      "b"
     ],
     "b": [
      "a"
-    ]
-   },
-   "simple": [
-    "a",
-    "b"
-   ],
-   "chain": [
-    "a",
-    "b"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "de-DE": [
-     "de"
-    ],
-    "de": [
-     "en"
     ],
     "default": [
-     "en-US"
+     "en"
     ]
    },
    "simple": [
+    "en!",
     "a",
-    "de-DE",
-    "de",
+    "b",
     "default"
    ],
    "chain": [
-    "a",
-    "en-US",
     "en"
    ]
   },
   {
-   "start": "a",
+   "start": "en!",
    "fallback": {
-    "en-US": [
-     "en-US"
+    "a": [
+     "toString",
+     "fr"
+    ],
+    "default": [
+     "de"
     ]
    },
    "simple": [
+    "en!",
     "a",
-    "en-US"
+    "default"
    ],
    "chain": [
-    "a"
+    "en",
+    "de"
    ]
   },
   {
-   "start": "a",
+   "start": "en!",
    "fallback": {
-    "sl-SI": []
+    "a": [
+     "valueOf"
+    ],
+    "default": [
+     "de"
+    ]
    },
    "simple": [
+    "en!",
     "a",
+    "default"
+   ],
+   "chain": [
+    "en",
+    "de"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": {
+    "1": [
+     "x"
+    ],
+    "2": [
+     "x"
+    ],
+    "b": [
+     "x"
+    ],
+    "a": [
+     "x"
+    ]
+   },
+   "simple": [
+    "en!",
+    "1",
+    "2",
+    "b",
+    "a"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": {},
+   "simple": [
+    "en!"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "en!",
+   "fallback": [],
+   "simple": [
+    "en!"
+   ],
+   "chain": [
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI!",
+   "fallback": false,
+   "simple": [
+    "sl-SI!"
+   ],
+   "chain": [
     "sl-SI"
-   ],
-   "chain": [
-    "a"
    ]
   },
   {
-   "start": "a",
-   "fallback": {
-    "sl-SI": [
-     "hr-HR"
-    ],
-    "hr-HR": [
-     "en"
-    ],
-    "default": [
-     "en-US"
-    ]
-   },
+   "start": "sl-SI!",
+   "fallback": null,
    "simple": [
-    "a",
+    "sl-SI!"
+   ],
+   "chain": [
+    "sl-SI"
+   ]
+  },
+  {
+   "start": "sl-SI!",
+   "fallback": "en",
+   "simple": [
+    "sl-SI!",
+    "en"
+   ],
+   "chain": [
     "sl-SI",
-    "hr-HR",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "en-US",
     "en"
    ]
   },
   {
-   "start": "a",
-   "fallback": {
-    "zh-Hant-TW": [
-     "zh-Hant",
-     "zh"
-    ],
-    "zh-Hant": [
-     "zh"
-    ],
-    "default": [
-     "en"
-    ]
-   },
+   "start": "sl-SI!",
+   "fallback": "sl",
    "simple": [
-    "a",
-    "zh-Hant-TW",
-    "zh-Hant",
-    "default"
+    "sl-SI!",
+    "sl"
    ],
    "chain": [
-    "a",
-    "en"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "sr-Latn-RS": [
-     "sr-Latn!"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "a",
-    "sr-Latn-RS",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "en"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "": [
-     "en"
-    ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "a",
-    "",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "de"
-   ]
-  },
-  {
-   "start": "0",
-   "fallback": [
-    "1",
-    "en"
-   ],
-   "simple": [
-    "0",
-    "1",
-    "en"
-   ],
-   "chain": [
-    "0",
-    "1",
-    "en"
-   ]
-  },
-  {
-   "start": "length",
-   "fallback": [
-    "en",
-    "de"
-   ],
-   "simple": [
-    "length",
-    "en",
-    "de"
-   ],
-   "chain": [
-    "length",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "1",
-   "fallback": [
-    "0",
-    "1"
-   ],
-   "simple": [
-    "1",
-    "0"
-   ],
-   "chain": [
-    "1",
-    "0"
+    "sl-SI",
+    "sl"
    ]
   },
   {
@@ -3866,43 +6361,15 @@
    ]
   },
   {
-   "start": "en!",
-   "fallback": false,
-   "simple": [
-    "en!"
-   ],
-   "chain": [
+   "start": "sl-SI!",
+   "fallback": [
+    "sl",
     "en"
-   ]
-  },
-  {
-   "start": "sl-SI",
-   "fallback": {
-    "sl-SI": "sl",
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "sl-SI",
-    "default"
    ],
-   "chain": [
-    "sl-SI",
-    "en"
-   ]
-  },
-  {
-   "start": "sl-SI",
-   "fallback": {
-    "sl-SI": false,
-    "default": [
-     "en"
-    ]
-   },
    "simple": [
-    "sl-SI",
-    "default"
+    "sl-SI!",
+    "sl",
+    "en"
    ],
    "chain": [
     "sl-SI",
@@ -3911,1177 +6378,236 @@
    ]
   },
   {
-   "start": "sl-SI",
-   "fallback": {
-    "sl-SI": true,
-    "default": [
-     "en"
-    ]
-   },
+   "start": "sl-SI!",
+   "fallback": [
+    "hr",
+    "sr",
+    "en"
+   ],
    "simple": [
-    "sl-SI",
-    "default"
+    "sl-SI!",
+    "hr",
+    "sr",
+    "en"
    ],
    "chain": [
     "sl-SI",
-    "sl",
+    "hr",
+    "sr",
     "en"
    ]
   },
   {
-   "start": "a-b-c",
-   "fallback": {
-    "a-b-c": [
-     "d"
-    ],
-    "d": [
-     "e"
-    ],
-    "e": [
-     "f"
-    ],
-    "default": [
-     "en"
-    ]
-   },
-   "simple": [
-    "a-b-c",
-    "d",
-    "e",
-    "default"
-   ],
-   "chain": [
-    "a-b-c",
-    "d",
-    "e",
-    "f",
-    "en"
-   ]
-  },
-  {
-   "start": "sl-SI",
+   "start": "sl-SI!",
    "fallback": {
     "sl-SI": [
-     "sl-SI"
+     "sl",
+     "en"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
+    "sl-SI!",
     "sl-SI",
     "default"
    ],
    "chain": [
     "sl-SI",
+    "sl",
     "en"
    ]
   },
   {
-   "start": "sl-SI",
-   "fallback": [
-    "e!n",
-    "de"
-   ],
-   "simple": [
-    "sl-SI",
-    "e!n",
-    "de"
-   ],
-   "chain": [
-    "sl-SI",
-    "sl",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "en-US",
+   "start": "sl-SI!",
    "fallback": {
-    "en-US": [
-     "en!"
+    "de-AT": [
+     "de",
+     "en"
+    ],
+    "sl-SI": [
+     "sl"
     ],
     "default": [
      "en"
     ]
    },
    "simple": [
-    "en-US",
+    "sl-SI!",
+    "de-AT",
+    "sl-SI",
     "default"
    ],
    "chain": [
-    "en-US",
-    "en"
-   ]
-  },
-  {
-   "start": "",
-   "fallback": false,
-   "simple": [
-    ""
-   ],
-   "chain": []
-  },
-  {
-   "start": "aa-bb-cc-dd-ee",
-   "fallback": "en",
-   "simple": [
-    "aa-bb-cc-dd-ee",
-    "en"
-   ],
-   "chain": [
-    "aa-bb-cc-dd-ee",
-    "aa-bb-cc-dd",
-    "aa-bb-cc",
-    "aa-bb",
-    "aa",
-    "en"
-   ]
-  },
-  {
-   "start": "0",
-   "fallback": [
-    [
-     "de",
-     "fr"
-    ],
-    "en"
-   ],
-   "simple": [
-    "0",
-    [
-     "de",
-     "fr"
-    ],
-    "en"
-   ],
-   "chain": [
-    "0",
-    "de",
-    "fr",
-    "en"
-   ]
-  },
-  {
-   "start": "1",
-   "fallback": [
-    "en",
-    [
-     "de",
-     "fr"
-    ]
-   ],
-   "simple": [
-    "1",
-    "en",
-    [
-     "de",
-     "fr"
-    ]
-   ],
-   "chain": [
-    "1",
-    "de",
-    "fr",
-    "en"
-   ]
-  },
-  {
-   "start": "toString",
-   "fallback": [
-    "en",
-    "de"
-   ],
-   "simple": [
-    "toString",
-    "en",
-    "de"
-   ],
-   "chain": [
-    "toString",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "constructor",
-   "fallback": [
-    "en",
-    "de"
-   ],
-   "simple": [
-    "constructor",
-    "en",
-    "de"
-   ],
-   "chain": [
-    "constructor",
-    "en",
-    "de"
-   ]
-  },
-  {
-   "start": "de",
-   "fallback": [
-    "en",
-    "en!"
-   ],
-   "simple": [
-    "de",
-    "en",
-    "en!"
-   ],
-   "chain": [
-    "de",
-    "en",
-    "en"
-   ]
-  },
-  {
-   "start": "de",
-   "fallback": [
-    "en!",
-    "en"
-   ],
-   "simple": [
-    "de",
-    "en!",
-    "en"
-   ],
-   "chain": [
-    "de",
-    "en"
-   ]
-  },
-  {
-   "start": "length",
-   "fallback": {
-    "default": [
-     "SI-sr-sr",
-     [
-      "en",
-      "a-1"
-     ],
-     "zh--a!"
-    ]
-   },
-   "simple": [
-    "length",
-    "default"
-   ],
-   "chain": [
-    "length",
-    "SI-sr-sr",
-    "SI-sr",
-    "SI",
-    "zh--a"
-   ]
-  },
-  {
-   "start": "length-b-zh",
-   "fallback": [
-    "sl-sr-sl",
-    "zh-b-zh!"
-   ],
-   "simple": [
-    "length-b-zh",
-    "sl-sr-sl",
-    "zh-b-zh!"
-   ],
-   "chain": [
-    "length-b-zh",
-    "length-b",
-    "length",
-    "sl-sr-sl",
-    "sl-sr",
+    "sl-SI",
     "sl",
-    "zh-b-zh"
-   ]
-  },
-  {
-   "start": "en-1-a",
-   "fallback": {
-    "default": [
-     "!en"
-    ]
-   },
-   "simple": [
-    "en-1-a",
-    "default"
-   ],
-   "chain": [
-    "en-1-a",
-    "en-1",
-    "en",
     "en"
    ]
   },
   {
-   "start": "zh!",
+   "start": "sl-SI!",
    "fallback": {
-    "0": false,
-    "zh": [
-     "de-sr",
-     "SI",
-     "0-sl-sl"
-    ],
-    "-b": []
-   },
-   "simple": [
-    "zh!",
-    "0",
-    "zh",
-    "-b"
-   ],
-   "chain": [
-    "zh",
-    "de-sr",
-    "de",
-    "SI",
-    "0-sl-sl",
-    "0-sl",
-    "0"
-   ]
-  },
-  {
-   "start": "US-sl-SI!",
-   "fallback": [
-    "1-de-en",
-    "sl!",
-    "Latn"
-   ],
-   "simple": [
-    "US-sl-SI!",
-    "1-de-en",
-    "sl!",
-    "Latn"
-   ],
-   "chain": [
-    "US-sl-SI",
-    "1-de-en",
-    "1-de",
-    "1",
-    "sl",
-    "Latn"
-   ]
-  },
-  {
-   "start": "sr-0",
-   "fallback": [
-    "",
-    "hr-SI",
-    "default-0-b"
-   ],
-   "simple": [
-    "sr-0",
-    "",
-    "hr-SI",
-    "default-0-b"
-   ],
-   "chain": [
-    "sr-0",
-    "sr",
-    "hr-SI",
-    "hr",
-    "default-0-b",
-    "default-0",
-    "default"
-   ]
-  },
-  {
-   "start": "sr",
-   "fallback": [
-    "sr-default-SI",
-    "de!",
-    "zh"
-   ],
-   "simple": [
-    "sr",
-    "sr-default-SI",
-    "de!",
-    "zh"
-   ],
-   "chain": [
-    "sr",
-    "sr-default-SI",
-    "sr-default",
-    "de",
-    "zh"
-   ]
-  },
-  {
-   "start": "Latn!",
-   "fallback": [
-    "-a",
-    "hr-0-de",
-    "US!"
-   ],
-   "simple": [
-    "Latn!",
-    "-a",
-    "hr-0-de",
-    "US!"
-   ],
-   "chain": [
-    "Latn",
-    "-a",
-    "hr-0-de",
-    "hr-0",
-    "hr",
-    "US"
-   ]
-  },
-  {
-   "start": "a-length",
-   "fallback": [
-    "en-1-default",
-    "a"
-   ],
-   "simple": [
-    "a-length",
-    "en-1-default",
-    "a"
-   ],
-   "chain": [
-    "a-length",
-    "a",
-    "en-1-default",
-    "en-1",
-    "en"
-   ]
-  },
-  {
-   "start": "1!",
-   "fallback": [
-    "de",
-    "zh-sl-SI",
-    "a-US-sr!"
-   ],
-   "simple": [
-    "1!",
-    "de",
-    "zh-sl-SI",
-    "a-US-sr!"
-   ],
-   "chain": [
-    "1",
-    "de",
-    "zh-sl-SI",
-    "zh-sl",
-    "zh",
-    "a-US-sr"
-   ]
-  },
-  {
-   "start": "a-b-",
-   "fallback": [
-    "sl-default-SI"
-   ],
-   "simple": [
-    "a-b-",
-    "sl-default-SI"
-   ],
-   "chain": [
-    "a-b-",
-    "a-b",
-    "a",
-    "sl-default-SI",
-    "sl-default",
-    "sl"
-   ]
-  },
-  {
-   "start": "sl-default-",
-   "fallback": [
-    "sr-SI",
-    "b",
-    "!"
-   ],
-   "simple": [
-    "sl-default-",
-    "sr-SI",
-    "b",
-    "!"
-   ],
-   "chain": [
-    "sl-default-",
-    "sl-default",
-    "sl",
-    "sr-SI",
-    "sr",
-    "b",
-    ""
-   ]
-  },
-  {
-   "start": "a-0-",
-   "fallback": {
-    "sl-hr-length": [
-     "SI",
-     "b-b-de"
-    ],
-    "default": "hr-SI-default"
-   },
-   "simple": [
-    "a-0-",
-    "sl-hr-length",
-    "default"
-   ],
-   "chain": [
-    "a-0-",
-    "a-0",
-    "a",
-    "hr-SI-default",
-    "hr-SI",
-    "hr"
-   ]
-  },
-  {
-   "start": "zh-Latn-de",
-   "fallback": [
-    [
-     "!!",
-     "Latn!"
-    ],
-    "!b",
-    "sr-zh"
-   ],
-   "simple": [
-    "zh-Latn-de",
-    [
-     "!!",
-     "Latn!"
-    ],
-    "!b",
-    "sr-zh"
-   ],
-   "chain": [
-    "zh-Latn-de",
-    "zh-Latn",
-    "zh",
-    "b",
-    "sr-zh",
-    "sr"
-   ]
-  },
-  {
-   "start": "SI",
-   "fallback": {
-    "hr--hr": [],
-    "US": [
-     "sl-zh",
-     "length!",
-     "US-Latn-zh"
-    ],
-    "de-a": [
-     "length-1-1!"
-    ],
-    "default": [
-     "zh-en-SI!",
-     "Latn-US-SI",
-     "sl-hr-length"
-    ]
-   },
-   "simple": [
-    "SI",
-    "hr--hr",
-    "US",
-    "de-a",
-    "default"
-   ],
-   "chain": [
-    "SI",
-    "zh-en-SI",
-    "Latn-US-SI",
-    "Latn-US",
-    "Latn",
-    "sl-hr-length",
-    "sl-hr",
-    "sl"
-   ]
-  },
-  {
-   "start": "hr-hr-hr!",
-   "fallback": {
-    "default": [
-     "length-zh-1"
-    ]
-   },
-   "simple": [
-    "hr-hr-hr!",
-    "default"
-   ],
-   "chain": [
-    "hr-hr-hr",
-    "length-zh-1",
-    "length-zh",
-    "length"
-   ]
-  },
-  {
-   "start": "!Latn-Latn",
-   "fallback": {
-    "sr-length-sr": [],
-    "default": [
-     "US-1"
-    ]
-   },
-   "simple": [
-    "!Latn-Latn",
-    "sr-length-sr",
-    "default"
-   ],
-   "chain": [
-    "Latn-Latn",
-    "Latn",
-    "US-1",
-    "US"
-   ]
-  },
-  {
-   "start": "sr-1-sl",
-   "fallback": [
-    "a-de"
-   ],
-   "simple": [
-    "sr-1-sl",
-    "a-de"
-   ],
-   "chain": [
-    "sr-1-sl",
-    "sr-1",
-    "sr",
-    "a-de",
-    "a"
-   ]
-  },
-  {
-   "start": "SI-hr-",
-   "fallback": {
-    "a-sr": [],
-    "!zh": [
-     "b",
+    "sr-Latn-RS": [
+     "sr",
      "hr"
     ],
-    "default": "sr-US"
-   },
-   "simple": [
-    "SI-hr-",
-    "a-sr",
-    "!zh",
-    "default"
-   ],
-   "chain": [
-    "SI-hr-",
-    "SI-hr",
-    "SI",
-    "sr-US",
-    "sr"
-   ]
-  },
-  {
-   "start": "sr",
-   "fallback": {
     "default": [
-     "",
-     "sr-sr-hr",
-     "b-sr-en"
+     "en"
     ]
    },
    "simple": [
-    "sr",
+    "sl-SI!",
+    "sr-Latn-RS",
     "default"
    ],
    "chain": [
-    "sr",
-    "sr-sr-hr",
-    "sr-sr",
-    "b-sr-en",
-    "b-sr",
-    "b"
-   ]
-  },
-  {
-   "start": "US-b",
-   "fallback": [
-    "sr-"
-   ],
-   "simple": [
-    "US-b",
-    "sr-"
-   ],
-   "chain": [
-    "US-b",
-    "US",
-    "sr-",
-    "sr"
-   ]
-  },
-  {
-   "start": "!hr!",
-   "fallback": {
-    "default": [
-     "1-default-hr",
-     "US"
-    ]
-   },
-   "simple": [
-    "!hr!",
-    "default"
-   ],
-   "chain": [
-    "hr",
-    "1-default-hr",
-    "1-default",
-    "1",
-    "US"
-   ]
-  },
-  {
-   "start": "length",
-   "fallback": [
-    [
-     "1-1-0",
-     "default-Latn-Latn"
-    ],
-    "a!",
-    "0-en"
-   ],
-   "simple": [
-    "length",
-    [
-     "1-1-0",
-     "default-Latn-Latn"
-    ],
-    "a!",
-    "0-en"
-   ],
-   "chain": [
-    "length",
-    "a",
-    "0-en",
-    "0"
-   ]
-  },
-  {
-   "start": "sr-1-SI",
-   "fallback": [
-    "a!",
-    "0-length-sr"
-   ],
-   "simple": [
-    "sr-1-SI",
-    "a!",
-    "0-length-sr"
-   ],
-   "chain": [
-    "sr-1-SI",
-    "sr-1",
-    "sr",
-    "a",
-    "0-length-sr",
-    "0-length",
-    "0"
-   ]
-  },
-  {
-   "start": "0-default",
-   "fallback": [
-    [
-     "US!",
-     "hr-sl-"
-    ]
-   ],
-   "simple": [
-    "0-default",
-    [
-     "US!",
-     "hr-sl-"
-    ]
-   ],
-   "chain": [
-    "0-default",
-    "0",
-    "US",
-    "hr-sl-",
-    "hr-sl",
-    "hr"
-   ]
-  },
-  {
-   "start": "zh-0",
-   "fallback": [
-    "SI-SI-US"
-   ],
-   "simple": [
-    "zh-0",
-    "SI-SI-US"
-   ],
-   "chain": [
-    "zh-0",
-    "zh",
-    "SI-SI-US",
-    "SI-SI",
-    "SI"
-   ]
-  },
-  {
-   "start": "a-hr-",
-   "fallback": {
-    "default": [
-     "de-sl",
-     [
-      "length",
-      "de"
-     ],
-     "1-hr-sr"
-    ]
-   },
-   "simple": [
-    "a-hr-",
-    "default"
-   ],
-   "chain": [
-    "a-hr-",
-    "a-hr",
-    "a",
-    "de-sl",
-    "de",
-    "1-hr-sr",
-    "1-hr",
-    "1"
-   ]
-  },
-  {
-   "start": "Latn-",
-   "fallback": [
-    "SI",
-    "sl-length",
-    "en!"
-   ],
-   "simple": [
-    "Latn-",
-    "SI",
-    "sl-length",
-    "en!"
-   ],
-   "chain": [
-    "Latn-",
-    "Latn",
-    "SI",
-    "sl-length",
-    "sl",
+    "sl-SI",
     "en"
    ]
   },
   {
-   "start": "sr-b",
-   "fallback": [
-    "sl!",
-    "SI",
-    "-Latn-"
-   ],
-   "simple": [
-    "sr-b",
-    "sl!",
-    "SI",
-    "-Latn-"
-   ],
-   "chain": [
-    "sr-b",
-    "sr",
-    "sl",
-    "SI",
-    "-Latn-",
-    "-Latn"
-   ]
-  },
-  {
-   "start": "en-zh!",
+   "start": "sl-SI!",
    "fallback": {
-    "": "1!",
-    "Latn-": [],
-    "!de-hr-en": false,
-    "default": "!sr-de-zh"
-   },
-   "simple": [
-    "en-zh!",
-    "",
-    "Latn-",
-    "!de-hr-en",
-    "default"
-   ],
-   "chain": [
-    "en-zh",
-    "sr-de-zh",
-    "sr-de",
-    "sr"
-   ]
-  },
-  {
-   "start": "default",
-   "fallback": {
-    "default-de-US": [],
-    "US-SI-1!": [
-     "en",
-     "a--a",
-     "de-a"
-    ],
-    "Latn": [
-     [
-      "1-sr",
-      "!"
-     ],
-     "Latn"
-    ],
     "default": [
-     "sl",
-     "!default-1!",
-     "US-0-default"
+     "en"
     ]
    },
    "simple": [
-    "default",
-    "default-de-US",
-    "US-SI-1!",
-    "Latn"
-   ],
-   "chain": [
-    "default",
-    "sl",
-    "default-1",
-    "US-0-default",
-    "US-0",
-    "US",
-    "default-1"
-   ]
-  },
-  {
-   "start": "sl-Latn-en!",
-   "fallback": [
-    "length-Latn-"
-   ],
-   "simple": [
-    "sl-Latn-en!",
-    "length-Latn-"
-   ],
-   "chain": [
-    "sl-Latn-en",
-    "length-Latn-",
-    "length-Latn",
-    "length"
-   ]
-  },
-  {
-   "start": "-SI-hr",
-   "fallback": {
-    "!hr-Latn": [
-     "!Latn-b",
-     "default-en",
-     "!US"
-    ],
-    "default": [
-     "!b",
-     "b-US"
-    ]
-   },
-   "simple": [
-    "-SI-hr",
-    "!hr-Latn",
+    "sl-SI!",
     "default"
    ],
    "chain": [
-    "-SI-hr",
-    "-SI",
-    "b",
-    "b-US"
-   ]
-  },
-  {
-   "start": "-hr",
-   "fallback": [
-    "sl-sl-de",
-    "default-US"
-   ],
-   "simple": [
-    "-hr",
-    "sl-sl-de",
-    "default-US"
-   ],
-   "chain": [
-    "-hr",
-    "sl-sl-de",
-    "sl-sl",
-    "sl",
-    "default-US",
-    "default"
-   ]
-  },
-  {
-   "start": "0-0-a",
-   "fallback": [
-    "en-0-a",
-    "length",
-    "default-sr"
-   ],
-   "simple": [
-    "0-0-a",
-    "en-0-a",
-    "length",
-    "default-sr"
-   ],
-   "chain": [
-    "0-0-a",
-    "0-0",
-    "0",
-    "en-0-a",
-    "en-0",
-    "en",
-    "length",
-    "default-sr",
-    "default"
-   ]
-  },
-  {
-   "start": "de-US-en",
-   "fallback": [
-    "en-Latn-Latn"
-   ],
-   "simple": [
-    "de-US-en",
-    "en-Latn-Latn"
-   ],
-   "chain": [
-    "de-US-en",
-    "de-US",
-    "de",
-    "en-Latn-Latn",
-    "en-Latn",
+    "sl-SI",
     "en"
    ]
   },
   {
-   "start": "hr-hr",
+   "start": "sl-SI!",
    "fallback": {
-    "default": [
-     "hr--en"
+    "en-US": [
+     "en"
     ]
    },
    "simple": [
-    "hr-hr",
-    "default"
-   ],
-   "chain": [
-    "hr-hr",
-    "hr",
-    "hr--en",
-    "hr-"
-   ]
-  },
-  {
-   "start": "de-US!",
-   "fallback": {
-    "de-0!": [
-     [
-      "a",
-      "default"
-     ]
-    ],
-    "US-US-b": [
-     "b-SI",
-     "!",
-     [
-      "",
-      "1-Latn!"
-     ]
-    ],
-    "1-Latn-en": true,
-    "default": [
-     "length-sr!",
-     "sl-sr-0",
-     "en-sr"
-    ]
-   },
-   "simple": [
-    "de-US!",
-    "de-0!",
-    "US-US-b",
-    "1-Latn-en",
-    "default"
-   ],
-   "chain": [
-    "de-US",
-    "length-sr",
-    "sl-sr-0",
-    "sl-sr",
-    "sl",
-    "en-sr",
-    "en"
-   ]
-  },
-  {
-   "start": "a-sr-en",
-   "fallback": {
-    "hr-sr-": false,
-    "!1-Latn-sr": [],
-    "-b": [
-     [
-      "sl",
-      "!hr"
-     ]
-    ],
-    "default": [
-     [
-      "b-0",
-      "0-de-de"
-     ],
-     "a-zh",
-     "zh"
-    ]
-   },
-   "simple": [
-    "a-sr-en",
-    "hr-sr-",
-    "!1-Latn-sr",
-    "-b",
-    "default"
-   ],
-   "chain": [
-    "a-sr-en",
-    "a-sr",
-    "a",
-    "a-zh",
-    "zh"
-   ]
-  },
-  {
-   "start": "SI",
-   "fallback": {
-    "!de-US-en": "de-sr-de",
-    "-a-en!": [
-     "zh",
-     "US"
-    ],
-    "default": [
-     "sr-Latn",
-     "en-US!"
-    ]
-   },
-   "simple": [
-    "SI",
-    "!de-US-en",
-    "-a-en!",
-    "default"
-   ],
-   "chain": [
-    "SI",
-    "sr-Latn",
-    "sr",
+    "sl-SI!",
     "en-US"
+   ],
+   "chain": [
+    "sl-SI"
    ]
   },
   {
-   "start": "a",
+   "start": "sl-SI!",
+   "fallback": {
+    "sl-SI": [
+     "sl!"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl-SI!",
+    "sl-SI",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI!",
+   "fallback": [
+    "sl!",
+    "en"
+   ],
+   "simple": [
+    "sl-SI!",
+    "sl!",
+    "en"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI!",
+   "fallback": {
+    "sl-SI": [
+     "sl"
+    ],
+    "sl": [
+     "hr",
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl-SI!",
+    "sl-SI",
+    "sl",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "sl",
+    "hr",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI!",
+   "fallback": {
+    "en": [
+     "en"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl-SI!",
+    "en",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI!",
+   "fallback": {
+    "a": [
+     "b"
+    ],
+    "b": [
+     "a"
+    ],
+    "default": [
+     "en"
+    ]
+   },
+   "simple": [
+    "sl-SI!",
+    "a",
+    "b",
+    "default"
+   ],
+   "chain": [
+    "sl-SI",
+    "en"
+   ]
+  },
+  {
+   "start": "sl-SI!",
    "fallback": {
     "a": [
      "toString",
@@ -5092,1597 +6618,80 @@
     ]
    },
    "simple": [
+    "sl-SI!",
     "a",
     "default"
    ],
    "chain": [
-    "a",
-    "toString",
+    "sl-SI",
     "de"
    ]
   },
   {
-   "start": "a",
+   "start": "sl-SI!",
    "fallback": {
     "a": [
-     "constructor",
-     "fr"
+     "valueOf"
     ],
     "default": [
      "de"
     ]
    },
    "simple": [
+    "sl-SI!",
     "a",
     "default"
    ],
    "chain": [
-    "a",
-    "constructor",
+    "sl-SI",
     "de"
    ]
   },
   {
-   "start": "a",
+   "start": "sl-SI!",
    "fallback": {
-    "a": [
-     "valueOf",
-     "fr"
+    "1": [
+     "x"
     ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "a",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "valueOf",
-    "de"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "a": [
-     "hasOwnProperty",
-     "fr"
+    "2": [
+     "x"
     ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "a",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "hasOwnProperty",
-    "de"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "a": [
-     "toLocaleString",
-     "fr"
-    ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "a",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "toLocaleString",
-    "de"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "a": [
-     "propertyIsEnumerable",
-     "fr"
-    ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "a",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "propertyIsEnumerable",
-    "de"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "a": [
-     "__defineGetter__",
-     "fr"
-    ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "a",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "__defineGetter__",
-    "de"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "a": [
-     "__proto__",
-     "fr"
-    ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "a",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "__proto__",
-    "de"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": {
-    "__proto__": [
-     "fr"
-    ],
-    "a": [
-     "__proto__"
-    ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "a",
-    "__proto__",
-    "default"
-   ],
-   "chain": [
-    "a",
-    "__proto__",
-    "fr",
-    "de"
-   ]
-  },
-  {
-   "start": "toString",
-   "fallback": {
-    "toString": [
-     "fr"
-    ],
-    "default": [
-     "de"
-    ]
-   },
-   "simple": [
-    "toString",
-    "default"
-   ],
-   "chain": [
-    "toString",
-    "fr",
-    "de"
-   ]
-  },
-  {
-   "start": "0",
-   "fallback": [
-    [
-     "map",
-     "fr"
-    ],
-    "en"
-   ],
-   "simple": [
-    "0",
-    [
-     "map",
-     "fr"
-    ],
-    "en"
-   ],
-   "chain": [
-    "0",
-    "map",
-    "en"
-   ]
-  },
-  {
-   "start": "0",
-   "fallback": [
-    [
-     "constructor",
-     "fr"
-    ],
-    "en"
-   ],
-   "simple": [
-    "0",
-    [
-     "constructor",
-     "fr"
-    ],
-    "en"
-   ],
-   "chain": [
-    "0",
-    "constructor",
-    "en"
-   ]
-  },
-  {
-   "start": "0",
-   "fallback": [
-    [
-     "toString",
-     "fr"
-    ],
-    "en"
-   ],
-   "simple": [
-    "0",
-    [
-     "toString",
-     "fr"
-    ],
-    "en"
-   ],
-   "chain": [
-    "0",
-    "toString",
-    "en"
-   ]
-  },
-  {
-   "start": "0",
-   "fallback": [
-    [
-     "length",
-     "fr"
-    ],
-    "en"
-   ],
-   "simple": [
-    "0",
-    [
-     "length",
-     "fr"
-    ],
-    "en"
-   ],
-   "chain": [
-    "0",
-    "length",
-    "en"
-   ]
-  },
-  {
-   "start": "0",
-   "fallback": [
-    [
-     "__proto__",
-     "fr"
-    ],
-    "en"
-   ],
-   "simple": [
-    "0",
-    [
-     "__proto__",
-     "fr"
-    ],
-    "en"
-   ],
-   "chain": [
-    "0",
-    "__proto__",
-    "en"
-   ]
-  },
-  {
-   "start": "start",
-   "fallback": {
     "b": [
      "x"
     ],
-    "2": [
-     "x"
-    ],
-    "1": [
-     "x"
-    ],
     "a": [
      "x"
     ]
    },
    "simple": [
-    "start",
+    "sl-SI!",
     "1",
     "2",
     "b",
     "a"
    ],
    "chain": [
-    "start"
+    "sl-SI"
    ]
   },
   {
-   "start": "start",
-   "fallback": {
-    "10": [
-     "x"
-    ],
-    "9": [
-     "x"
-    ],
-    "01": [
-     "x"
-    ],
-    "": [
-     "x"
-    ],
-    "4294967295": [
-     "x"
-    ],
-    "4294967294": [
-     "x"
-    ],
-    "-1": [
-     "x"
-    ],
-    "1.5": [
-     "x"
-    ]
-   },
-   "simple": [
-    "start",
-    "9",
-    "10",
-    "4294967294",
-    "01",
-    "",
-    "4294967295",
-    "-1",
-    "1.5"
-   ],
-   "chain": [
-    "start"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": [
-    1,
-    "1",
-    true,
-    1.0
-   ],
-   "simple": [
-    "a",
-    1,
-    "1",
-    true
-   ],
-   "chain": [
-    "a",
-    "1"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": [
-    true,
-    1,
-    false,
-    0,
-    "true"
-   ],
-   "simple": [
-    "a",
-    true,
-    1,
-    false,
-    0,
-    "true"
-   ],
-   "chain": [
-    "a",
-    "true"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": [
-    0,
-    0,
-    0.0
-   ],
-   "simple": [
-    "a",
-    0
-   ],
-   "chain": [
-    "a"
-   ]
-  },
-  {
-   "start": "a",
-   "fallback": [
-    [
-     "en"
-    ],
-    [
-     "en"
-    ]
-   ],
-   "simple": [
-    "a",
-    [
-     "en"
-    ],
-    [
-     "en"
-    ]
-   ],
-   "chain": [
-    "a"
-   ]
-  },
-  {
-   "start": "2-a",
-   "fallback": {
-    "en-b": [],
-    "1": [],
-    "default": []
-   },
-   "simple": [
-    "2-a",
-    "1",
-    "en-b",
-    "default"
-   ],
-   "chain": [
-    "2-a",
-    "2"
-   ]
-  },
-  {
-   "start": "with",
-   "fallback": {
-    "1-at": "de!",
-    "0": "de",
-    "length--keys": [
-     "4294967295"
-    ],
-    "4294967295-sl-constructor": [
-     [
-      "map-!",
-      "-hasOwnProperty"
-     ],
-     "1",
-     "2"
-    ],
-    "default": "__proto__-"
-   },
-   "simple": [
-    "with",
-    "0",
-    "1-at",
-    "length--keys",
-    "4294967295-sl-constructor",
-    "default"
-   ],
-   "chain": [
-    "with",
-    "__proto__-",
-    "__proto__"
-   ]
-  },
-  {
-   "start": "0-length",
-   "fallback": [
-    [
-     "__proto__",
-     "4294967295"
-    ],
-    "",
-    "length"
-   ],
-   "simple": [
-    "0-length",
-    [
-     "__proto__",
-     "4294967295"
-    ],
-    "",
-    "length"
-   ],
-   "chain": [
-    "0-length",
-    "0",
-    "__proto__",
-    "length"
-   ]
-  },
-  {
-   "start": "length-default",
-   "fallback": {
-    "constructor": [
-     "sl-valueOf-length",
-     "hasOwnProperty-b-4294967295!"
-    ],
-    "sl-toString": [
-     "sl"
-    ],
-    "1": [],
-    "default": [
-     "default-map-keys!",
-     [
-      "__proto__-1-with",
-      "constructor-keys"
-     ]
-    ]
-   },
-   "simple": [
-    "length-default",
-    "1",
-    "constructor",
-    "sl-toString",
-    "default"
-   ],
-   "chain": [
-    "length-default",
-    "length",
-    "default-map-keys"
-   ]
-  },
-  {
-   "start": "constructor",
-   "fallback": {
-    "length-": [
-     "de"
-    ],
-    "default-toString!": [
-     "hasOwnProperty-0-sl"
-    ],
-    "1": [],
-    "default": "4294967295-hasOwnProperty"
-   },
-   "simple": [
-    "constructor",
-    "1",
-    "length-",
-    "default-toString!",
-    "default"
-   ],
-   "chain": [
-    "constructor",
-    "4294967295-hasOwnProperty",
-    "4294967295"
-   ]
-  },
-  {
-   "start": "sl-constructor-sl",
-   "fallback": {
-    "map-valueOf": [
-     "0-en-__proto__!",
-     "0",
-     "keys"
-    ],
-    "1": [
-     "en-toString-1"
-    ],
-    "constructor-0-constructor": [
-     "constructor-2-01",
-     "sl-default",
-     "en"
-    ],
-    "default": [
-     "map",
-     "toString-keys-toString"
-    ]
-   },
-   "simple": [
-    "sl-constructor-sl",
-    "1",
-    "map-valueOf",
-    "constructor-0-constructor",
-    "default"
-   ],
-   "chain": [
-    "sl-constructor-sl",
-    "sl-constructor",
-    "sl",
-    "map",
-    "toString-keys-toString",
-    "toString-keys",
-    "toString"
-   ]
-  },
-  {
-   "start": "default-en-at",
-   "fallback": {
-    "sl": [
-     "toString-en-__proto__",
-     "sl-a-toString",
-     "-a-en"
-    ],
-    "default": [
-     "__proto__",
-     "de",
-     "sl-default-__proto__"
-    ]
-   },
-   "simple": [
-    "default-en-at",
-    "sl",
-    "default"
-   ],
-   "chain": [
-    "default-en-at",
-    "default-en",
-    "default",
-    "__proto__",
-    "de",
-    "sl-default-__proto__",
-    "sl-default",
-    "sl"
-   ]
-  },
-  {
-   "start": "at-b-__proto__!",
-   "fallback": {
-    "toString": [
-     "4294967295-at",
-     "4294967295-2-en",
-     "constructor-b"
-    ],
-    "a-keys!": false,
-    "0": "4294967295-map-at",
-    "default": [
-     "2-at",
-     "constructor-default-keys"
-    ]
-   },
-   "simple": [
-    "at-b-__proto__!",
-    "0",
-    "toString",
-    "a-keys!",
-    "default"
-   ],
-   "chain": [
-    "at-b-__proto__",
-    "2-at",
-    "2",
-    "constructor-default-keys",
-    "constructor-default",
-    "constructor"
-   ]
-  },
-  {
-   "start": "0-4294967295!",
-   "fallback": {
-    "01": [],
-    "1-de": [
-     "with-a",
-     "map-01",
-     "a--en"
-    ],
-    "0": [
-     "-a",
-     "length"
-    ],
-    "constructor-at": [],
-    "default": "at-toString-constructor"
-   },
-   "simple": [
-    "0-4294967295!",
-    "0",
-    "01",
-    "1-de",
-    "constructor-at",
-    "default"
-   ],
-   "chain": [
-    "0-4294967295",
-    "at-toString-constructor",
-    "at-toString",
-    "at"
-   ]
-  },
-  {
-   "start": "length-",
-   "fallback": {
-    "de-a!": [
-     "default-length-de"
-    ],
-    "1": [
-     "",
-     [
-      "de-4294967295-__proto__",
-      "length-1-sl"
-     ]
-    ],
-    "01-01-en": [],
-    "default": [
-     [
-      "4294967295",
-      "2-valueOf!"
-     ],
-     "default"
-    ]
-   },
-   "simple": [
-    "length-",
-    "1",
-    "de-a!",
-    "01-01-en",
-    "default"
-   ],
-   "chain": [
-    "length-",
-    "length",
-    "default"
-   ]
-  },
-  {
-   "start": "valueOf!",
-   "fallback": {
-    "1-at": [],
-    "toString-at": false,
-    "0": [
-     "toString-4294967295",
-     "0!"
-    ]
-   },
-   "simple": [
-    "valueOf!",
-    "0",
-    "1-at",
-    "toString-at"
-   ],
-   "chain": [
-    "valueOf"
-   ]
-  },
-  {
-   "start": "length-toString",
-   "fallback": {
-    "en-sl-keys": [
-     "en",
-     "default",
-     "a!"
-    ],
-    "2": [
-     "0-with-length",
-     "hasOwnProperty-b-4294967295",
-     [
-      "2--4294967295",
-      "1"
-     ]
-    ],
-    "2-01": false,
-    "default": [
-     [
-      "de",
-      "4294967295-en-en"
-     ],
-     "keys-b",
-     "1"
-    ]
-   },
-   "simple": [
-    "length-toString",
-    "2",
-    "en-sl-keys",
-    "2-01",
-    "default"
-   ],
-   "chain": [
-    "length-toString",
-    "length",
-    "keys-b",
-    "keys",
-    "1"
-   ]
-  },
-  {
-   "start": "b-keys",
-   "fallback": {
-    "1-hasOwnProperty": [
-     "sl-toString-hasOwnProperty"
-    ],
-    "1": []
-   },
-   "simple": [
-    "b-keys",
-    "1",
-    "1-hasOwnProperty"
-   ],
-   "chain": [
-    "b-keys",
-    "b"
-   ]
-  },
-  {
-   "start": "0-b-0",
-   "fallback": {
-    "": [
-     "keys-__proto__"
-    ],
-    "2": [],
-    "valueOf-b-0": [
-     "valueOf",
-     "hasOwnProperty-default"
-    ],
-    "default": "with-4294967295"
-   },
-   "simple": [
-    "0-b-0",
-    "2",
-    "",
-    "valueOf-b-0",
-    "default"
-   ],
-   "chain": [
-    "0-b-0",
-    "0-b",
-    "0",
-    "with-4294967295",
-    "with"
-   ]
-  },
-  {
-   "start": "valueOf-de",
-   "fallback": {
-    "a-at-01": [
-     "default-with",
-     "-01!",
-     "length-constructor-01"
-    ],
-    "2": true,
-    "default": []
-   },
-   "simple": [
-    "valueOf-de",
-    "2",
-    "a-at-01",
-    "default"
-   ],
-   "chain": [
-    "valueOf-de",
-    "valueOf"
-   ]
-  },
-  {
-   "start": "constructor-__proto__",
-   "fallback": [],
-   "simple": [
-    "constructor-__proto__"
-   ],
-   "chain": [
-    "constructor-__proto__",
-    "constructor"
-   ]
-  },
-  {
-   "start": "4294967295",
-   "fallback": false,
-   "simple": [
-    "4294967295"
-   ],
-   "chain": [
-    "4294967295"
-   ]
-  },
-  {
-   "start": "1-0-2",
-   "fallback": null,
-   "simple": [
-    "1-0-2"
-   ],
-   "chain": [
-    "1-0-2",
-    "1-0",
-    "1"
-   ]
-  },
-  {
-   "start": "length-b-hasOwnProperty",
-   "fallback": {
-    "default": [
-     "hasOwnProperty",
-     "map-a-__proto__"
-    ]
-   },
-   "simple": [
-    "length-b-hasOwnProperty",
-    "default"
-   ],
-   "chain": [
-    "length-b-hasOwnProperty",
-    "length-b",
-    "length",
-    "hasOwnProperty",
-    "map-a-__proto__",
-    "map-a",
-    "map"
-   ]
-  },
-  {
-   "start": "1-length",
-   "fallback": {
-    "default-hasOwnProperty": [
-     "en-constructor-constructor",
-     "b-constructor"
-    ],
-    "sl-de": [
-     "hasOwnProperty"
-    ],
-    "": true,
-    "de": [
-     "__proto__-with-b!",
-     "4294967295-b"
-    ],
-    "default": [
-     "b--b",
-     "2"
-    ]
-   },
-   "simple": [
-    "1-length",
-    "default-hasOwnProperty",
-    "sl-de",
-    "",
-    "de",
-    "default"
-   ],
-   "chain": [
-    "1-length",
-    "1",
-    "b--b",
-    "b-",
-    "b",
-    "2"
-   ]
-  },
-  {
-   "start": "length-at",
-   "fallback": "with-4294967295-0!",
-   "simple": [
-    "length-at",
-    "with-4294967295-0!"
-   ],
-   "chain": [
-    "length-at",
-    "length",
-    "with-4294967295-0"
-   ]
-  },
-  {
-   "start": "length-01-2",
-   "fallback": null,
-   "simple": [
-    "length-01-2"
-   ],
-   "chain": [
-    "length-01-2",
-    "length-01",
-    "length"
-   ]
-  },
-  {
-   "start": "de-with",
-   "fallback": {
-    "hasOwnProperty": [],
-    "en-b": [
-     "-sl"
-    ],
-    "with-with-__proto__!": [
-     [
-      "at-__proto__-a",
-      "01"
-     ],
-     "a-length"
-    ],
-    "default": [
-     "valueOf-hasOwnProperty",
-     "map-0"
-    ]
-   },
-   "simple": [
-    "de-with",
-    "hasOwnProperty",
-    "en-b",
-    "with-with-__proto__!",
-    "default"
-   ],
-   "chain": [
-    "de-with",
-    "de",
-    "valueOf-hasOwnProperty",
-    "valueOf",
-    "map-0",
-    "map"
-   ]
-  },
-  {
-   "start": "en-keys",
-   "fallback": false,
-   "simple": [
-    "en-keys"
-   ],
-   "chain": [
-    "en-keys",
-    "en"
-   ]
-  },
-  {
-   "start": "map-1-valueOf",
-   "fallback": {
-    "__proto__": [
-     [
-      "1-b-a",
-      "b-sl-de"
-     ]
-    ],
-    "constructor-at-with": true,
-    "map-4294967295": "constructor-01",
-    "default": [
-     "keys-1"
-    ]
-   },
-   "simple": [
-    "map-1-valueOf",
-    "__proto__",
-    "constructor-at-with",
-    "map-4294967295",
-    "default"
-   ],
-   "chain": [
-    "map-1-valueOf",
-    "map-1",
-    "map",
-    "keys-1",
-    "keys"
-   ]
-  },
-  {
-   "start": "valueOf-1",
-   "fallback": [
-    "0-with",
-    "a",
-    [
-     "constructor",
-     "1-__proto__"
-    ]
-   ],
-   "simple": [
-    "valueOf-1",
-    "0-with",
-    "a",
-    [
-     "constructor",
-     "1-__proto__"
-    ]
-   ],
-   "chain": [
-    "valueOf-1",
-    "valueOf",
-    "0-with",
-    "0",
-    "a"
-   ]
-  },
-  {
-   "start": "toString",
-   "fallback": "with",
-   "simple": [
-    "toString",
-    "with"
-   ],
-   "chain": [
-    "toString",
-    "with"
-   ]
-  },
-  {
-   "start": "keys-default-1",
-   "fallback": null,
-   "simple": [
-    "keys-default-1"
-   ],
-   "chain": [
-    "keys-default-1",
-    "keys-default",
-    "keys"
-   ]
-  },
-  {
-   "start": "en-with-1",
-   "fallback": "length-01",
-   "simple": [
-    "en-with-1",
-    "length-01"
-   ],
-   "chain": [
-    "en-with-1",
-    "en-with",
-    "en",
-    "length-01",
-    "length"
-   ]
-  },
-  {
-   "start": "length-sl",
-   "fallback": [],
-   "simple": [
-    "length-sl"
-   ],
-   "chain": [
-    "length-sl",
-    "length"
-   ]
-  },
-  {
-   "start": "de-with-keys",
-   "fallback": "b",
-   "simple": [
-    "de-with-keys",
-    "b"
-   ],
-   "chain": [
-    "de-with-keys",
-    "de-with",
-    "de",
-    "b"
-   ]
-  },
-  {
-   "start": "b-hasOwnProperty-01",
-   "fallback": "hasOwnProperty-__proto__",
-   "simple": [
-    "b-hasOwnProperty-01",
-    "hasOwnProperty-__proto__"
-   ],
-   "chain": [
-    "b-hasOwnProperty-01",
-    "b-hasOwnProperty",
-    "b",
-    "hasOwnProperty-__proto__",
-    "hasOwnProperty"
-   ]
-  },
-  {
-   "start": "toString",
-   "fallback": false,
-   "simple": [
-    "toString"
-   ],
-   "chain": [
-    "toString"
-   ]
-  },
-  {
-   "start": "1-4294967295",
-   "fallback": {
-    "with-keys": [
-     "4294967295-a",
-     "0",
-     "keys-valueOf"
-    ],
-    "__proto__-b": [],
-    "default": [
-     [
-      "2-default",
-      "-map-"
-     ],
-     "0"
-    ]
-   },
-   "simple": [
-    "1-4294967295",
-    "with-keys",
-    "__proto__-b",
-    "default"
-   ],
-   "chain": [
-    "1-4294967295",
-    "1",
-    "0"
-   ]
-  },
-  {
-   "start": "at-de-de",
-   "fallback": {
-    "map-a!": [
-     "de--4294967295"
-    ],
-    "map": "a",
-    "__proto__-en": [
-     "en-01-with"
-    ],
-    "": [
-     "en-4294967295-constructor"
-    ]
-   },
-   "simple": [
-    "at-de-de",
-    "map-a!",
-    "map",
-    "__proto__-en",
-    ""
-   ],
-   "chain": [
-    "at-de-de",
-    "at-de",
-    "at"
-   ]
-  },
-  {
-   "start": "length-2",
-   "fallback": "01-length",
-   "simple": [
-    "length-2",
-    "01-length"
-   ],
-   "chain": [
-    "length-2",
-    "length",
-    "01-length",
-    "01"
-   ]
-  },
-  {
-   "start": "hasOwnProperty-1-valueOf",
-   "fallback": false,
-   "simple": [
-    "hasOwnProperty-1-valueOf"
-   ],
-   "chain": [
-    "hasOwnProperty-1-valueOf",
-    "hasOwnProperty-1",
-    "hasOwnProperty"
-   ]
-  },
-  {
-   "start": "default-2-sl",
-   "fallback": null,
-   "simple": [
-    "default-2-sl"
-   ],
-   "chain": [
-    "default-2-sl",
-    "default-2",
-    "default"
-   ]
-  },
-  {
-   "start": "constructor-keys-__proto__",
-   "fallback": false,
-   "simple": [
-    "constructor-keys-__proto__"
-   ],
-   "chain": [
-    "constructor-keys-__proto__",
-    "constructor-keys",
-    "constructor"
-   ]
-  },
-  {
-   "start": "sl-a",
-   "fallback": "constructor-length-with",
-   "simple": [
-    "sl-a",
-    "constructor-length-with"
-   ],
-   "chain": [
-    "sl-a",
-    "sl",
-    "constructor-length-with",
-    "constructor-length",
-    "constructor"
-   ]
-  },
-  {
-   "start": "de-keys",
-   "fallback": {
-    "sl-at-!": false,
-    "__proto__": [
-     "de-b-4294967295"
-    ],
-    "with-with-__proto__": false,
-    "01": true,
-    "default": []
-   },
-   "simple": [
-    "de-keys",
-    "sl-at-!",
-    "__proto__",
-    "with-with-__proto__",
-    "01",
-    "default"
-   ],
-   "chain": [
-    "de-keys",
-    "de"
-   ]
-  },
-  {
-   "start": "with-map",
-   "fallback": false,
-   "simple": [
-    "with-map"
-   ],
-   "chain": [
-    "with-map",
-    "with"
-   ]
-  },
-  {
-   "start": "hasOwnProperty-default-constructor",
-   "fallback": {
-    "4294967295": [
-     "1",
-     "__proto__-1-01"
-    ],
-    "default": [
-     "en-constructor"
-    ]
-   },
-   "simple": [
-    "hasOwnProperty-default-constructor",
-    "4294967295",
-    "default"
-   ],
-   "chain": [
-    "hasOwnProperty-default-constructor",
-    "hasOwnProperty-default",
-    "hasOwnProperty",
-    "en-constructor",
-    "en"
-   ]
-  },
-  {
-   "start": "at-valueOf",
-   "fallback": false,
-   "simple": [
-    "at-valueOf"
-   ],
-   "chain": [
-    "at-valueOf",
-    "at"
-   ]
-  },
-  {
-   "start": "b--01",
-   "fallback": null,
-   "simple": [
-    "b--01"
-   ],
-   "chain": [
-    "b--01",
-    "b-",
-    "b"
-   ]
-  },
-  {
-   "start": "-4294967295",
-   "fallback": "default-a-1",
-   "simple": [
-    "-4294967295",
-    "default-a-1"
-   ],
-   "chain": [
-    "-4294967295",
-    "default-a-1",
-    "default-a",
-    "default"
-   ]
-  },
-  {
-   "start": "01-sl!",
-   "fallback": {
-    "default": "default"
-   },
-   "simple": [
-    "01-sl!",
-    "default"
-   ],
-   "chain": [
-    "01-sl",
-    "default"
-   ]
-  },
-  {
-   "start": "0-de-4294967295",
+   "start": "sl-SI!",
    "fallback": {},
    "simple": [
-    "0-de-4294967295"
+    "sl-SI!"
    ],
    "chain": [
-    "0-de-4294967295",
-    "0-de",
-    "0"
+    "sl-SI"
    ]
   },
   {
-   "start": "1",
+   "start": "sl-SI!",
    "fallback": [],
    "simple": [
-    "1"
+    "sl-SI!"
    ],
    "chain": [
-    "1"
-   ]
-  },
-  {
-   "start": "at-sl-constructor",
-   "fallback": false,
-   "simple": [
-    "at-sl-constructor"
-   ],
-   "chain": [
-    "at-sl-constructor",
-    "at-sl",
-    "at"
-   ]
-  },
-  {
-   "start": "de-de-a",
-   "fallback": false,
-   "simple": [
-    "de-de-a"
-   ],
-   "chain": [
-    "de-de-a",
-    "de-de",
-    "de"
-   ]
-  },
-  {
-   "start": "length-1",
-   "fallback": null,
-   "simple": [
-    "length-1"
-   ],
-   "chain": [
-    "length-1",
-    "length"
-   ]
-  },
-  {
-   "start": "default-01-with",
-   "fallback": [],
-   "simple": [
-    "default-01-with"
-   ],
-   "chain": [
-    "default-01-with",
-    "default-01",
-    "default"
-   ]
-  },
-  {
-   "start": "toString--!",
-   "fallback": null,
-   "simple": [
-    "toString--!"
-   ],
-   "chain": [
-    "toString--"
-   ]
-  },
-  {
-   "start": "de-1-valueOf",
-   "fallback": "de-01",
-   "simple": [
-    "de-1-valueOf",
-    "de-01"
-   ],
-   "chain": [
-    "de-1-valueOf",
-    "de-1",
-    "de",
-    "de-01"
-   ]
-  },
-  {
-   "start": "de-a-4294967295",
-   "fallback": null,
-   "simple": [
-    "de-a-4294967295"
-   ],
-   "chain": [
-    "de-a-4294967295",
-    "de-a",
-    "de"
-   ]
-  },
-  {
-   "start": "toString-2-1",
-   "fallback": {},
-   "simple": [
-    "toString-2-1"
-   ],
-   "chain": [
-    "toString-2-1",
-    "toString-2",
-    "toString"
-   ]
-  },
-  {
-   "start": "map-with-en",
-   "fallback": null,
-   "simple": [
-    "map-with-en"
-   ],
-   "chain": [
-    "map-with-en",
-    "map-with",
-    "map"
-   ]
-  },
-  {
-   "start": "default-default",
-   "fallback": {},
-   "simple": [
-    "default-default"
-   ],
-   "chain": [
-    "default-default",
-    "default"
-   ]
-  },
-  {
-   "start": "at-hasOwnProperty-sl",
-   "fallback": {
-    "en-01-": true,
-    "default!": [],
-    "toString-length-en": true,
-    "length": "1"
-   },
-   "simple": [
-    "at-hasOwnProperty-sl",
-    "en-01-",
-    "default!",
-    "toString-length-en",
-    "length"
-   ],
-   "chain": [
-    "at-hasOwnProperty-sl",
-    "at-hasOwnProperty",
-    "at"
+    "sl-SI"
    ]
   }
  ]

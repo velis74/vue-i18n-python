@@ -13,8 +13,12 @@
 import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, resolve } from 'node:path';
+import { readFileSync } from 'node:fs';
 
-const OUT = resolve(dirname(fileURLToPath(import.meta.url)), '../../conformance/display.json');
+const HERE = dirname(fileURLToPath(import.meta.url));
+const OUT = resolve(HERE, '../../conformance/display.json');
+// The pinned submodule, because the toDisplayString copy below is a copy *of that version*.
+const VERSION = JSON.parse(readFileSync(resolve(HERE, '../../vendor/vue-i18n/package.json'), 'utf8')).version;
 
 const objectToString = Object.prototype.toString;
 const isPlainObject = (v) => objectToString.call(v) === '[object Object]';
@@ -66,7 +70,7 @@ writeFileSync(
         'what JavaScript String(value) and toDisplayString(value) produce; the Python port must ' +
         'agree. Numbers include random 64-bit patterns, because shortest-round-trip formatting is ' +
         'where a hand-written port goes wrong.',
-      upstream: 'intlify/vue-i18n@12.0.0-alpha.4 (packages/shared/src/utils.ts)',
+      upstream: `intlify/vue-i18n@${VERSION} (packages/shared/src/utils.ts)`,
       node: process.version,
       cases,
     },

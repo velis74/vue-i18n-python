@@ -1,6 +1,6 @@
 {
  "$comment": "Generated from Node by scripts/conformance/generate_display_corpus.mjs. Each case records what JavaScript String(value) and toDisplayString(value) produce; the Python port must agree. Numbers include random 64-bit patterns, because shortest-round-trip formatting is where a hand-written port goes wrong.",
- "upstream": "intlify/vue-i18n@12.0.0-alpha.4 (packages/shared/src/utils.ts)",
+ "upstream": "intlify/vue-i18n@11.4.8 (packages/shared/src/utils.ts)",
  "node": "v26.7.0",
  "cases": [
   {

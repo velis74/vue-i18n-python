@@ -1,0 +1,149 @@
+// Regenerates conformance/translate.json by running upstream's own translate().
+//
+//   node scripts/conformance/generate_translate_corpus.mjs
+//
+// This is the corpus that matters most: one call in, one string out, through the whole of
+// @intlify/core-base — argument parsing, the fallback walk, message resolution, compilation,
+// interpolation, linked messages and the missing-key path.
+//
+// The calls are the ones a real application makes. There is no attempt to be exhaustive and no
+// pathological input: a translation layer is judged on ordinary keys, ordinary fallbacks and
+// ordinary counts.
+
+import { writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+import { createRequire } from 'node:module';
+import {
+  compile,
+  createCoreContext,
+  fallbackWithLocaleChain,
+  registerLocaleFallbacker,
+  registerMessageCompiler,
+  registerMessageResolver,
+  resolveValue,
+  translate,
+} from '@intlify/core-base';
+
+const require_ = createRequire(import.meta.url);
+const VERSION = require_('@intlify/core-base/package.json').version;
+const OUT = resolve(dirname(fileURLToPath(import.meta.url)), '../../conformance/translate.json');
+
+// core-base ships without these wired up so a Vue build can leave the compiler out of the bundle.
+// `@intlify/core` is the package that registers them; doing it by hand here is the same thing.
+registerMessageCompiler(compile);
+registerMessageResolver(resolveValue);
+registerLocaleFallbacker(fallbackWithLocaleChain);
+
+// A message resource shaped like one a real project has: nested groups, a brand linked from several
+// places, plurals with the number of forms a Slovene translator actually writes, and a locale that
+// is deliberately incomplete so the fallback chain gets exercised.
+const MESSAGES = {
+  sl: {
+    hello: 'Zdravo {name}',
+    brand: 'SŽ',
+    welcome: 'Dobrodošli v @:brand',
+    shout: '@.upper:brand',
+    nested: { deep: { key: 'globoka vrednost' } },
+    trips: 'ni povezav | ena povezava | {count} povezav',
+    seats: 'ni sedežev | en sedež | dva sedeža | {count} sedeži | {count} sedežev',
+    both: '{greeting}, {name}!',
+    positional: '{0} in {1}',
+    'dotted.key': 'plosko zapisan ključ',
+    literal: "{'@'} in {'{'}oklepaj{'}'}",
+    empty: '',
+  },
+  en: {
+    hello: 'Hello {name}',
+    brand: 'SZ',
+    welcome: 'Welcome to @:brand',
+    trips: 'no trips | one trip | {count} trips',
+    'english-only': 'only in english',
+    nested: { deep: { key: 'deep value' } },
+  },
+  'sl-SI': {
+    regional: 'regionalno',
+  },
+};
+
+const CALLS = [
+  // Ordinary hits.
+  { locale: 'sl', args: ['hello', { name: 'Jure' }] },
+  { locale: 'sl', args: ['hello', { name: 'Ana' }] },
+  { locale: 'sl', args: ['hello'] },
+  { locale: 'sl', args: ['brand'] },
+  { locale: 'sl', args: ['welcome'] },
+  { locale: 'sl', args: ['shout'] },
+  { locale: 'sl', args: ['nested.deep.key'] },
+  { locale: 'sl', args: ['dotted.key'] },
+  { locale: 'sl', args: ['literal'] },
+  { locale: 'sl', args: ['empty'] },
+  { locale: 'sl', args: ['both', { greeting: 'Zdravo', name: 'svet' }] },
+  { locale: 'sl', args: ['positional', ['prvi', 'drugi']] },
+  { locale: 'sl', args: ['positional', ['samo']] },
+  // Plurals, at the counts a timetable actually shows.
+  ...[0, 1, 2, 3, 4, 5, 11, 21, 101, 102].flatMap((n) => [
+    { locale: 'sl', args: ['trips', n] },
+    { locale: 'sl', args: ['seats', n] },
+    { locale: 'en', args: ['trips', n] },
+  ]),
+  // Named values alongside a count.
+  { locale: 'sl', args: ['trips', { count: 3 }, 3] },
+  // Missing keys, with and without a default.
+  { locale: 'sl', args: ['nope'] },
+  { locale: 'sl', args: ['nope', 'privzeto besedilo'] },
+  { locale: 'sl', args: ['nope', { name: 'x' }, 'privzeto'] },
+  { locale: 'sl', args: ['nested.missing'] },
+  // The fallback chain.
+  { locale: 'sl', args: ['english-only'] },
+  { locale: 'sl-SI', args: ['regional'] },
+  { locale: 'sl-SI', args: ['hello', { name: 'Jure' }] },
+  { locale: 'sl-SI', args: ['english-only'] },
+  { locale: 'de', args: ['hello', { name: 'Jure' }] },
+  // A per-call locale override.
+  { locale: 'sl', args: ['hello', { name: 'Jure' }, { locale: 'en' }] },
+  { locale: 'en', args: ['welcome'] },
+  // Options spelled in the third argument.
+  { locale: 'sl', args: ['trips', {}, { plural: 2 }] },
+  { locale: 'sl', args: ['hello', {}, { default: 'nadomestek' }] },
+];
+
+const cases = [];
+for (const call of CALLS) {
+  const context = createCoreContext({
+    locale: call.locale,
+    fallbackLocale: { 'sl-SI': ['sl', 'en'], sl: ['en'], default: ['en'] },
+    messages: structuredClone(MESSAGES),
+    missingWarn: false,
+    fallbackWarn: false,
+  });
+  let result = null;
+  let threw = null;
+  try {
+    result = translate(context, ...structuredClone(call.args));
+  } catch (e) {
+    threw = String(e && e.message);
+  }
+  cases.push({ locale: call.locale, args: call.args, result, threw });
+}
+
+writeFileSync(
+  OUT,
+  JSON.stringify(
+    {
+      $comment:
+        'Generated by scripts/conformance/generate_translate_corpus.mjs from @intlify/core-base. ' +
+        'One case is one translate() call and the string it returned. `messages` is the resource ' +
+        'every case is made against, and `fallbackLocale` the chain they all share. Regenerate ' +
+        'only when upstream changes, and say so in the commit.',
+      upstream: `intlify/vue-i18n@${VERSION}`,
+      messages: MESSAGES,
+      fallbackLocale: { 'sl-SI': ['sl', 'en'], sl: ['en'], default: ['en'] },
+      cases,
+    },
+    null,
+    1,
+  ) + '\n',
+);
+
+console.log(`${cases.length} calls -> ${OUT}`);

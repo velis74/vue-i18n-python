@@ -126,8 +126,16 @@ Not deviations, but worth knowing:
       **102/102 identical token streams including every source location**. The corpus lives in
       `conformance/compile.json`; regenerate it only when upstream changes, and say so in the commit.
       Not ported: `generator`, `optimizer`, `mangler`, `transformer` (they emit JavaScript).
-- [ ] Python runtime — `resolver`, `fallbacker`, `errors`, `display`, `message_context` and `format`
-      are in. **`translate.py` and `context.py` are not, and they are the largest piece left.**
+- [x] Python runtime — complete for translation. `context.py` and `translate.py` are in, on top of
+      `resolver`, `fallbacker`, `errors`, `warnings`, `display`, `message_context` and `format`.
+      Validated against `@intlify/core-base` 11.4.8 itself: `conformance/translate.json`,
+      **59/59 calls returning identical strings** — ordinary keys, nested and flat dotted keys,
+      linked messages and modifiers, the fallback chain at each depth, per-call locale override,
+      defaults, missing keys, and plural counts 0–102 in three locales.
+      Two defects the corpus caught that the smoke test had not: a per-call `locale` option was
+      silently ignored (the options object was passed to `get_locale` as a dict, which reads its
+      `locale` attribute), and nested keys did not resolve at all.
+      Still missing: `d()` and `n()`, and the output half of `escape_parameter`.
 - [x] `runtime/message_context.py` + `runtime/format.py` — the message context (named/list values,
       linked lookup, modifiers, plural dispatch) and the AST evaluator.
       Validated end to end against **real vue-i18n**: `conformance/render.json`, **74/74 rendered
@@ -189,6 +197,10 @@ fixture ever pins one:
       `one`, not to `other`; and an arity above the full ladder leaves the surplus forms unreachable
       rather than inventing a category.
 - [ ] Python `d()` / `n()` via babel
+- [ ] `escape_parameter`: parameters are escaped (`runtime/sanitize.py` ports `escapeHtml`), but
+      upstream's `sanitizeTranslatedHtml` — attribute sanitisation, event-handler neutralisation,
+      `javascript:` URL stripping — is not ported. Enabling the option warns once saying so, and
+      that warning stays until the sanitizer lands.
 - [ ] TS loader package. **`ts/` still needs its plural runtime and its conformance runner.**
       `ts/plurals/generated.ts` exists and is verified, but the ladder arithmetic (locale
       resolution, operand extraction, `plural_index`) has no TypeScript home yet, so nothing in the

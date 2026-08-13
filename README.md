@@ -7,17 +7,32 @@ Same JSON message files, same API, same behaviour — in Python. The point is a 
 Python back end reading one set of translations and producing the same strings from them.
 
 ```python
+import json
+
 from vue_i18n import create_core_context, translate
 
 ctx = create_core_context(
     locale="sl",
     fallback_locale="en",
-    messages=json.load(open("locales/sl.json")),   # the file your front end already loads
+    messages={                                     # the files your front end already loads
+        "sl": json.load(open("locales/sl.json")),
+        "en": json.load(open("locales/en.json")),
+    },
 )
 
 translate(ctx, "hello", {"name": "Jure"})          # 'Zdravo Jure'
 translate(ctx, "trips", 5)                         # plural form for 5
 ```
+
+**[docs.velis.si/vue-i18n-python](https://docs.velis.si/vue-i18n-python/) is the manual.**
+
+| | |
+|---|---|
+| Why this exists, and who should not use it | [Rationale](https://docs.velis.si/vue-i18n-python/guide/rationale.html) |
+| Installing it and the call shapes | [Getting started](https://docs.velis.si/vue-i18n-python/guide/getting-started.html) |
+| The one thing that surprises people | [Plural rules](https://docs.velis.si/vue-i18n-python/guide/plurals.html) |
+| Where it deliberately differs from vue-i18n | [Differences](https://docs.velis.si/vue-i18n-python/guide/differences.html) |
+| Every public function | [API reference](https://docs.velis.si/vue-i18n-python/api/) |
 
 Message files are ordinary vue-i18n resources: `{named}` placeholders, `{0}` positional values,
 `a | b | c` plurals, `@:linked` messages, `@.upper:` modifiers, `{'@'}` literals. Nothing asks you

@@ -9,7 +9,7 @@ Each file records what upstream produced for a set of inputs. Nothing in them is
 
 | corpus | what it records | cases |
 |---|---|---|
-| `translate.json` | `translate()` calls against `@intlify/core-base` itself | 59 |
+| `translate.json` | `translate()` calls against `@intlify/core-base` itself | 57 |
 | `render.json` | messages rendered end to end by real `vue-i18n` | 74 |
 | `compile.json` | ASTs, error codes, error messages and source locations | 128 |
 | `resolve.json` | key-path resolutions, including the awkward ones | 200 |

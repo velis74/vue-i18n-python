@@ -89,6 +89,7 @@ exclude = [
 include = [
     "/vue_i18n",
     "/conformance",
+    "/CHANGELOG.md",
     "/SPEC.md",
     "/README.md",
     "/LICENSE",

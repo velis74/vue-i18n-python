@@ -62,7 +62,7 @@ against the real thing and replayed on every test run:
 
 | corpus | what it pins |
 |---|---|
-| `conformance/translate.json` | 59 `translate()` calls against `@intlify/core-base` itself |
+| `conformance/translate.json` | 57 `translate()` calls against `@intlify/core-base` itself |
 | `conformance/render.json` | 74 messages rendered by real `vue-i18n` |
 | `conformance/compile.json` | 128 messages: ASTs, error codes, error messages, source locations |
 | `conformance/resolve.json` | 200 key-path resolutions |

@@ -109,10 +109,6 @@ confirmed production use is what earns 1.0 — not a complete corpus.
 
 Nothing here is about behaviour; these are the formalities between a working library and a release.
 
-- **No `CHANGELOG.md`.** `UPSTREAM.md` and the documentation both say every release records the
-  vue-i18n version it tracks; there is nowhere yet for it to be recorded. The first release breaks
-  that promise the moment it is made, which makes this the one item on this list that is genuinely
-  release-blocking rather than merely missing.
 - **CI is written but has never run.** `.github/workflows/ci.yml` lints, tests on 3.10 through 3.13,
   builds both artefacts, runs `twine check` and builds the docs; every step was verified locally
   first. It is still unproven until the first push, and the action majors (`checkout@v7`,

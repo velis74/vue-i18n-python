@@ -111,7 +111,7 @@ Not deviations, but worth knowing:
 - [x] Python runtime — complete for translation. `context.py` and `translate.py` are in, on top of
       `resolver`, `fallbacker`, `errors`, `warnings`, `display`, `message_context` and `format`.
       Validated against `@intlify/core-base` 11.4.8 itself: `conformance/translate.json`,
-      **59/59 calls returning identical strings** — ordinary keys, nested and flat dotted keys,
+      **57/57 calls returning identical strings** — ordinary keys, nested and flat dotted keys,
       linked messages and modifiers, the fallback chain at each depth, per-call locale override,
       defaults, missing keys, and plural counts 0–102 in three locales.
       Two defects the corpus caught that the smoke test had not: a per-call `locale` option was

@@ -30,7 +30,7 @@ features:
   - title: Checked, not claimed
     details: >
       Seven conformance corpora, recorded by running real vue-i18n and replayed on every test run.
-      59 translate() calls against @intlify/core-base itself, 74 rendered messages, 128 ASTs down to
+      57 translate() calls against @intlify/core-base itself, 74 rendered messages, 128 ASTs down to
       their source locations.
   - title: Follows releases
     details: >

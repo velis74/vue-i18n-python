@@ -149,7 +149,7 @@ close it. Not written, and not obviously in scope.
 
 - Whether the plural-index clamp should stay or become a raise (above).
 - Whether `te()`, `tm()` and `rt()` belong here (above).
-- Whether to fix the three reproduced upstream bugs locally, or wait for upstream. Fixing them makes
+- Whether to fix the two reproduced upstream bugs locally, or wait for upstream. Fixing them makes
   this port disagree with the browser, which is the thing it exists not to do; waiting means shipping
   known-wrong behaviour. Currently: reproduced, documented, reported.
 - Whether to tell intlify about the port, now that two issues are open under the same account.

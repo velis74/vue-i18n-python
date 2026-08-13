@@ -67,15 +67,21 @@ server. See [plural rules](/guide/plurals).
 `sanitizeTranslatedHtml` to the rendered result. Enabling it warns once saying exactly that. The
 option is off by default. `GAPS.md` in the repository is the full list of what is knowingly missing.
 
+There is also a security-relevant issue in upstream's own sanitiser, reported privately and not
+described here until it is fixed. It is not reproduced below, because the code it lives in is the
+code this port does not have yet.
+
 ## Bugs reproduced on purpose
 
-Three upstream behaviours are wrong and are reproduced anyway, because a back end that silently
-disagrees with the front end is worse than one that matches it. All three are reported upstream:
+Two upstream behaviours are wrong and are reproduced anyway, because a back end that silently
+disagrees with the front end is worse than one that matches it. Both are reported upstream:
 
-- [#2562](https://github.com/intlify/vue-i18n/issues/2562) — the fallback chain cache ignores a
-  changed `fallback_locale`
-- [#2563](https://github.com/intlify/vue-i18n/issues/2563) — `fallback_with_simple` reads a map's
-  keys instead of its values
-- one security-relevant issue, reported privately, not described here until it is fixed
+- [#2562](https://github.com/intlify/vue-i18n/issues/2562) — the fallback chain cache is keyed by
+  the start locale alone, so a changed `fallback_locale` is ignored and the first answer is handed
+  back for ever. Reproduced; `update_fallback_locale()` is the way to change it without hitting
+  this, and it clears the cache.
+- [#2563](https://github.com/intlify/vue-i18n/issues/2563) — given a map, `fallback_with_simple`
+  contributes the map's keys instead of its values, so `"default"` ends up treated as a locale.
+  Reproduced. Use the chain walker, which is the default.
 
 If upstream fixes them, this follows and the differences disappear.

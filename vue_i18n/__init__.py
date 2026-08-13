@@ -22,7 +22,7 @@ arguably wrong — see ``vue_i18n.plurals`` for the one place that is worth know
 #: This package's own version. It does *not* track vue-i18n's - a port needs releases for reasons
 #: of its own (a bug here, a new Python version, a documentation fix), and most upstream releases
 #: touch nothing this project ports. See ``VUE_I18N_VERSION`` for the other question.
-__version__ = "0.1.0"
+__version__ = "0.2.0"
 
 #: The vue-i18n release this port behaves like, which is the pin in ``vendor/vue-i18n`` and the
 #: version every conformance corpus was recorded from. ``create_core_context`` reports it as the

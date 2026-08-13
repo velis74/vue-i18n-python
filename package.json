@@ -1,6 +1,6 @@
 {
   "name": "vue-i18n-python-tooling",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
   "description": "Development tooling only. The library is Python; nothing here is published or shipped.",

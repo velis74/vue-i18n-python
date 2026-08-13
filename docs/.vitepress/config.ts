@@ -36,6 +36,7 @@ export default defineConfig({
           items: [
             { text: 'Differences from vue-i18n', link: '/guide/differences' },
             { text: 'Following upstream', link: '/guide/versioning' },
+            { text: 'Which version tracks which', link: '/guide/version-translation' },
             { text: 'How it is verified', link: '/guide/conformance' },
           ],
         },

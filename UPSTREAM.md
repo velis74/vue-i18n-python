@@ -123,4 +123,9 @@ git add vendor/vue-i18n && git commit
    attention.
 3. Update the baseline commit and version at the top of this file, and the "Reference version"
    paragraph in `PROGRESS.md`.
-4. Note anything user-visible in the documentation's differences page.
+4. Bump `VUE_I18N_VERSION` in `vue_i18n/__init__.py` — it is what the package and every context
+   report as the release they behave like, and `context_test.py` checks it against this file.
+5. Add a row to `docs/guide/version-translation.md`: the vue-i18n-python version that carries the
+   change, the vue-i18n version it now tracks, and what actually moved. That table is how a user
+   picks a version, so a pin that moves without a row is a pin nobody can find.
+6. Note anything user-visible in the documentation's differences page.

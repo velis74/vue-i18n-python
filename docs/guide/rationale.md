@@ -37,7 +37,9 @@ meaning outside a browser and are not ported. What is ported is everything under
 
 ## What you get
 
-- The same `.json` (or `.yaml`) files, unchanged, loaded by both ends.
+- The same message files, unchanged. Both ends read the one set; loading them is your step, with
+  `json.load` — or `yaml.safe_load`, if your front end's build takes YAML — and the resulting object
+  is what you hand over.
 - The same message syntax: `{named}` and `{0}` placeholders, `a | b | c` plurals, `@:linked`
   messages, `@.upper:` modifiers, `{'@'}` literals.
 - The same key resolution, including nested keys and dotted keys held flat.
@@ -48,6 +50,25 @@ meaning outside a browser and are not ported. What is ported is everything under
 
 ## Who should not use it
 
-If you have no vue-i18n front end, you do not want this. You want `gettext`, or `babel` on its own,
-or one of the Python-native i18n libraries. The reason to reach for a port is that something else in
-your system already speaks this format.
+**If nothing else in your system speaks this format, look at `gettext` or `babel` first.** Not
+because this library is worse at rendering a message — it is a faithful port of a format that has
+served a great many applications — but because two things it does not have are things a Python-only
+project will want on its first day:
+
+- **No extraction tooling.** `xgettext` and `pybabel extract` read your source, collect the
+  translatable strings, and merge them into existing catalogues without losing what translators
+  already did. Here you maintain the message files by hand. `vue-i18n-extract` reads `.vue` and
+  `.js`, not Python.
+- **The default plural rule is vue-i18n's**, which ignores the locale and stops at two forms. For
+  Slovenian, Polish, Russian or Arabic that is the wrong form until you pass `plural_rules`
+  yourself — see [plural rules](/guide/plurals). `gettext` gets this right from the `Plural-Forms`
+  header with nothing to opt into. Keeping the clamp is the correct choice for a port and the wrong
+  one for a general-purpose library, and this is a port.
+
+Also absent: `msgctxt`-style disambiguation of one string with two meanings, and the `.po`
+ecosystem — Weblate, Crowdin and Poedit all speak JSON, but `.po` carries translator comments,
+context and fuzzy flags that JSON does not.
+
+The reason to reach for a port is agreement. If a Vue front end already renders these files, a back
+end that renders them identically removes a whole class of bug, and that is a narrower claim than
+"best" but a checkable one — [seven corpora](/guide/conformance) check it on every test run.

@@ -19,14 +19,24 @@ Option names are vue-i18n's, in snake_case: ``fallbackLocale`` is ``fallback_loc
 arguably wrong — see ``vue_i18n.plurals`` for the one place that is worth knowing about.
 """
 
+#: This package's own version. It does *not* track vue-i18n's - a port needs releases for reasons
+#: of its own (a bug here, a new Python version, a documentation fix), and most upstream releases
+#: touch nothing this project ports. See ``VUE_I18N_VERSION`` for the other question.
 __version__ = "0.1.0"
+
+#: The vue-i18n release this port behaves like, which is the pin in ``vendor/vue-i18n`` and the
+#: version every conformance corpus was recorded from. ``create_core_context`` reports it as the
+#: context's ``version``, because that is what upstream's ``createCoreContext`` does with
+#: ``core-base``'s own ``VERSION``. ``docs/guide/version-translation.md`` maps it release by release.
+VUE_I18N_VERSION = "11.4.8"
 
 
 def __getattr__(name: str):  # noqa: ANN202 - a module-level __getattr__ has no useful return type
     """Re-export the public surface lazily.
 
     Importing eagerly here would make ``import vue_i18n`` pull in the compiler and the whole
-    runtime, and would create a cycle: ``runtime.context`` reads ``__version__`` from this module.
+    runtime, and would create a cycle: ``runtime.context`` reads ``VUE_I18N_VERSION`` from this
+    module.
     """
     if name in _PUBLIC:
         module_name, attribute = _PUBLIC[name]
@@ -57,4 +67,4 @@ _PUBLIC = {
     "CompileError": (".compiler.errors", "CompileError"),
 }
 
-__all__ = ["__version__", *_PUBLIC]
+__all__ = ["VUE_I18N_VERSION", "__version__", *_PUBLIC]

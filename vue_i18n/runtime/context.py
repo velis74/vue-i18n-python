@@ -21,7 +21,7 @@ from dataclasses import dataclass, field
 from itertools import count
 from typing import Any
 
-from .. import __version__
+from .. import VUE_I18N_VERSION
 from .fallbacker import DEFAULT_LOCALE, fallback_with_locale_chain
 from .message_context import DEFAULT_MODIFIERS
 from .resolver import resolve_value
@@ -166,7 +166,11 @@ def create_core_context(
     resolved_modifiers = {**(modifiers or {}), **DEFAULT_MODIFIERS}
 
     return CoreContext(
-        version=version if isinstance(version, str) else __version__,
+        # Upstream defaults this to `core-base`'s own `VERSION`, so the field answers "which
+        # vue-i18n is this", not "which package build is this". Reporting this package's
+        # `__version__` here would answer a question nobody asked it - and a caller comparing
+        # against a vue-i18n version, as devtools does, would read 0.1.0 and conclude nothing.
+        version=version if isinstance(version, str) else VUE_I18N_VERSION,
         cid=next(_cid_counter),
         locale=resolved_locale,
         fallback_locale=resolved_fallback,

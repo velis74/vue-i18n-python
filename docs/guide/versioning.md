@@ -33,6 +33,10 @@ tracks, in `UPSTREAM.md` and in the changelog.
 
 So `vue-i18n-python 0.3.0` does not mean vue-i18n 0.3.0, and it never will.
 
+Which is why the correspondence is written down instead:
+[which version tracks which](/guide/version-translation) is the table, and `vue_i18n.VUE_I18N_VERSION`
+is the same answer from the installed package.
+
 ## What happens when upstream releases
 
 1. The new release is noticed — the repository asks for a check at least weekly, and `UPSTREAM.md`
@@ -48,7 +52,9 @@ So `vue-i18n-python 0.3.0` does not mean vue-i18n 0.3.0, and it never will.
    with the upstream file it came from.
 4. The corpora are **re-recorded** against the new pin. A corpus line that moves is upstream changing
    observable behaviour, which is exactly what wants a human's attention.
-5. The pin moves, and the release notes say which vue-i18n version it now tracks.
+5. The pin moves, `VUE_I18N_VERSION` moves with it, and a row is added to
+   [which version tracks which](/guide/version-translation) so the change is findable from the
+   outside.
 
 An empty diff means there is nothing to do but move the pin — which happens more often than not,
 because most upstream changes are in the Vue bindings this project does not port.

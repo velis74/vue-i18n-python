@@ -128,6 +128,47 @@ trap catches `"dve povezavi"` at 102. A category is not a count: use `{count}` i
 form and let the rule pick the ending.
 :::
 
+### Unless you want both
+
+"ena povezava" at 1 and "101 povezava" at 101 is not a compromise you have to make. A rule receives
+the count, not a category, so nothing stops it giving *exactly one* a form of its own:
+
+```python
+# ni povezav | ena povezava | {count} povezava | {count} povezavi | {count} povezave | {count} povezav
+#      0            1               2                  3                  4                 5
+
+def south_slavic_exact_one(choice, choices_length, _org=None):
+    if choices_length < 6:
+        return min(choice, choices_length - 1)   # degrade instead of crashing
+    if choice == 0:
+        return 0
+    if choice == 1:
+        return 1                                 # the word, only for a real single
+    if choice % 100 == 1:
+        return 2                                 # 101, 201 - same category, different copy
+    if choice % 100 == 2:
+        return 3
+    if choice % 100 in (3, 4):
+        return 4
+    return 5
+```
+
+| count | renders |
+|---|---|
+| 0 | ni povezav |
+| 1 | **ena povezava** |
+| 2 | 2 povezavi |
+| 101 | **101 povezava** |
+| 102 | 102 povezavi |
+| 105 | 105 povezav |
+
+This is the same move as the explicit `zero` the [CLDR module](/api/plurals) adds: a form CLDR has
+no category for, because the *copy* wants it even though the *grammar* does not. Rules are not
+limited to CLDR's categories — they are limited to the number of forms your message supplies.
+
+The cost is that both ends must agree, so transcribe the same rule into your Vue application. That
+is the recommendation at the top of this page, and it does not change here.
+
 The third parameter is the built-in rule, which upstream passes so a custom rule can delegate to it.
 A two-argument rule works too.
 

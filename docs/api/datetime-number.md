@@ -25,24 +25,38 @@ ends, format it on one end and send it.
 Declare them on the context, the same objects a Vue application passes:
 
 ```python
+short_date = {"year": "numeric", "month": "short", "day": "numeric"}
+
 ctx = create_core_context(
-    locale="sl",
+    locale="de",
     fallback_locale="en",
     number_formats={
-        "sl": {"currency": {"style": "currency", "currency": "EUR"}},
-        "en": {"currency": {"style": "currency", "currency": "GBP"}},
+        "de": {"currency": {"style": "currency", "currency": "EUR"}},
+        "en-US": {"currency": {"style": "currency", "currency": "USD"}},
+        "ja": {"currency": {"style": "currency", "currency": "JPY"}},
     },
-    datetime_formats={
-        "sl": {"short": {"year": "numeric", "month": "short", "day": "numeric"}},
-    },
+    datetime_formats={loc: {"short": short_date} for loc in ("de", "en-US", "ja")},
 )
-
-n(ctx, 1234.5, "currency")      # '1.234,50 €'
-d(ctx, moment, "short")         # '12. avg. 2026'
 ```
 
+One format object, three locales — which is the whole reason these calls take a locale rather than a
+pattern:
+
+```python
+n(ctx, 1234.5, "currency")              # '1.234,50 €'
+n(ctx, 1234.5, "currency", "en-US")     # '$1,234.50'
+n(ctx, 1234.5, "currency", "ja")        # '￥1,234'      - no minor unit for JPY
+
+d(ctx, moment, "short")                 # '12. Aug. 2026'
+d(ctx, moment, "short", "en-US")        # 'Aug 12, 2026'
+d(ctx, moment, "short", "ja")           # '2026年8月12日'
+```
+
+Note the separator in `1.234,50 €`: that is a non-breaking space before the symbol, not an ordinary
+one, which is the kind of detail the warning above is about. Compare with `==` rather than by eye.
+
 A named format is looked up through the fallback chain, so a format defined only in `en` is found
-from an `sl` context.
+from a `de` context.
 
 ## Call shapes
 

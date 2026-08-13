@@ -6,9 +6,9 @@ Builds the context every other call is made against. Build it once and reuse it.
 from vue_i18n import create_core_context
 
 ctx = create_core_context(
-    locale="sl",
+    locale="pt-BR",
     fallback_locale="en",
-    messages={"sl": {...}, "en": {...}},
+    messages={"pt-BR": {...}, "pt": {...}, "en": {...}},
 )
 ```
 
@@ -73,7 +73,7 @@ ctx.cid                  # a per-context id, as upstream
 ```python
 from vue_i18n import update_fallback_locale
 
-update_fallback_locale(ctx, "sl", {"sl": ["hr", "en"], "default": ["en"]})
+update_fallback_locale(ctx, "ca", {"ca": ["es", "en"], "default": ["en"]})
 ```
 
 Changes the fallback and clears the chain cache. Assigning `ctx.fallback_locale` directly does not

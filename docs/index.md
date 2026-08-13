@@ -46,15 +46,15 @@ import json
 from vue_i18n import create_core_context, translate
 
 ctx = create_core_context(
-    locale="sl",
+    locale="es",
     fallback_locale="en",
     messages={
-        "sl": json.load(open("locales/sl.json")),
+        "es": json.load(open("locales/es.json")),
         "en": json.load(open("locales/en.json")),
     },
 )
 
-translate(ctx, "hello", {"name": "Jure"})   # 'Zdravo Jure'
+translate(ctx, "hello", {"name": "Ana"})    # 'Hola Ana'
 translate(ctx, "trips", 5)                  # the plural form for 5
 translate(ctx, "nested.deep.key")           # nested keys, as in the browser
 ```

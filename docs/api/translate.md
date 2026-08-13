@@ -5,7 +5,7 @@ vue-i18n's `t()`. Takes a context and a key, returns a string.
 ```python
 from vue_i18n import translate
 
-translate(ctx, "hello", {"name": "Jure"})     # 'Zdravo Jure'
+translate(ctx, "hello", {"name": "Ana"})     # 'Hola Ana'
 ```
 
 ## Call shapes
@@ -25,7 +25,7 @@ than values:
 
 ```python
 translate(ctx, "trips", {"count": 3}, 3)                  # named values and a count
-translate(ctx, "hello", {"name": "Jure"}, {"locale": "en"})   # a per-call locale
+translate(ctx, "hello", {"name": "Ana"}, {"locale": "en"})   # a per-call locale
 translate(ctx, "hello", {}, {"default": "fallback text"})
 ```
 
@@ -74,8 +74,8 @@ A message can be parsed once and rendered many times, which skips the compiler o
 ```python
 from vue_i18n import create_parser
 
-ast = create_parser().parse("Zdravo {name}")
-translate(ctx, ast, {"name": "Jure"}, {"resolved_message": True})
+ast = create_parser().parse("Hola {name}")
+translate(ctx, ast, {"name": "Ana"}, {"resolved_message": True})
 ```
 
 The compilation cache makes this unnecessary in most cases — compiled messages are cached per

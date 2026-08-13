@@ -7,12 +7,12 @@ describes the same thing from the front end's side.
 ## Named placeholders
 
 ```json
-{ "hello": "Zdravo {name}" }
+{ "hello": "Hola {name}" }
 ```
 
 ```python
-translate(ctx, "hello", {"name": "Jure"})      # 'Zdravo Jure'
-translate(ctx, "hello")                        # 'Zdravo ' - a missing value is empty, not an error
+translate(ctx, "hello", {"name": "Ana"})       # 'Hola Ana'
+translate(ctx, "hello")                        # 'Hola ' - a missing value is empty, not an error
 ```
 
 ## Positional placeholders

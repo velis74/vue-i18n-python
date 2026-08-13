@@ -28,13 +28,14 @@ import json
 from vue_i18n import create_core_context, translate
 
 messages = {
-    "sl": json.load(open("locales/sl.json", encoding="utf-8")),
+    "es": json.load(open("locales/es.json", encoding="utf-8")),
+    "ar": json.load(open("locales/ar.json", encoding="utf-8")),
     "en": json.load(open("locales/en.json", encoding="utf-8")),
 }
 
-ctx = create_core_context(locale="sl", fallback_locale="en", messages=messages)
+ctx = create_core_context(locale="es", fallback_locale="en", messages=messages)
 
-translate(ctx, "hello", {"name": "Jure"})
+translate(ctx, "hello", {"name": "Ana"})
 ```
 
 A context is built once and reused. It holds the messages, the current locale, the fallback chain
@@ -47,11 +48,11 @@ Vue application.
 
 ```python
 translate(ctx, "hello")                          # no values
-translate(ctx, "hello", {"name": "Jure"})        # a mapping is named values
+translate(ctx, "hello", {"name": "Ana"})        # a mapping is named values
 translate(ctx, "positional", ["first", "second"])  # a sequence is positional values, {0} and {1}
 translate(ctx, "trips", 5)                       # a number is a plural count
 translate(ctx, "missing", "a default")           # a string is a default message
-translate(ctx, "hello", {"name": "Jure"}, {"locale": "en"})   # options in the third position
+translate(ctx, "hello", {"name": "Ana"}, {"locale": "en"})   # options in the third position
 ```
 
 The third argument, when it is a mapping, is options rather than values: `locale`, `plural`,

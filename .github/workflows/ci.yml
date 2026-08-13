@@ -1,0 +1,95 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  python:
+    name: Lint, test & build (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    timeout-minutes: 15
+    strategy:
+      # Every supported version runs to the end: "3.10 fails, the rest pass" is the useful
+      # report, and stopping at the first failure hides which versions the change actually broke.
+      fail-fast: false
+      matrix:
+        # The versions `pyproject.toml` claims in its classifiers. Claiming one and not running it
+        # is how the claim stops being true.
+        python-version: ['3.10', '3.11', '3.12', '3.13']
+
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # The incremental coverage check diffs against the base ref, which a shallow clone does
+          # not have. The `vendor/vue-i18n` submodule is deliberately *not* fetched: nothing here
+          # regenerates a corpus, and the recorded corpora under `conformance/` are committed.
+          fetch-depth: 0
+
+      - name: Use Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        # `intl` too: without babel the `d()` and `n()` tests skip, and a skip is indistinguishable
+        # from a pass. `dev` carries ruff, build and hatchling.
+        run: pip install -e ".[dev,intl]"
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Run tests
+        run: pytest --cov=vue_i18n --cov-report=json:coverage/coverage.json --cov-report=term-missing
+
+      - name: Build distributions
+        # Both artefacts, because the wheel is built from the sdist and a broken sdist is invisible
+        # until then. `packaging_test.py` has already read the wheel's manifest by this point.
+        run: python -m build
+
+      - name: Check distribution metadata
+        # What PyPI would reject, caught here rather than half way through a release.
+        run: pip install --quiet twine && twine check dist/*
+
+      - name: Incremental coverage check
+        uses: velis74/incremental-coverage-check@v2
+        with:
+          coverage-files: coverage/coverage.json
+          log-level: INFO
+          base-ref: ${{ github.base_ref }}
+          head-ref: HEAD
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          pr-number: ${{ github.event.pull_request.number }}
+        # Once, not once per matrix entry: the report is the same four times over, and the action
+        # would spend three runs rewriting its own comment.
+        if: github.event_name == 'pull_request' && matrix.python-version == '3.13'
+
+  docs:
+    name: Build the documentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 'lts/*'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build docs
+        # VitePress reads `__version__` and `VUE_I18N_VERSION` out of `vue_i18n/__init__.py` at
+        # build time, so this also fails if that loader stops finding them - which is the one way
+        # the published site could start quoting a version nobody set.
+        run: npm run docs:build

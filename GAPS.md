@@ -113,9 +113,16 @@ Nothing here is about behaviour; these are the formalities between a working lib
   vue-i18n version it tracks; there is nowhere yet for it to be recorded. The first release breaks
   that promise the moment it is made, which makes this the one item on this list that is genuinely
   release-blocking rather than merely missing.
-- **No CI.** Nothing runs the tests, the lint, the docs build or the corpus regeneration on a push.
-  `muxws` has `.github/workflows/{ci,cross-language,docs}.yml` and this should follow it. Less
-  urgent than it was: the publish tool now refuses to release without a green pytest run.
+- **CI is written but has never run.** `.github/workflows/ci.yml` lints, tests on 3.10 through 3.13,
+  builds both artefacts, runs `twine check` and builds the docs; every step was verified locally
+  first. It is still unproven until the first push, and the action majors (`checkout@v7`,
+  `setup-node@v7`) are taken from `@dynamicforms/vue-forms` rather than confirmed here.
+  **Corpus regeneration is not in it**: re-recording against a freshly resolved `vue-i18n@^11` would
+  turn an upstream release into a red build on an unrelated pull request. That check wants its own
+  scheduled workflow, which is not written.
+- **`ruff format` is not enforced.** `ruff check` passes and CI runs it; `ruff format --check .`
+  currently reports 8 files. Either the tree gets formatted once and the check joins CI, or the
+  `[tool.ruff.format]` section is admitting to a standard nothing holds the code to.
 - **`py.typed` ships but nothing type-checks.** The package declares itself typed and no mypy or
   pyright run backs that up.
 - **`SPEC.md` is listed in the sdist `include` and does not exist.** Harmless — hatch skips a

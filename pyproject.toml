@@ -59,6 +59,13 @@ dev = [
     "hatchling",
 ]
 
+[tool.publish]
+# Nothing gets published until these have run and passed. Named explicitly because the tests sit
+# beside the code as `<module>_test.py` rather than under `tests/`, so no amount of directory
+# sniffing would have found them - and a release that skipped them silently is the failure this
+# line exists to prevent.
+tests = "pytest"
+
 [project.urls]
 Homepage = "https://github.com/velis74/vue-i18n-python"
 Repository = "https://github.com/velis74/vue-i18n-python"

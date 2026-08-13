@@ -74,12 +74,24 @@ resolve_locale("pt-BR")         # 'pt'   - how a tag is widened to one CLDR has 
 
 ## Verification
 
-The generated rules are cross-checked against `Intl.PluralRules` in Node — an independent
-implementation of the same CLDR data — over 167 097 cases across 219 locales, with no mismatches.
-That covers the plain categories; the `zero` extension and the ladder are this project's own and are
-covered by their own tests.
+Two different things, and the difference matters:
 
-`conformance/plurals.json` records the resulting table.
+**Replayed on every test run.** `conformance/plurals.json` — 4180 rows, 16 644
+`(locale, n, arity)` cases — is checked against the runtime by
+`test_conformance_corpus_matches_the_runtime`, and `test_generated_modules_are_up_to_date` fails if
+`_generated.py` is not what the generator produces from `cldr/plurals.json`. Those two run whenever
+the suite does.
+
+**Checked once, and not since.** The generated category functions were compared against
+`Intl.PluralRules` in Node 26 (ICU 78, CLDR 48) — an independent implementation of the same data —
+over 167 097 cases across 219 locales, with no mismatches. That is where the corpus's authority
+comes from, since a corpus generated from this library and replayed against this library would
+otherwise only be testing it against itself.
+
+**That check is not in the repository.** It was a scratch harness, so unlike every corpus under
+`conformance/` it cannot be re-run from a clean checkout, and it will not notice if a future CLDR
+bump moves a rule. `GAPS.md` records this. The `zero` extension and the arity ladder were never in
+its scope either — they are this project's own and are covered by ordinary tests.
 
 ## Regenerating
 

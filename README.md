@@ -107,7 +107,8 @@ translate(ctx, "trips", 103)     # '103 povezave' - the fourth form, as in the b
 If you pass **no** rule, you get vue-i18n's default, and that default ignores the locale: two forms
 mean singular/plural, and anything more clamps at index 2, so a fourth or fifth form is unreachable
 in any language. This port reproduces that rather than quietly improving on it — the same message
-with no rule renders `Dve povezavi` for 3, 5 and 105, here and in the browser alike.
+with no rule renders `3 povezavi`, `5 povezavi` and `105 povezavi` — the count interpolates, the
+ending is what sticks — here and in the browser alike.
 
 `vue_i18n.plurals` is there if you would rather not hand-write the rule. It is **opt-in**; the
 runtime never reaches for it. It carries CLDR rules for 224 locales, an explicit `zero` form that

@@ -148,6 +148,23 @@ which is a bigger decision than this gap.
 
 ---
 
+## The `Intl.PluralRules` cross-check cannot be re-run
+
+The claim that carries `vue_i18n/plurals/` is that its generated category functions agree with
+`Intl.PluralRules` over 167 097 cases across 219 locales. That comparison was done once, by a
+scratch harness that was never committed.
+
+Every corpus under `conformance/` can be regenerated from a clean checkout by a script in this
+repository; this one cannot. It therefore will not notice a CLDR bump that moves a rule, and a
+reader has no way to reproduce the number. `conformance/plurals.json` is generated from *this*
+library and replayed against *this* library, so without that external check it is a regression test
+rather than evidence of correctness — which is precisely the distinction the conformance corpora
+exist to make.
+
+Writing it as `scripts/conformance/verify_plural_rules.mjs` would close it. Not started.
+
+---
+
 ## No `.po` bridge
 
 The documentation's [rationale page](docs/guide/rationale.md) names the `.po` ecosystem as the one

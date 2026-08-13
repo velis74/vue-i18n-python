@@ -36,7 +36,9 @@ jobs:
           fetch-depth: 0
 
       - name: Use Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v5
+        # v6, not v5: v5 targets Node 20, which the runners deprecated and now force onto 24 with a
+        # warning on every job.
+        uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 

@@ -50,33 +50,31 @@ meaning outside a browser and are not ported. What is ported is everything under
 
 ## Who should not use it
 
-Two things are worth knowing before you choose this over `gettext` or `babel`.
+If nothing in your system already speaks vue-i18n's format, two things weigh against this library.
 
-- **The default plural rule is vue-i18n's**, which ignores the locale and stops at two forms —
-  wrong for Slovenian, Polish, Russian, Arabic and most of the world. This is a sharp default rather
-  than a missing capability: `plural_rules={"sl": rule_for("sl")}` fixes it in one line, the CLDR
-  rules ship with the package, and the checker warns about every message that needs it. `gettext`
-  gets it right with nothing to opt into, which is the fair point; but a wrong default the package
-  itself corrects is not a reason to choose a different package. See [plural rules](/guide/plurals).
+- **The default plural rule is vue-i18n's.** It ignores the locale and stops at two forms, which is
+  wrong for Slovenian, Polish, Russian, Arabic and most of the world. One line corrects it —
+  `plural_rules={"sl": rule_for("sl")}` — the CLDR rules ship with the package, and the checker
+  warns about every message that needs one. `gettext` gets this right with nothing to opt into. See
+  [plural rules](/guide/plurals).
 - **The translator ecosystem speaks `.po`.** Weblate, Crowdin and Poedit all read JSON, but `.po`
-  carries translator comments, message context and fuzzy flags that JSON does not. A converter is
-  not hard to write; it is not written here. This is the one that would actually make me reach for
-  `gettext` on a Python-only project with outside translators.
+  carries translator comments, message context and fuzzy flags that JSON does not. There is no
+  converter here. On a Python-only project with outside translators, that alone is reason enough to
+  stay with `gettext`.
 
-What is *not* an argument against it is the absence of `xgettext`-style extraction. That step exists
-because `gettext` uses the source string as the key, so the catalogue has to be rebuilt from the
-code every time the code changes — and it breaks down exactly where a mixed project needs it most,
-since `xgettext` cannot read `.vue` at all. Keys are authored here, not extracted, which is why
-editing an English string does not invalidate every translation of it.
+### What a key-based format does not need
 
-Nor is disambiguation. `gettext` needs `msgctxt` and `pgettext()` to tell two identical source
-strings apart; with keys the question does not arise, because `menu.file.open` and
-`dialog.file.open` were already different things.
+- **An extraction step.** `xgettext` and `pybabel extract` exist because `gettext` uses the source
+  string as the key, so the catalogue is rebuilt from the code on every change — and neither reads
+  `.vue`. Keys are authored here, so editing an English string does not invalidate its translations.
+- **`msgctxt`.** Two identical strings need disambiguating only when the string *is* the key.
+  `menu.file.open` and `dialog.file.open` are already different things.
+- **A separate linter.** `python -m vue_i18n.check` reads your message files and your code and
+  reports the keys that do not line up, `.vue` included. See
+  [checking your messages](/guide/checking).
 
-Nor, since it is written, is checking. `python -m vue_i18n.check` reads your message files and your
-code and reports the keys that do not line up — including in `.vue` files, which `xgettext` cannot
-open. See [checking your messages](/guide/checking).
+## What this library claims
 
-The reason to reach for a port is agreement. If a Vue front end already renders these files, a back
-end that renders them identically removes a whole class of bug — a narrower claim than "best", and a
-checkable one: [seven corpora](/guide/conformance) check it on every test run.
+Agreement. If a Vue front end already renders these files, a back end that renders them identically
+removes a whole class of bug. That is narrower than "best", and it is checkable:
+[seven corpora](/guide/conformance) check it on every test run.

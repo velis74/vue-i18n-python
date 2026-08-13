@@ -17,15 +17,14 @@ How many a language needs is not a matter of taste. CLDR settles it, and the ran
 | Slovenian | 4 | `one`, `two`, `few`, `other` |
 | Arabic, Welsh, Cornish | 6 | `zero`, `one`, `two`, `few`, `many`, `other` |
 
-Slovenian is the example this page keeps coming back to, and not out of local pride: four categories
-including a dual, driven by `n mod 100`, make it the compact case where every way a rule can go
-wrong is visible at counts small enough to write in a table. Arabic and Welsh are the deep end at
-six. Langi and Nama are here because they answer a question the European languages cannot — see
-below.
+Slovenian carries the worked examples below: four categories including a dual, driven by
+`n mod 100`, so every way a rule can go wrong appears at counts small enough to tabulate. Arabic and
+Welsh are the deep end at six. Langi and Nama have a `zero` and a dual respectively, which matters
+further down.
 
 A message written for English carries two forms. Rendered in Arabic by a rule that knows only
-"singular or plural", four of those six categories are unreachable. The same message in Polish never
-leaves `few`; in Slovenian it sticks on the dual. It is one problem, not a Slavic one.
+"singular or plural", four of those six categories are unreachable; in Polish the same message never
+leaves `few`, and in Slovenian it sticks on the dual.
 
 ## The short version
 
@@ -75,14 +74,12 @@ message with four or five forms can never reach the fourth or the fifth:
 | 5 | 5 **povezavi** | 5 povezav |
 | 105 | 105 **povezavi** | 105 povezav |
 
-Every count above 2 renders "two connections" — `min(choice, 2)` stops at the third form and stays
-there. Nothing about that is specific to Slovenian: any message with more than three forms loses the
-fourth onwards in every language, so a Russian, Polish or Arabic message is cut off at exactly the
-same place. Arabic simply has the furthest to fall, since three of its six categories sit past the
-cut.
+`min(choice, 2)` stops at the third form and stays there, so any message with more than three forms
+loses the fourth onwards — in every language, at the same place. Arabic has the furthest to fall,
+with three of its six categories past the cut.
 
-That is wrong in all three languages — and it is what the browser does too. The port matching it is
-the point: a back end that quietly fixed this would disagree with the page the user is looking at.
+The result is wrong Slovenian, and it is what the browser renders too. Matching it is the point: a
+back end that quietly corrected this would disagree with the page in front of the user.
 
 ## Passing your own rule
 
@@ -121,6 +118,23 @@ ctx = create_core_context(
 | 102 | 102 povezavi |
 | 103 | 103 povezave |
 
+The third parameter is the built-in rule, which upstream passes so a custom rule can delegate to it.
+A two-argument rule works too.
+
+::: warning Make your rule total
+A rule that returns an index past the last form crashes in the browser — vue-i18n reads `undefined`
+and raises `UNEXPECTED_RETURN_TYPE`. The rule above returns 4, so it requires messages with five
+forms; give a Slovene message only four and the page breaks.
+
+The cheap insurance is to clamp on the way out:
+
+```python
+    return min(index, choices_length - 1)
+```
+
+which degrades to the last available form instead of failing.
+:::
+
 ::: tip Do not hard-code the number into a form
 Writing the `one` form as `"ena povezava"` reads better at 1 and is wrong at **101**, which is also
 `one` in Slovenian — the message would say "ena povezava" about a hundred and one things. The same
@@ -130,8 +144,8 @@ form and let the rule pick the ending.
 
 ### Unless you want both
 
-"ena povezava" at 1 and "101 povezava" at 101 is not a compromise you have to make. A rule receives
-the count, not a category, so nothing stops it giving *exactly one* a form of its own:
+A rule receives the count, not a category, so it can give *exactly one* a form of its own — "ena
+povezava" at 1 and "101 povezava" at 101:
 
 ```python
 # ni povezav | ena povezava | {count} povezava | {count} povezavi | {count} povezave | {count} povezav
@@ -166,25 +180,8 @@ This is the same move as the explicit `zero` the [CLDR module](/api/plurals) add
 no category for, because the *copy* wants it even though the *grammar* does not. Rules are not
 limited to CLDR's categories — they are limited to the number of forms your message supplies.
 
-The cost is that both ends must agree, so transcribe the same rule into your Vue application. That
-is the recommendation at the top of this page, and it does not change here.
-
-The third parameter is the built-in rule, which upstream passes so a custom rule can delegate to it.
-A two-argument rule works too.
-
-::: warning Make your rule total
-A rule that returns an index past the last form crashes in the browser — vue-i18n reads `undefined`
-and raises `UNEXPECTED_RETURN_TYPE`. The rule above returns 4, so it requires messages with five
-forms; give a Slovene message only four and the page breaks.
-
-The cheap insurance is to clamp on the way out:
-
-```python
-    return min(index, choices_length - 1)
-```
-
-which degrades to the last available form instead of failing.
-:::
+The cost is the same as for any custom rule: both ends must agree, so the Vue application needs the
+same function.
 
 ## The CLDR module
 
@@ -224,8 +221,8 @@ So a message with as many forms as the locale has CLDR categories selects correc
 Arabic or Slovenian message picks the right one of the four. When a message carries *more* forms
 than the locale has categories, it falls back to the clamp, unchanged.
 
-This port tracks the released line, so it has the old behaviour today. When 12 is released the pin
-moves, the port follows, and this page changes with it.
+This port tracks the released line, so it behaves like 11.x. When 12 is released the pin moves and
+the port follows.
 
 **A custom rule stays worth having even then**, for a reason that has nothing to do with version
 numbers: CLDR gives almost no language a `zero` category. Ten locales in CLDR 48 have one — Arabic,

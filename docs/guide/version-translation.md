@@ -18,8 +18,8 @@ vue-i18n-python — what does it behave like?"*
   </tbody>
 </table>
 
-Those two numbers are read out of the package source when this page is built, so they are the
-version this documentation was published from rather than a number somebody remembered to update.
+Both numbers are read out of the package source when this page is built, so they are the version
+this documentation was published from.
 
 ## History
 

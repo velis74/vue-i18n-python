@@ -15,9 +15,9 @@ extra:
 pip install "vue-i18n-python[intl]"     # adds babel, for d() and n()
 ```
 
-There is no extra for message files, in any format. Like vue-i18n itself, this library takes
-messages as an already-parsed object — vue-i18n leaves `.json` and `.yaml` to a bundler plugin, and
-here it is your `json.load` or `yaml.safe_load`.
+Message files are yours to load. Like vue-i18n itself, this library takes messages as an
+already-parsed object: vue-i18n leaves `.json` and `.yaml` to a bundler plugin, and here it is your
+`json.load` or `yaml.safe_load`.
 
 ## Your first translation
 

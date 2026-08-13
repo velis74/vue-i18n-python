@@ -28,8 +28,7 @@ writes down what came back. Two of those run vue-i18n as an installed package �
 through `@intlify/core-base`, `render.json` through `vue-i18n` itself — and three run its TypeScript
 sources, bundled straight from the pinned submodule with esbuild.
 
-The other two are honest exceptions rather than recordings of vue-i18n, and it is worth knowing
-which:
+The other two are not recordings of vue-i18n:
 
 - **`display.json`** runs no vue-i18n at all. It records plain JavaScript `String()` semantics from
   Node, because that is what the port is matching there — `toDisplayString` is six lines reproduced

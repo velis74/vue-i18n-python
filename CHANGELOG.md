@@ -16,8 +16,7 @@ is the same table on the site.
 
 First release. Behaves like **vue-i18n 11.4.8**, the current stable release.
 
-There is no 0.1.0: the version had already been set to 0.1.0 in the source before anything was
-published, and the release tool will only move forward.
+0.2.0 is the first published version; there is no 0.1.0 on PyPI.
 
 ### Added
 

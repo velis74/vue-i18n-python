@@ -1,15 +1,35 @@
+<script setup>
+import { data } from './versions.data.ts'
+</script>
+
 # Which version tracks which
 
-One table, read in either direction: *"I am on vue-i18n 11.4.8 — what do I install?"* and *"I have
-vue-i18n-python 0.1.0 — what does it behave like?"*
+Read in either direction: *"I am on this vue-i18n — what do I install?"* and *"I have this
+vue-i18n-python — what does it behave like?"*
 
-| vue-i18n-python | behaves like vue-i18n | what moved |
-|---|---|---|
-| 0.1.0 *(unreleased)* | **11.4.8** | First release. The whole port recorded against this pin. |
+## Right now
 
-A row is added every time the tracked release changes, and only then. A vue-i18n-python release that
-fixes something here keeps the vue-i18n column it inherited — see
+<table>
+  <thead>
+    <tr><th>vue-i18n-python</th><th>behaves like vue-i18n</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>{{ data.package }}</strong></td><td><strong>{{ data.vueI18n }}</strong></td></tr>
+  </tbody>
+</table>
+
+Those two numbers are read out of the package source when this page is built, so they are the
+version this documentation was published from rather than a number somebody remembered to update.
+
+## History
+
+Every release that changed the tracked vue-i18n, oldest first. A vue-i18n-python release that only
+fixes something here does not appear — it keeps the row above it, which is
 [why the numbers are not shared](/guide/versioning#version-numbers-are-not-shared).
+
+| vue-i18n-python | started tracking | what moved |
+|---|---|---|
+| *(none yet)* | — | The first release is still ahead; the table above is the whole story until then. |
 
 ## Ask the package instead
 
@@ -19,8 +39,8 @@ trust a document:
 ```python
 import vue_i18n
 
-vue_i18n.__version__        # '0.1.0'   - this package
-vue_i18n.VUE_I18N_VERSION   # '11.4.8'  - the vue-i18n it behaves like
+vue_i18n.__version__        # this package
+vue_i18n.VUE_I18N_VERSION   # the vue-i18n it behaves like
 ```
 
 The same string is what a context reports, because that is what upstream's `createCoreContext` does
@@ -29,7 +49,7 @@ with `core-base`'s own `VERSION`:
 ```python
 from vue_i18n import create_core_context
 
-create_core_context().version   # '11.4.8'
+create_core_context().version
 ```
 
 ## What "behaves like" is worth

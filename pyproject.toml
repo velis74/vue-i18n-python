@@ -52,8 +52,11 @@ dev = [
     "ruff>=0.16",
     # `vue_i18n/packaging_test.py` builds a real wheel and reads its member list, because a test
     # that checks the manifest cannot see what hatch actually put in the artefact. Without this the
-    # test skips, and a skip is indistinguishable from a pass.
+    # test skips, and a skip is indistinguishable from a pass. `hatchling` is the build backend
+    # named in `[build-system]`; having it here too lets that test build without an isolated
+    # environment, which keeps it offline and repeatable.
     "build",
+    "hatchling",
 ]
 
 [project.urls]
@@ -66,6 +69,13 @@ path = "vue_i18n/__init__.py"
 
 [tool.hatch.build.targets.wheel]
 packages = ["vue_i18n"]
+# Tests live next to the code, so without this every installed copy carries the suite into
+# site-packages - where it cannot run anyway, because the corpora it reads are not in the wheel.
+# `packaging_test.py` builds a real wheel and asserts this, since the manifest is not something
+# the source tree can be read for.
+exclude = [
+    "**/*_test.py",
+]
 
 [tool.hatch.build.targets.sdist]
 include = [

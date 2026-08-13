@@ -50,25 +50,29 @@ meaning outside a browser and are not ported. What is ported is everything under
 
 ## Who should not use it
 
-**If nothing else in your system speaks this format, look at `gettext` or `babel` first.** Not
-because this library is worse at rendering a message — it is a faithful port of a format that has
-served a great many applications — but because two things it does not have are things a Python-only
-project will want on its first day:
+Two things are worth knowing before you choose this over `gettext` or `babel`, and only one of them
+is really an argument against it.
 
-- **No extraction tooling.** `xgettext` and `pybabel extract` read your source, collect the
-  translatable strings, and merge them into existing catalogues without losing what translators
-  already did. Here you maintain the message files by hand. `vue-i18n-extract` reads `.vue` and
-  `.js`, not Python.
 - **The default plural rule is vue-i18n's**, which ignores the locale and stops at two forms. For
   Slovenian, Polish, Russian or Arabic that is the wrong form until you pass `plural_rules`
   yourself — see [plural rules](/guide/plurals). `gettext` gets this right from the `Plural-Forms`
   header with nothing to opt into. Keeping the clamp is the correct choice for a port and the wrong
-  one for a general-purpose library, and this is a port.
+  one for a general-purpose library, and this is a port. Upstream appears to agree: vue-i18n 12
+  resolves through `Intl.PluralRules` when no custom rule is given.
+- **Nothing checks your keys.** `t("cart.empty")` with a typo returns the key rather than failing,
+  and no tool here reads your Python and tells you which keys are missing or which messages nobody
+  calls. `vue-i18n-extract` does that for `.vue` and `.js`; the Python side of it does not exist yet.
 
-Also absent: `msgctxt`-style disambiguation of one string with two meanings, and the `.po`
-ecosystem — Weblate, Crowdin and Poedit all speak JSON, but `.po` carries translator comments,
-context and fuzzy flags that JSON does not.
+What is *not* an argument against it is the absence of `xgettext`-style extraction. That step exists
+because `gettext` uses the source string as the key, so the catalogue has to be rebuilt from the
+code every time the code changes — and it breaks down exactly where a mixed project needs it most,
+since `xgettext` cannot read `.vue` at all. Keys are authored here, not extracted, which is why
+editing an English string does not invalidate every translation of it.
+
+Nor is disambiguation. `gettext` needs `msgctxt` and `pgettext()` to tell two identical source
+strings apart; with keys the question does not arise, because `menu.file.open` and
+`dialog.file.open` were already different things.
 
 The reason to reach for a port is agreement. If a Vue front end already renders these files, a back
-end that renders them identically removes a whole class of bug, and that is a narrower claim than
-"best" but a checkable one — [seven corpora](/guide/conformance) check it on every test run.
+end that renders them identically removes a whole class of bug — a narrower claim than "best", and a
+checkable one: [seven corpora](/guide/conformance) check it on every test run.

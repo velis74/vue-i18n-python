@@ -65,6 +65,7 @@ and contributors, MIT licensed. This project is not affiliated with or endorsed 
 :::
 
 ::: warning Early
-Version 0.1.0, and honest about it: nothing here has served a production page yet. The behaviour is
+Pre-1.0, and honest about it: nothing here has served a production page yet. The behaviour is
 checked against upstream on every test run, which is a different thing from being battle-tested.
+1.0 is what the first confirmed production use earns.
 :::

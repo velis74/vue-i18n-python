@@ -169,7 +169,8 @@ def create_core_context(
         # Upstream defaults this to `core-base`'s own `VERSION`, so the field answers "which
         # vue-i18n is this", not "which package build is this". Reporting this package's
         # `__version__` here would answer a question nobody asked it - and a caller comparing
-        # against a vue-i18n version, as devtools does, would read 0.1.0 and conclude nothing.
+        # against a vue-i18n version, as devtools does, would read this package's own number and
+        # conclude nothing.
         version=version if isinstance(version, str) else VUE_I18N_VERSION,
         cid=next(_cid_counter),
         locale=resolved_locale,

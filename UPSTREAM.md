@@ -11,7 +11,7 @@ than re-reading the whole library.
 | **Behavioural baseline** | **v11.4.8** — commit `de2393bae16676a8a7c293bb493415e3085a521a` |
 | Sources read from | `main` at `efeda9ec1bc53912cc29a8fbb7f1c0928ddf093e` (12.0.0-alpha.4, 2026-08-11) |
 | Repository | https://github.com/intlify/vue-i18n |
-| **Last checked for a new release** | **2026-08-12** — v11.4.8 was still the newest tag |
+| **Last checked for a new release** | **2026-08-13** — v11.4.8 was still the newest tag; 12.0.0 is still alpha only |
 
 The last-checked date is the one line that has to be kept honest: `CLAUDE.md` asks for a check at
 least weekly and reads that date to decide whether one is due. Update it on every check, whether or

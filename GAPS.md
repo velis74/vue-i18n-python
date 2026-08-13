@@ -100,7 +100,7 @@ decision from the project owner.
 ## Nothing has run against a real application yet
 
 Every claim in this repository rests on recorded upstream behaviour and on tests. Not one line has
-served a page. The version is `0.1.0` and the classifier says alpha for that reason, and the first
+served a page. The version is pre-1.0 and the classifier says alpha for that reason, and the first
 confirmed production use is what earns 1.0 — not a complete corpus.
 
 ---
@@ -119,6 +119,22 @@ Nothing here is about behaviour; these are the formalities between a working lib
   pyright run backs that up.
 - **The name is unclaimed on PyPI.** `vue-i18n-python` was free when checked (2026-08-12) and has
   not been registered.
+
+---
+
+## Nothing checks the keys a caller writes
+
+`t("cart.empty")` with a typo returns the key rather than failing, and nothing reads a Python source
+tree to report which keys are missing from the message files or which messages nobody calls.
+`vue-i18n-extract` does exactly this for `.vue` and `.js`, so a mixed project gets the answer for
+half its code and not the other half.
+
+Named on the documentation's [rationale page](docs/guide/rationale.md) as one of the two reasons to
+prefer `gettext` for a Python-only project, so it is a claim the repository already makes about
+itself. Not started, and not obviously in scope: it is a static analyser, not a port of anything
+upstream has.
+
+---
 
 ## Decisions waiting on the owner
 

@@ -27,9 +27,18 @@ Every release that changed the tracked vue-i18n, oldest first. A vue-i18n-python
 fixes something here does not appear — it keeps the row above it, which is
 [why the numbers are not shared](/guide/versioning#version-numbers-are-not-shared).
 
-| vue-i18n-python | started tracking | what moved |
-|---|---|---|
-| *(none yet)* | — | The first release is still ahead; the table above is the whole story until then. |
+<table v-if="data.releases.length">
+  <thead>
+    <tr><th>vue-i18n-python</th><th>started tracking</th><th>what moved</th></tr>
+  </thead>
+  <tbody>
+    <tr v-for="release in data.releases" :key="release.version">
+      <td>{{ release.version }}</td><td>{{ release.tracks }}</td><td>{{ release.note }}</td>
+    </tr>
+  </tbody>
+</table>
+
+<p v-else>Nothing here yet — the block above is the whole story until the first release.</p>
 
 ## Ask the package instead
 

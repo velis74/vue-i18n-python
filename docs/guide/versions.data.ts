@@ -7,7 +7,14 @@ import { fileURLToPath } from 'node:url';
 // moment it is published - which is exactly what this loader exists to prevent. `VUE_I18N_VERSION`
 // is rewritten by hand when the submodule pin moves; UPSTREAM.md lists that as a numbered step and
 // `context_test.py` fails if it disagrees with UPSTREAM.md.
-const SOURCE = resolve(dirname(fileURLToPath(import.meta.url)), '../../vue_i18n/__init__.py');
+const HERE = dirname(fileURLToPath(import.meta.url));
+const SOURCE = resolve(HERE, '../../vue_i18n/__init__.py');
+
+// The history table is the one thing on that page a loader cannot derive - which release tracked
+// which upstream is a fact about the past, recorded when it happens. It lives in JSON rather than
+// in the prose so the "no releases yet" wording cannot survive the first release: the page renders
+// whichever branch the data says, and there is no sentence to forget to delete.
+const RELEASES = resolve(HERE, 'releases.json');
 
 function read(name: string): string {
   const source = readFileSync(SOURCE, 'utf-8');
@@ -20,8 +27,16 @@ function read(name: string): string {
 }
 
 export default {
-  watch: [SOURCE],
+  watch: [SOURCE, RELEASES],
   load() {
-    return { package: read('__version__'), vueI18n: read('VUE_I18N_VERSION') };
+    return {
+      package: read('__version__'),
+      vueI18n: read('VUE_I18N_VERSION'),
+      releases: JSON.parse(readFileSync(RELEASES, 'utf-8')) as Array<{
+        version: string;
+        tracks: string;
+        note: string;
+      }>,
+    };
   },
 };

@@ -70,6 +70,7 @@ tests = "pytest"
 Homepage = "https://github.com/velis74/vue-i18n-python"
 Repository = "https://github.com/velis74/vue-i18n-python"
 Issues = "https://github.com/velis74/vue-i18n-python/issues"
+Documentation = "https://docs.velis.si/vue-i18n-python/"
 
 [tool.hatch.version]
 path = "vue_i18n/__init__.py"

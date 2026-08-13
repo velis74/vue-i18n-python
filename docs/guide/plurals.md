@@ -63,17 +63,17 @@ It ignores the locale entirely. Two forms mean singular/plural; three or more cl
 message with four or five forms can never reach the fourth or the fifth:
 
 ```json
-{ "trips": "ni povezav | ena povezava | dve povezavi | {count} povezave | {count} povezav" }
+{ "trips": "ni povezav | {count} povezava | {count} povezavi | {count} povezave | {count} povezav" }
 ```
 
-| count | default rule renders |
-|---|---|
-| 0 | ni povezav |
-| 1 | ena povezava |
-| 2 | dve povezavi |
-| 3 | dve povezavi |
-| 5 | dve povezavi |
-| 105 | dve povezavi |
+| count | default rule renders | correct Slovenian |
+|---|---|---|
+| 0 | ni povezav | ni povezav |
+| 1 | 1 povezava | 1 povezava |
+| 2 | 2 povezavi | 2 povezavi |
+| 3 | 3 **povezavi** | 3 povezave |
+| 5 | 5 **povezavi** | 5 povezav |
+| 105 | 105 **povezavi** | 105 povezav |
 
 Every count above 2 renders "two connections" — `min(choice, 2)` stops at the third form and stays
 there. Nothing about that is specific to Slovenian: any message with more than three forms loses the
@@ -113,12 +113,20 @@ ctx = create_core_context(
 | count | with the rule above |
 |---|---|
 | 0 | ni povezav |
-| 1 | ena povezava |
-| 2 | dve povezavi |
+| 1 | 1 povezava |
+| 2 | 2 povezavi |
 | 3 | 3 povezave |
 | 5 | 5 povezav |
-| 101 | ena povezava |
+| 101 | 101 povezava |
+| 102 | 102 povezavi |
 | 103 | 103 povezave |
+
+::: tip Do not hard-code the number into a form
+Writing the `one` form as `"ena povezava"` reads better at 1 and is wrong at **101**, which is also
+`one` in Slovenian — the message would say "ena povezava" about a hundred and one things. The same
+trap catches `"dve povezavi"` at 102. A category is not a count: use `{count}` in every inflected
+form and let the rule pick the ending.
+:::
 
 The third parameter is the built-in rule, which upstream passes so a custom rule can delegate to it.
 A two-argument rule works too.

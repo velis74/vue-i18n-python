@@ -50,18 +50,18 @@ meaning outside a browser and are not ported. What is ported is everything under
 
 ## Who should not use it
 
-Two things are worth knowing before you choose this over `gettext` or `babel`, and only one of them
-is really an argument against it.
+Two things are worth knowing before you choose this over `gettext` or `babel`.
 
-- **The default plural rule is vue-i18n's**, which ignores the locale and stops at two forms. For
-  Slovenian, Polish, Russian or Arabic that is the wrong form until you pass `plural_rules`
-  yourself — see [plural rules](/guide/plurals). `gettext` gets this right from the `Plural-Forms`
-  header with nothing to opt into. Keeping the clamp is the correct choice for a port and the wrong
-  one for a general-purpose library, and this is a port. Upstream appears to agree: vue-i18n 12
-  resolves through `Intl.PluralRules` when no custom rule is given.
-- **Nothing checks your keys.** `t("cart.empty")` with a typo returns the key rather than failing,
-  and no tool here reads your Python and tells you which keys are missing or which messages nobody
-  calls. `vue-i18n-extract` does that for `.vue` and `.js`; the Python side of it does not exist yet.
+- **The default plural rule is vue-i18n's**, which ignores the locale and stops at two forms —
+  wrong for Slovenian, Polish, Russian, Arabic and most of the world. This is a sharp default rather
+  than a missing capability: `plural_rules={"sl": rule_for("sl")}` fixes it in one line, the CLDR
+  rules ship with the package, and the checker warns about every message that needs it. `gettext`
+  gets it right with nothing to opt into, which is the fair point; but a wrong default the package
+  itself corrects is not a reason to choose a different package. See [plural rules](/guide/plurals).
+- **The translator ecosystem speaks `.po`.** Weblate, Crowdin and Poedit all read JSON, but `.po`
+  carries translator comments, message context and fuzzy flags that JSON does not. A converter is
+  not hard to write; it is not written here. This is the one that would actually make me reach for
+  `gettext` on a Python-only project with outside translators.
 
 What is *not* an argument against it is the absence of `xgettext`-style extraction. That step exists
 because `gettext` uses the source string as the key, so the catalogue has to be rebuilt from the
@@ -72,6 +72,10 @@ editing an English string does not invalidate every translation of it.
 Nor is disambiguation. `gettext` needs `msgctxt` and `pgettext()` to tell two identical source
 strings apart; with keys the question does not arise, because `menu.file.open` and
 `dialog.file.open` were already different things.
+
+Nor, since it is written, is checking. `python -m vue_i18n.check` reads your message files and your
+code and reports the keys that do not line up — including in `.vue` files, which `xgettext` cannot
+open. See [checking your messages](/guide/checking).
 
 The reason to reach for a port is agreement. If a Vue front end already renders these files, a back
 end that renders them identically removes a whole class of bug — a narrower claim than "best", and a

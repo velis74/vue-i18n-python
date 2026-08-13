@@ -27,6 +27,19 @@ working.
 Option names are vue-i18n's, in snake_case: `fallbackLocale` is `fallback_locale`, `missingWarn` is
 `missing_warn`.
 
+## Checking what you wrote
+
+`t("cart.emty")` does not fail — it renders the key and waits for a customer to find it. The
+bundled checker finds it first, on both ends of the project:
+
+```sh
+python -m vue_i18n.check locales/ --source backend/ --source frontend/src
+```
+
+Broken `@:links`, messages that will not compile, keys one locale is missing, keys the code asks for
+and no locale has. Python is parsed; `.vue` and `.ts` are pattern-matched, which is approximate and
+labelled so — and still more than `xgettext`, which cannot open a `.vue` file at all.
+
 ## How faithful is it?
 
 Faithful enough that the claim is checked rather than asserted. Every part of the port is recorded

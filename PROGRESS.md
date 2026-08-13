@@ -192,6 +192,19 @@ fixture ever pins one:
       string, and only values that survive a JavaScript `String(Number(x))` round trip appear —
       `Decimal("1.0")` has one visible fraction digit in Python and `1.0` has none in JavaScript, and
       pinning that into the corpus would pin a language difference rather than a plural rule.
+- [x] `vue_i18n/check/` — the message and key checker, and `python -m vue_i18n.check`.
+      **Not part of the port**, like `vue_i18n/plurals/`: vue-i18n has no such command and nothing
+      here changes what a message renders to. It belongs in this package because following an
+      `@:linked` reference means parsing the message, and the parser that agrees with vue-i18n about
+      what a link is lives here — a generic JSON linter cannot do it, and one that guessed at the
+      syntax would disagree with the browser about which messages are broken.
+      `check_messages` needs no source code at all: every message through the real compiler, every
+      link followed, every locale against the base one, plus a warning for a message with more
+      plural forms than the built-in rule can reach. `check_sources` parses Python with `ast` and
+      pattern-matches `.vue`/`.ts`/`.js` — approximate, and labelled so on every finding.
+      A computed key is a *note*, never an error: a checker that cannot tell "wrong" from "cannot
+      tell" trains people to ignore it. `unused-key` is suppressed entirely once any computed key is
+      seen, because then nothing can be claimed unused.
 - [ ] SPEC.md
 - [ ] CI
 

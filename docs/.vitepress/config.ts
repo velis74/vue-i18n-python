@@ -29,6 +29,7 @@ export default defineConfig({
             { text: 'Message format', link: '/guide/message-format' },
             { text: 'Plural rules', link: '/guide/plurals' },
             { text: 'Fallback locales', link: '/guide/fallback' },
+            { text: 'Checking your messages', link: '/guide/checking' },
           ],
         },
         {

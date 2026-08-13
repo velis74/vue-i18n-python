@@ -122,17 +122,26 @@ Nothing here is about behaviour; these are the formalities between a working lib
 
 ---
 
-## Nothing checks the keys a caller writes
+## The checker reads `.vue` and `.ts` with a regular expression
 
-`t("cart.empty")` with a typo returns the key rather than failing, and nothing reads a Python source
-tree to report which keys are missing from the message files or which messages nobody calls.
-`vue-i18n-extract` does exactly this for `.vue` and `.js`, so a mixed project gets the answer for
-half its code and not the other half.
+`vue_i18n/check/` parses Python with `ast`, which is exact. For `.vue`, `.ts` and `.js` it pattern-
+matches `t(`/`$t(`/`tc(`/`te(` calls, because parsing them properly would mean a JavaScript
+toolchain and there is none in this repository. Block and line comments are blanked first and a
+template literal carrying `${}` is treated as computed, so the common false positives are handled —
+but a key assembled across lines, or a call written unusually, is missed silently.
 
-Named on the documentation's [rationale page](docs/guide/rationale.md) as one of the two reasons to
-prefer `gettext` for a Python-only project, so it is a claim the repository already makes about
-itself. Not started, and not obviously in scope: it is a static analyser, not a port of anything
-upstream has.
+Every such finding is flagged `approximate` in the API and says "found by pattern" in the CLI, so
+the limit is disclosed rather than hidden. Making it exact needs a real parser for those files,
+which is a bigger decision than this gap.
+
+---
+
+## No `.po` bridge
+
+The documentation's [rationale page](docs/guide/rationale.md) names the `.po` ecosystem as the one
+real reason to prefer `gettext`: Weblate, Crowdin and Poedit read JSON, but `.po` carries translator
+comments, message context and fuzzy flags that JSON does not. A converter in both directions would
+close it. Not written, and not obviously in scope.
 
 ---
 

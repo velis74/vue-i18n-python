@@ -109,16 +109,25 @@ confirmed production use is what earns 1.0 — not a complete corpus.
 
 Nothing here is about behaviour; these are the formalities between a working library and a release.
 
-- **No GitHub repository.** The URLs in `pyproject.toml` (`velis74/vue-i18n-python`) are a guess and
-  point at nothing. The `socialLinks` entry in `docs/.vitepress/config.ts` guesses the same.
-- **No `CHANGELOG.md`.** `UPSTREAM.md` says every release records the vue-i18n version it tracks;
-  there is nowhere yet for it to be recorded.
+- **No `CHANGELOG.md`.** `UPSTREAM.md` and the documentation both say every release records the
+  vue-i18n version it tracks; there is nowhere yet for it to be recorded. The first release breaks
+  that promise the moment it is made, which makes this the one item on this list that is genuinely
+  release-blocking rather than merely missing.
 - **No CI.** Nothing runs the tests, the lint, the docs build or the corpus regeneration on a push.
-  `muxws` has `.github/workflows/{ci,cross-language,docs}.yml` and this should follow it.
+  `muxws` has `.github/workflows/{ci,cross-language,docs}.yml` and this should follow it. Less
+  urgent than it was: the publish tool now refuses to release without a green pytest run.
 - **`py.typed` ships but nothing type-checks.** The package declares itself typed and no mypy or
   pyright run backs that up.
-- **The name is unclaimed on PyPI.** `vue-i18n-python` was free when checked (2026-08-12) and has
-  not been registered.
+- **`SPEC.md` is listed in the sdist `include` and does not exist.** Harmless — hatch skips a
+  missing pattern and `python -m build` succeeds — but it is a reference to a file that has to
+  either get written or get removed from `pyproject.toml`.
+- **The docs site is not deployed anywhere,** and `publish` does not rebuild it. The version numbers
+  on the site are read from the package source at build time, so whoever deploys has to build
+  *after* the version bump or the site will show the previous one.
+
+Done since this list was written: the GitHub repository exists and `pyproject.toml`'s URLs point at
+it, `~/.pypirc` is in place, and `vue-i18n-python` was still unregistered on PyPI when checked
+(2026-08-13, HTTP 404).
 
 ---
 

@@ -147,16 +147,30 @@ def extract_from_path(path: Path, calls: dict[str, int] | None = None) -> list[K
     return []
 
 
-def check_sources(uses: list[KeyUse], resources: dict[str, Any], report_unused: bool = True) -> Report:
+def check_sources(
+    uses: list[KeyUse],
+    resources: dict[str, Any],
+    base_locale: str | None = None,
+    report_unused: bool = True,
+) -> Report:
     """Match what the code asks for against what the messages provide.
 
-    A key is satisfied when *any* locale has it, because the fallback chain is what makes a key
-    present in one locale usable from another. Which locales are missing it is
-    :func:`check_messages`'s question, not this one's.
+    The key has to be in **the base locale**. That is the asymmetry a build wants: a key the code
+    uses and the source language does not define is a bug in this commit, while the same key
+    untranslated into Spanish is a translation still in flight, and a build that blocks on the
+    second one gets switched off. Locale-by-locale completeness is :func:`check_messages`'s
+    question, and it answers in warnings.
+
+    ``base_locale`` defaults to ``en`` when present. Pass ``None`` explicitly *and* have no ``en``
+    to fall back to the weaker "any locale has it" rule.
     """
     report = Report()
     asked: set[str] = set()
     saw_dynamic = False
+
+    if base_locale is None and "en" in resources:
+        base_locale = "en"
+    base = resources.get(base_locale) if base_locale is not None else None
 
     for use in uses:
         if use.key is None:
@@ -173,16 +187,28 @@ def check_sources(uses: list[KeyUse], resources: dict[str, Any], report_unused: 
             )
             continue
         asked.add(use.key)
-        if not any(resolves(resource, use.key) for resource in resources.values()):
+        if base is not None:
+            satisfied = resolves(base, use.key)
+            elsewhere = [locale for locale, resource in resources.items() if resolves(resource, use.key)]
+            # Naming where it *was* found turns "unknown key" into "you forgot the source language",
+            # which is a different fix.
+            where = f" (found in {', '.join(sorted(elsewhere))})" if elsewhere else ""
+            missing_from = f"is not in {base_locale}{where}"
+        else:
+            satisfied = any(resolves(resource, use.key) for resource in resources.values())
+            missing_from = "is in no locale"
+
+        if not satisfied:
             report.add(
                 Problem(
                     severity=Severity.ERROR,
                     kind="unknown-key",
-                    detail=f"{use.key!r} is in no locale"
+                    detail=f"{use.key!r} {missing_from}"
                     + (" (found by pattern, so check it by hand)" if use.approximate else ""),
                     file=use.file,
                     line=use.line,
                     column=use.column,
+                    locale=base_locale,
                     key=use.key,
                 )
             )

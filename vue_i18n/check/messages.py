@@ -211,11 +211,14 @@ def check_messages(
                 )
             )
         for key in sorted(set(messages) - base_keys):
+            # An error, where `missing-key` is a warning, and the asymmetry is the point: a key the
+            # source language lacks is wrong now, while a key not yet translated is work in
+            # progress. Same two sets, opposite directions, opposite urgency.
             report.add(
                 Problem(
-                    severity=Severity.WARNING,
+                    severity=Severity.ERROR,
                     kind="extra-key",
-                    detail=f"{key}: in {locale}, not in {base_locale}",
+                    detail=f"{key}: in {locale}, missing from the base locale {base_locale}",
                     file=files.get(locale),
                     locale=locale,
                     key=key,

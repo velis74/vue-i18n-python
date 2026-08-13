@@ -21,20 +21,39 @@ MESSAGE_SUFFIXES = {".json", ".yaml", ".yml"}
 MARKERS = {Severity.ERROR: "error", Severity.WARNING: "warn ", Severity.NOTE: "note "}
 
 
+class UnreadableError(Exception):
+    """A message file that could not be read at all - reported, never allowed to reach a traceback.
+
+    A build that prints a stack trace when a translator commits a stray comma has told the person
+    who has to fix it nothing useful.
+    """
+
+
 def load_resource(path: Path) -> Any:
     """One message file. YAML only when PyYAML is present, and it says so when it is not."""
-    text = path.read_text(encoding="utf-8")
+    try:
+        text = path.read_text(encoding="utf-8")
+    except OSError as error:
+        raise UnreadableError(f"{path}: {error.strerror or error}") from None
+
     if path.suffix.lower() == ".json":
-        return json.loads(text)
+        try:
+            return json.loads(text)
+        except json.JSONDecodeError as error:
+            raise UnreadableError(f"{path}:{error.lineno}:{error.colno}: {error.msg}") from None
+
     try:
         import yaml
     except ImportError:
-        raise SystemExit(
-            f"{path}: reading YAML needs PyYAML, which this package does not depend on.\n"
+        raise UnreadableError(
+            f"{path}: reading YAML needs PyYAML, which this package does not depend on. "
             f"Install it (`pip install pyyaml`), or load the messages yourself and call "
             f"`vue_i18n.check.check_messages` directly."
         ) from None
-    return yaml.safe_load(text)
+    try:
+        return yaml.safe_load(text)
+    except yaml.YAMLError as error:
+        raise UnreadableError(f"{path}: {error}") from None
 
 
 def collect_resources(paths: list[Path]) -> tuple[dict[str, Any], dict[str, str]]:
@@ -51,17 +70,68 @@ def collect_resources(paths: list[Path]) -> tuple[dict[str, Any], dict[str, str]
     return resources, files
 
 
-def render(report: Report, out: Any) -> None:
+def _detail(problem: Any) -> str:
+    # `in_message` is a column inside the message text, not inside the file, so it is spelled out
+    # rather than appended to the location where it would read as a file coordinate.
+    at = f" (at character {problem.in_message} of the message)" if problem.in_message else ""
+    return f"{problem.detail}{at}"
+
+
+def render_text(report: Report, out: Any) -> None:
     width = max((len(problem.location() or problem.locale or "") for problem in report.problems), default=0)
     for problem in report.problems:
         where = problem.location() or problem.locale or ""
-        # `in_message` is a column inside the message text, not inside the file, so it is spelled
-        # out rather than appended to the location where it would read as a file coordinate.
-        at = f" (at character {problem.in_message} of the message)" if problem.in_message else ""
-        print(f"{MARKERS[problem.severity]}  {where:<{width}}  {problem.detail}{at}", file=out)
+        print(f"{MARKERS[problem.severity]}  {where:<{width}}  {_detail(problem)}", file=out)
     if report.problems:
         print(file=out)
     print(report.summary(), file=out)
+
+
+def render_json(report: Report, out: Any) -> None:
+    """One object, so a build step can count or filter without parsing prose."""
+    payload = {
+        "problems": [
+            {
+                "severity": problem.severity.value,
+                "kind": problem.kind,
+                "detail": problem.detail,
+                "file": problem.file,
+                "line": problem.line,
+                "column": problem.column,
+                "in_message": problem.in_message,
+                "locale": problem.locale,
+                "key": problem.key,
+            }
+            for problem in report.problems
+        ],
+        "counts": {
+            "error": len(report.errors),
+            "warning": len(report.warnings),
+            "unchecked": len(report.notes),
+        },
+    }
+    json.dump(payload, out, indent=2, ensure_ascii=False)
+    print(file=out)
+
+
+def render_github(report: Report, out: Any) -> None:
+    """GitHub Actions workflow commands, so findings land as annotations on the diff."""
+    levels = {Severity.ERROR: "error", Severity.WARNING: "warning", Severity.NOTE: "notice"}
+    for problem in report.problems:
+        fields = []
+        if problem.file:
+            fields.append(f"file={problem.file}")
+            if problem.line is not None:
+                fields.append(f"line={problem.line}")
+                if problem.column is not None:
+                    fields.append(f"col={problem.column}")
+        where = ",".join(fields)
+        # Annotations are one line each; a newline would end the command early.
+        message = _detail(problem).replace("\n", " ")
+        print(f"::{levels[problem.severity]} {where}::{message}", file=out)
+
+
+RENDERERS = {"text": render_text, "json": render_json, "github": render_github}
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -78,27 +148,43 @@ def main(argv: list[str] | None = None) -> int:
         metavar="PATH",
         help="code to scan for translation calls; repeatable. .py is parsed, .vue/.ts/.js pattern-matched",
     )
-    parser.add_argument("--base-locale", metavar="LOCALE", help="the locale others are compared against (default: en)")
+    parser.add_argument(
+        "--base-locale",
+        metavar="LOCALE",
+        help="the source language: keys missing from it fail, keys missing from the others do not (default: en)",
+    )
     parser.add_argument("--no-unused", action="store_true", help="do not report messages nothing asks for")
     parser.add_argument("--quiet", action="store_true", help="errors only")
+    parser.add_argument("--strict", action="store_true", help="exit non-zero on warnings too, not just errors")
+    parser.add_argument("--format", choices=sorted(RENDERERS), default="text", help="output format (default: text)")
     args = parser.parse_args(argv)
 
-    resources, files = collect_resources(args.messages)
+    try:
+        resources, files = collect_resources(args.messages)
+    except UnreadableError as error:
+        print(error, file=sys.stderr)
+        return 2
+
     if not resources:
         print("no message files found", file=sys.stderr)
         return 2
 
-    report = check_messages(resources, base_locale=args.base_locale, file_of=files)
+    base_locale = args.base_locale
+    if base_locale is not None and base_locale not in resources:
+        print(f"base locale {base_locale!r} is not among {', '.join(sorted(resources))}", file=sys.stderr)
+        return 2
+
+    report = check_messages(resources, base_locale=base_locale, file_of=files)
 
     if args.source:
         uses = [use for path in args.source for use in extract_from_path(path)]
-        report.extend(check_sources(uses, resources, report_unused=not args.no_unused))
+        report.extend(check_sources(uses, resources, base_locale=base_locale, report_unused=not args.no_unused))
 
     if args.quiet:
         report = Report(report.errors)
 
-    render(report, sys.stdout)
-    return 1 if report.errors else 0
+    RENDERERS[args.format](report, sys.stdout)
+    return 1 if report.errors or (args.strict and report.warnings) else 0
 
 
 if __name__ == "__main__":

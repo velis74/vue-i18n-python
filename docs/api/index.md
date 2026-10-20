@@ -1,3 +1,7 @@
+---
+description: 'vue-i18n-python API reference: create_core_context, translate, datetime and number formatting, CLDR plural rules and every exported name.'
+---
+
 # API Reference
 
 Everything ordinary use needs is on the package root:

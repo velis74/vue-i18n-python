@@ -1,3 +1,7 @@
+---
+description: 'Install vue-i18n-python, load your vue-i18n message files and translate keys in Python with create_core_context() and translate().'
+---
+
 # Getting started
 
 ## Installation

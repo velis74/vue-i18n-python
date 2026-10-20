@@ -66,6 +66,8 @@ jobs:
         uses: velis74/incremental-coverage-check@v2
         with:
           coverage-files: coverage/coverage.json
+          # the VitePress config is docs tooling, not library code
+          extra-ignore-patterns: .vitepress/*
           log-level: INFO
           base-ref: ${{ github.base_ref }}
           head-ref: HEAD

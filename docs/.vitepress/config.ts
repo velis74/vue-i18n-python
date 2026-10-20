@@ -2,8 +2,14 @@ import { defineConfig } from 'vitepress';
 
 export default defineConfig({
   title: 'vue-i18n-python',
-  description: 'An unofficial Python port of vue-i18n: same message files, same API, same behaviour',
+  description:
+    'Unofficial Python port of vue-i18n: the backend reads the same JSON translation files and renders identical strings. Includes a missing-key i18n checker.',
   ignoreDeadLinks: [/^http:\/\/localhost/],
+  // Canonical URL of each page as published on docs.velis.si, under the `--base` given to the build.
+  transformHead({ pageData, siteConfig }) {
+    const path = pageData.relativePath.replace(/(^|\/)index\.md$/, '$1').replace(/\.md$/, '.html');
+    return [['link', { rel: 'canonical', href: `https://docs.velis.si${siteConfig.site.base}${path}` }]];
+  },
   themeConfig: {
     nav: [
       { text: 'Home', link: '/' },

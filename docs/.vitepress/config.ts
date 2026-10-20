@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress';
 export default defineConfig({
   title: 'vue-i18n-python',
   description:
-    'Unofficial Python port of vue-i18n: the backend reads the same JSON translation files and renders identical strings. Includes a missing-key i18n checker.',
+    'One set of vue-i18n JSON files for a Vue front end and a Python back end that render the same strings, checked against real vue-i18n output.',
   ignoreDeadLinks: [/^http:\/\/localhost/],
   // Canonical URL of each page as published on docs.velis.si, under the `--base` given to the build.
   transformHead({ pageData, siteConfig }) {

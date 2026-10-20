@@ -1,6 +1,6 @@
 ---
 title: 'vue-i18n in Python: shared translation files'
-description: 'Use your vue-i18n JSON translation files in a Python backend: interpolation, plurals, linked messages and fallback behave as in vue-i18n.'
+description: 'One set of vue-i18n JSON files for a Vue front end and a Python back end that render the same strings, checked against real vue-i18n output.'
 layout: home
 
 hero:

@@ -63,11 +63,9 @@ jobs:
         run: pip install --quiet twine && twine check dist/*
 
       - name: Incremental coverage check
-        uses: velis74/incremental-coverage-check@v2
+        uses: velis74/incremental-coverage-check@v3
         with:
           coverage-files: coverage/coverage.json
-          # the VitePress config is docs tooling, not library code
-          extra-ignore-patterns: .vitepress/*
           log-level: INFO
           base-ref: ${{ github.base_ref }}
           head-ref: HEAD

@@ -9,7 +9,7 @@ description = "An unofficial Python port of vue-i18n: same JSON message files, s
 readme = "README.md"
 license = { text = "MIT" }
 authors = [
-    { name = "Jure Erznožnik", email = "jure.erznoznik@gmail.com" },
+    { name = "Jure Erznožnik", email = "jure.erznoznik@velis.si" },
 ]
 requires-python = ">=3.10"
 keywords = ["i18n", "l10n", "translation", "vue-i18n", "cldr", "plural"]
